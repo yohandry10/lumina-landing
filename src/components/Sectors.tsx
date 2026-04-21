@@ -60,11 +60,11 @@ export function Sectors() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(180deg, transparent 0%, oklch(0.145 0.012 260 / 0.85) 100%)",
+                    "linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.4) 40%, rgba(15, 23, 42, 0.92) 100%)",
                 }}
               />
-              <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
-                <h3 className="font-display text-[26px] font-bold text-foreground">
+              <div className="absolute bottom-5 left-6 right-6 flex items-end justify-between">
+                <h3 className="font-display text-[26px] font-bold text-white tracking-tight">
                   {s.title}
                 </h3>
                 <span

@@ -17,7 +17,7 @@ export function ParallaxBand() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(rgba(9,9,11,0.88), rgba(9,9,11,0.88))",
+            "linear-gradient(rgba(13, 19, 31, 0.84), rgba(13, 19, 31, 0.84))",
         }}
       />
       {/* Animated gradient layer */}
@@ -27,7 +27,7 @@ export function ParallaxBand() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(90deg, color-mix(in oklab, var(--accent) 20%, transparent), color-mix(in oklab, var(--accent-2) 12%, transparent), transparent)",
+            "linear-gradient(90deg, rgba(231, 146, 30, 0.16), rgba(231, 146, 30, 0.08), transparent)",
           backgroundSize: "200% 100%",
         }}
       />
@@ -61,7 +61,7 @@ export function ParallaxBand() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-6 max-w-3xl font-display font-bold leading-[1.1] text-foreground"
+          className="mt-6 max-w-3xl font-display font-bold leading-[1.1] text-white"
           style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
         >
           ¿Listo para llevar tu proyecto al{" "}
@@ -72,7 +72,7 @@ export function ParallaxBand() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.35 }}
-          className="mt-4 max-w-xl text-[18px] leading-[1.7] text-foreground/70"
+          className="mt-4 max-w-xl text-[18px] leading-[1.7] text-white/76"
         >
           Conversemos sobre cómo podemos aportar ingeniería de excelencia,
           presupuesto acorde a tu perfil y compromiso con los plazos.

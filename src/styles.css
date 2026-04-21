@@ -31,6 +31,11 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-amber: var(--amber);
+  --color-amber-dark: var(--amber-dark);
+  --color-navy: var(--navy);
+  --color-line: var(--line);
+  --color-muted-ink: var(--muted-ink);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-2: var(--accent-2);
@@ -42,6 +47,8 @@
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-deep: var(--deep);
+  --shadow-amber-glow: var(--shadow-amber-glow);
+  --shadow-navy-soft: var(--shadow-navy-soft);
 
   --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -56,16 +63,21 @@
   --deep: oklch(0.985 0.005 250);                   /* off-white for footer / alt sections */
   --surface: oklch(0.99 0.004 250);                 /* card surface */
   --surface-2: oklch(0.965 0.006 250);
+  --navy: #1f304b;
+  --amber: #e7921e;
+  --amber-dark: #cf7f15;
+  --line: rgba(24, 36, 58, 0.12);
+  --muted-ink: rgba(53, 67, 89, 0.72);
 
   --card: var(--surface);
   --card-foreground: var(--foreground);
   --popover: var(--surface);
   --popover-foreground: var(--foreground);
 
-  /* Accent: deep corporate blue + steel-teal — no purples, no pinks */
-  --accent: oklch(0.42 0.13 245);                   /* ~ #1E4A8C deep enterprise blue */
+  /* Accent: hero orange system */
+  --accent: #e7921e;
   --accent-foreground: oklch(1 0 0);
-  --accent-2: oklch(0.55 0.10 220);                 /* ~ steel slate-blue */
+  --accent-2: #cf7f15;
 
   --primary: var(--accent);
   --primary-foreground: oklch(1 0 0);
@@ -85,9 +97,11 @@
   --blur-glass: blur(20px);
   --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 28px rgba(15, 23, 42, 0.06);
   --shadow-glow: 0 10px 30px color-mix(in oklab, var(--accent) 18%, transparent);
+  --shadow-amber-glow: 0 20px 48px rgba(231, 146, 30, 0.26);
+  --shadow-navy-soft: 0 24px 60px rgba(21, 34, 52, 0.16);
 
-  --gradient-accent: linear-gradient(135deg, var(--accent), var(--accent-2));
-  --gradient-text: linear-gradient(90deg, var(--accent), var(--accent-2));
+  --gradient-accent: linear-gradient(135deg, #f0a126 0%, #d68517 100%);
+  --gradient-text: linear-gradient(90deg, #f0a126 0%, #d68517 100%);
   --gradient-overlay: linear-gradient(
     125deg,
     oklch(0.18 0.02 250 / 0.78) 0%,
@@ -158,11 +172,11 @@
   }
 
   .text-gradient {
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: var(--amber);
+    color: var(--amber);
   }
 
   .glass-panel {
@@ -273,6 +287,24 @@
   .grain {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
     opacity: 0.025;
+  }
+
+  .gradient-hero {
+    background:
+      linear-gradient(
+        104deg,
+        rgba(22, 36, 58, 0.78) 0%,
+        rgba(28, 43, 68, 0.62) 34%,
+        rgba(30, 45, 71, 0.44) 56%,
+        rgba(18, 27, 43, 0.26) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(12, 20, 33, 0.30) 0%,
+        rgba(12, 20, 33, 0.12) 26%,
+        rgba(12, 20, 33, 0.08) 62%,
+        rgba(12, 20, 33, 0.22) 100%
+      );
   }
 
   @keyframes shimmer {
