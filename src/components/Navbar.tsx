@@ -30,8 +30,11 @@ export function Navbar() {
         <div className="container-x flex h-full items-center justify-between">
           <a href="#top" className="flex items-center gap-2.5 group">
             <Logo size={28} />
-            <span className="font-display text-[18px] font-bold tracking-tight text-foreground">
-              Hanan <span className="text-gradient">Ingeniería</span>
+            <span
+              className="font-display text-[18px] font-bold tracking-tight"
+              style={{ color: scrolled ? "var(--foreground)" : "#ffffff" }}
+            >
+              Hanan <span style={{ color: "var(--accent)" }}>Ingeniería</span>
             </span>
           </a>
 
@@ -40,10 +43,28 @@ export function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
-                className="group relative text-[14px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="group relative text-[14px] font-medium transition-colors"
+                style={{
+                  color: scrolled
+                    ? "var(--muted-foreground)"
+                    : "rgba(255,255,255,0.78)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.color = scrolled
+                    ? "var(--foreground)"
+                    : "#ffffff";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.color = scrolled
+                    ? "var(--muted-foreground)"
+                    : "rgba(255,255,255,0.78)";
+                }}
               >
                 {l.label}
-                <span className="absolute -bottom-1.5 left-0 h-[2px] w-full origin-left scale-x-0 bg-[var(--gradient-accent)] transition-transform duration-300 group-hover:scale-x-100" style={{ background: "var(--gradient-accent)" }} />
+                <span
+                  className="absolute -bottom-1.5 left-0 h-[2px] w-full origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+                  style={{ background: "var(--accent)" }}
+                />
               </a>
             ))}
           </nav>
@@ -55,19 +76,25 @@ export function Navbar() {
             <button
               aria-label="Menu"
               onClick={() => setOpen((o) => !o)}
-              className="relative grid h-10 w-10 place-items-center rounded-full border border-border md:hidden"
+              className="relative grid h-10 w-10 place-items-center rounded-full border md:hidden"
+              style={{
+                borderColor: scrolled ? "var(--color-border)" : "rgba(255,255,255,0.25)",
+              }}
             >
               <motion.span
                 animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -5 }}
-                className="absolute h-px w-5 bg-foreground"
+                className="absolute h-px w-5"
+                style={{ background: scrolled ? "var(--foreground)" : "#ffffff" }}
               />
               <motion.span
                 animate={open ? { opacity: 0 } : { opacity: 1 }}
-                className="absolute h-px w-5 bg-foreground"
+                className="absolute h-px w-5"
+                style={{ background: scrolled ? "var(--foreground)" : "#ffffff" }}
               />
               <motion.span
                 animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 5 }}
-                className="absolute h-px w-5 bg-foreground"
+                className="absolute h-px w-5"
+                style={{ background: scrolled ? "var(--foreground)" : "#ffffff" }}
               />
             </button>
           </div>
@@ -83,7 +110,7 @@ export function Navbar() {
             transition={{ duration: 0.25 }}
             onClick={() => setOpen(false)}
             className="fixed inset-0 z-40 backdrop-blur-xl md:hidden"
-            style={{ background: "oklch(0.145 0.012 260 / 0.97)" }}
+            style={{ background: "oklch(1 0 0 / 0.97)" }}
           >
             <div className="container-x flex h-full flex-col justify-center gap-6">
               {LINKS.map((l, i) => (

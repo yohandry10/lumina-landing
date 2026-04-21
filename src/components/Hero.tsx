@@ -62,49 +62,26 @@ export function Hero() {
         />
       </motion.div>
 
-      {/* Layer 2: animated gradient */}
-      <motion.div
-        animate={
-          reduce
-            ? undefined
-            : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }
-        }
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      {/* Layer 2: clean enterprise overlay (no animated halo) */}
+      <div
         className="absolute inset-0 z-[1]"
         style={{
           background:
-            "linear-gradient(125deg, oklch(0.145 0.012 260 / 0.92) 0%, oklch(0.145 0.012 260 / 0.65) 50%, oklch(0.145 0.012 260 / 0.30) 100%)",
-          backgroundSize: "200% 200%",
+            "linear-gradient(115deg, oklch(0.18 0.02 250 / 0.78) 0%, oklch(0.18 0.02 250 / 0.55) 55%, oklch(0.18 0.02 250 / 0.35) 100%)",
         }}
       />
 
-      {/* Layer 3: noise */}
+      {/* Layer 3: subtle grain only — no colored halos / floating circles */}
       <div className="grain pointer-events-none absolute inset-0 z-[2]" />
 
-      {/* Layer 4: floating shapes */}
-      <div className="pointer-events-none absolute inset-0 z-[3] overflow-hidden">
-        <motion.div
-          animate={reduce ? undefined : { y: [0, -30, 0], rotate: [0, 15, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-[100px] -top-[100px] h-[500px] w-[500px] rounded-full"
-          style={{ border: "1px solid color-mix(in oklab, var(--accent) 25%, transparent)" }}
-        />
-        <motion.div
-          animate={reduce ? undefined : { y: [0, 20, 0], x: [0, 15, 0] }}
-          transition={{ duration: 12, repeat: Infinity, delay: 3, ease: "easeInOut" }}
-          className="absolute bottom-[10%] left-[5%] h-[300px] w-[300px] rounded-full blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, color-mix(in oklab, var(--accent) 20%, transparent), transparent 70%)",
-          }}
-        />
-        <motion.div
-          animate={reduce ? undefined : { rotate: [45, 90, 45], scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, delay: 6, ease: "easeInOut" }}
-          className="absolute bottom-[30%] right-[15%] h-[200px] w-[200px]"
-          style={{ border: "1px solid color-mix(in oklab, var(--accent-2) 20%, transparent)" }}
-        />
-      </div>
+      {/* Layer 4: thin accent baseline (architectural detail, not a halo) */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 60%, transparent), transparent)",
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 w-full">
@@ -131,8 +108,8 @@ export function Hero() {
 
             {/* Headline */}
             <h1
-              className="mt-6 font-display font-extrabold leading-[1.05] text-foreground"
-              style={{ fontSize: "clamp(42px, 6vw, 84px)" }}
+              className="mt-6 font-display font-extrabold leading-[1.05]"
+              style={{ fontSize: "clamp(42px, 6vw, 84px)", color: "#ffffff" }}
             >
               <span className="block">
                 {HEADLINE_LINE_1.split(" ").map((w, i) => (
@@ -147,7 +124,7 @@ export function Hero() {
                   </motion.span>
                 ))}
               </span>
-              <span className="block">
+              <span className="block" style={{ color: "rgba(255,255,255,0.72)" }}>
                 {HEADLINE_LINE_2.split(" ").map((w, i) => (
                   <motion.span
                     key={i}
@@ -158,7 +135,7 @@ export function Hero() {
                       duration: 0.55,
                       ease: "easeOut",
                     }}
-                    className="text-gradient mr-[0.25em] inline-block"
+                    className="mr-[0.25em] inline-block"
                   >
                     {w}
                   </motion.span>
@@ -172,10 +149,10 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 3.7, duration: 0.6 }}
               className="mt-5 max-w-[520px] text-[clamp(16px,1.8vw,20px)] leading-[1.7]"
-              style={{ color: "rgba(241,240,245,0.72)" }}
+              style={{ color: "rgba(255,255,255,0.78)" }}
             >
               Soluciones técnicas e innovadoras para los sectores de
-              <span className="text-foreground"> construcción y minería</span>.
+              <span style={{ color: "#ffffff" }}> construcción y minería</span>.
               Diseño civil, geotecnia, hidrología, ambiental y supervisión EPCM
               desde la región de Apurímac.
             </motion.p>
@@ -210,13 +187,13 @@ export function Hero() {
               {STATS.map((s, i) => (
                 <div key={i} className="flex items-center gap-8">
                   <div>
-                    <div className="font-display text-[24px] font-bold text-foreground">
+                    <div className="font-display text-[24px] font-bold" style={{ color: "#ffffff" }}>
                       <CountUp to={s.num} suffix={s.suffix} />
                     </div>
-                    <div className="text-[12px] text-muted-foreground">{s.label}</div>
+                    <div className="text-[12px]" style={{ color: "rgba(255,255,255,0.65)" }}>{s.label}</div>
                   </div>
                   {i < STATS.length - 1 && (
-                    <div className="hidden h-8 w-px bg-border md:block" />
+                    <div className="hidden h-8 w-px md:block" style={{ background: "rgba(255,255,255,0.18)" }} />
                   )}
                 </div>
               ))}
@@ -232,7 +209,7 @@ export function Hero() {
         transition={{ delay: 4.6, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
       >
-        <span className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+        <span className="text-[11px] uppercase tracking-[0.25em]" style={{ color: "rgba(255,255,255,0.65)" }}>
           Scroll
         </span>
         <div className="h-8 w-px overflow-hidden bg-white/10">
