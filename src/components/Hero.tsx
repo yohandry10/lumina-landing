@@ -108,8 +108,8 @@ export function Hero() {
 
             {/* Headline */}
             <h1
-              className="mt-6 font-display font-extrabold leading-[1.05] text-foreground"
-              style={{ fontSize: "clamp(42px, 6vw, 84px)" }}
+              className="mt-6 font-display font-extrabold leading-[1.05]"
+              style={{ fontSize: "clamp(42px, 6vw, 84px)", color: "#ffffff" }}
             >
               <span className="block">
                 {HEADLINE_LINE_1.split(" ").map((w, i) => (
@@ -124,7 +124,7 @@ export function Hero() {
                   </motion.span>
                 ))}
               </span>
-              <span className="block">
+              <span className="block" style={{ color: "rgba(255,255,255,0.72)" }}>
                 {HEADLINE_LINE_2.split(" ").map((w, i) => (
                   <motion.span
                     key={i}
@@ -135,7 +135,7 @@ export function Hero() {
                       duration: 0.55,
                       ease: "easeOut",
                     }}
-                    className="text-gradient mr-[0.25em] inline-block"
+                    className="mr-[0.25em] inline-block"
                   >
                     {w}
                   </motion.span>
@@ -149,10 +149,10 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 3.7, duration: 0.6 }}
               className="mt-5 max-w-[520px] text-[clamp(16px,1.8vw,20px)] leading-[1.7]"
-              style={{ color: "rgba(241,240,245,0.72)" }}
+              style={{ color: "rgba(255,255,255,0.78)" }}
             >
               Soluciones técnicas e innovadoras para los sectores de
-              <span className="text-foreground"> construcción y minería</span>.
+              <span style={{ color: "#ffffff" }}> construcción y minería</span>.
               Diseño civil, geotecnia, hidrología, ambiental y supervisión EPCM
               desde la región de Apurímac.
             </motion.p>
@@ -187,13 +187,13 @@ export function Hero() {
               {STATS.map((s, i) => (
                 <div key={i} className="flex items-center gap-8">
                   <div>
-                    <div className="font-display text-[24px] font-bold text-foreground">
+                    <div className="font-display text-[24px] font-bold" style={{ color: "#ffffff" }}>
                       <CountUp to={s.num} suffix={s.suffix} />
                     </div>
-                    <div className="text-[12px] text-muted-foreground">{s.label}</div>
+                    <div className="text-[12px]" style={{ color: "rgba(255,255,255,0.65)" }}>{s.label}</div>
                   </div>
                   {i < STATS.length - 1 && (
-                    <div className="hidden h-8 w-px bg-border md:block" />
+                    <div className="hidden h-8 w-px md:block" style={{ background: "rgba(255,255,255,0.18)" }} />
                   )}
                 </div>
               ))}
