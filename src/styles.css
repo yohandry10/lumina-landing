@@ -263,16 +263,16 @@
     font-size: 15px;
   }
   .btn-ghost:hover {
-    border-color: rgba(255, 255, 255, 0.55);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: color-mix(in oklab, var(--foreground) 50%, transparent);
+    background: color-mix(in oklab, var(--foreground) 4%, transparent);
   }
 
   .scrollbar-none::-webkit-scrollbar { display: none; }
   .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 
   .grain {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
-    opacity: 0.04;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.025;
   }
 
   @keyframes shimmer {
@@ -282,9 +282,9 @@
   .skeleton {
     background: linear-gradient(
       90deg,
-      var(--color-surface),
-      rgba(255, 255, 255, 0.06),
-      var(--color-surface)
+      var(--color-surface-2),
+      color-mix(in oklab, var(--foreground) 6%, var(--color-surface)),
+      var(--color-surface-2)
     );
     background-size: 200% 100%;
     animation: shimmer 1.8s infinite ease-in-out;
