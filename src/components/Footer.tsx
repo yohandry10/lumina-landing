@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Linkedin, Facebook, Instagram, Mail, ArrowRight } from "lucide-react";
+import { Mail, ArrowRight, Globe, MessageCircle, Send } from "lucide-react";
 import { Logo } from "./Logo";
 
 const GROUPS = [
@@ -18,10 +18,10 @@ const GROUPS = [
 ];
 
 const SOCIAL = [
-  { Icon: Linkedin, href: "#" },
-  { Icon: Facebook, href: "#" },
-  { Icon: Instagram, href: "#" },
-  { Icon: Mail, href: "mailto:informes@hananingenieria.com" },
+  { Icon: Globe, href: "#", label: "LinkedIn" },
+  { Icon: MessageCircle, href: "#", label: "WhatsApp" },
+  { Icon: Send, href: "#", label: "Telegram" },
+  { Icon: Mail, href: "mailto:informes@hananingenieria.com", label: "Email" },
 ];
 
 export function Footer() {
@@ -42,12 +42,12 @@ export function Footer() {
               Desde Apurímac, al servicio del Perú.
             </p>
             <div className="mt-6 flex gap-3">
-              {SOCIAL.map(({ Icon, href }, i) => (
+              {SOCIAL.map(({ Icon, href, label }, i) => (
                 <a
                   key={i}
                   href={href}
+                  aria-label={label}
                   className="group grid h-9 w-9 place-items-center rounded-full border border-border text-muted-foreground transition-all duration-200 hover:border-[color-mix(in_oklab,var(--accent)_50%,transparent)] hover:bg-[color-mix(in_oklab,var(--accent)_10%,transparent)] hover:text-[color:var(--accent)]"
-                  aria-label="social"
                 >
                   <Icon size={15} />
                 </a>
