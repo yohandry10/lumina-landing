@@ -62,49 +62,26 @@ export function Hero() {
         />
       </motion.div>
 
-      {/* Layer 2: animated gradient */}
-      <motion.div
-        animate={
-          reduce
-            ? undefined
-            : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }
-        }
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      {/* Layer 2: clean enterprise overlay (no animated halo) */}
+      <div
         className="absolute inset-0 z-[1]"
         style={{
           background:
-            "linear-gradient(125deg, oklch(0.145 0.012 260 / 0.92) 0%, oklch(0.145 0.012 260 / 0.65) 50%, oklch(0.145 0.012 260 / 0.30) 100%)",
-          backgroundSize: "200% 200%",
+            "linear-gradient(115deg, oklch(0.18 0.02 250 / 0.78) 0%, oklch(0.18 0.02 250 / 0.55) 55%, oklch(0.18 0.02 250 / 0.35) 100%)",
         }}
       />
 
-      {/* Layer 3: noise */}
+      {/* Layer 3: subtle grain only — no colored halos / floating circles */}
       <div className="grain pointer-events-none absolute inset-0 z-[2]" />
 
-      {/* Layer 4: floating shapes */}
-      <div className="pointer-events-none absolute inset-0 z-[3] overflow-hidden">
-        <motion.div
-          animate={reduce ? undefined : { y: [0, -30, 0], rotate: [0, 15, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-[100px] -top-[100px] h-[500px] w-[500px] rounded-full"
-          style={{ border: "1px solid color-mix(in oklab, var(--accent) 25%, transparent)" }}
-        />
-        <motion.div
-          animate={reduce ? undefined : { y: [0, 20, 0], x: [0, 15, 0] }}
-          transition={{ duration: 12, repeat: Infinity, delay: 3, ease: "easeInOut" }}
-          className="absolute bottom-[10%] left-[5%] h-[300px] w-[300px] rounded-full blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, color-mix(in oklab, var(--accent) 20%, transparent), transparent 70%)",
-          }}
-        />
-        <motion.div
-          animate={reduce ? undefined : { rotate: [45, 90, 45], scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, delay: 6, ease: "easeInOut" }}
-          className="absolute bottom-[30%] right-[15%] h-[200px] w-[200px]"
-          style={{ border: "1px solid color-mix(in oklab, var(--accent-2) 20%, transparent)" }}
-        />
-      </div>
+      {/* Layer 4: thin accent baseline (architectural detail, not a halo) */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 60%, transparent), transparent)",
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 w-full">
