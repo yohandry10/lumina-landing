@@ -1,3 +1,4 @@
 {
-  "framework": "tanstack-start"
+  "framework": "tanstack-start",
+  "buildCommand": "VINXI_SERVER_PRESET=vercel pnpm build"
 }
