@@ -16,8 +16,6 @@ export function Preloader() {
     return () => [t1, t2, t3, t4].forEach(clearTimeout);
   }, []);
 
-  if (stage === "gone") return null;
-
   return (
     <AnimatePresence>
       {stage !== "gone" && (
