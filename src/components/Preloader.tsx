@@ -51,10 +51,10 @@ export function Preloader() {
               animate={{ pathLength: 1, opacity: 1 }}
               transition={{ duration: 1.4, ease: "easeInOut" }}
             />
-            {/* H mark */}
+            {/* H mark — same accent for sober monochrome feel */}
             <motion.path
               d="M26 40 L26 60 M54 40 L54 60 M26 50 L54 50"
-              stroke="var(--accent-2)"
+              stroke="var(--accent)"
               strokeWidth="1.5"
               strokeLinecap="round"
               initial={{ pathLength: 0 }}
@@ -79,13 +79,26 @@ export function Preloader() {
               ))}
           </div>
 
+          {/* Subtle tagline */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: stage === "fill" || stage === "out" ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+            className="mt-3 text-[11px] uppercase tracking-[0.32em] text-muted-foreground"
+          >
+            Engineering Excellence
+          </motion.div>
+
           {/* Progress bar */}
-          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5">
+          <div
+            className="absolute bottom-0 left-0 right-0 h-[2px]"
+            style={{ background: "color-mix(in oklab, var(--foreground) 6%, transparent)" }}
+          >
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: stage === "fill" || stage === "out" ? 1 : 0.05 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              style={{ originX: 0, background: "var(--gradient-accent)" }}
+              style={{ originX: 0, background: "var(--accent)" }}
               className="h-full w-full"
             />
           </div>
