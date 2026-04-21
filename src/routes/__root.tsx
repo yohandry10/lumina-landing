@@ -29,20 +29,30 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Hanan Ingeniería — Soluciones de ingeniería civil y minera" },
+      {
+        name: "description",
+        content:
+          "Hanan Ingeniería: diseño civil, hidráulico, geotécnico y ambiental para proyectos de construcción y minería en el Perú. Desde Apurímac al país.",
+      },
+      { name: "author", content: "Hanan Ingeniería" },
+      { property: "og:title", content: "Hanan Ingeniería — Ingeniería que transforma desafíos" },
+      {
+        property: "og:description",
+        content:
+          "Soluciones técnicas e innovadoras para construcción y minería. Diseño, geotecnia, hidrología, EPCM y supervisión.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap",
       },
+      { rel: "stylesheet", href: appCss },
     ],
   }),
   shellComponent: RootShell,
