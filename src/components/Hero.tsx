@@ -209,7 +209,7 @@ export function Hero() {
         transition={{ delay: 4.6, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
       >
-        <span className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+        <span className="text-[11px] uppercase tracking-[0.25em]" style={{ color: "rgba(255,255,255,0.65)" }}>
           Scroll
         </span>
         <div className="h-8 w-px overflow-hidden bg-white/10">
