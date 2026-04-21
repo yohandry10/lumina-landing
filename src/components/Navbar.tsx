@@ -110,7 +110,7 @@ export function Navbar() {
             transition={{ duration: 0.25 }}
             onClick={() => setOpen(false)}
             className="fixed inset-0 z-40 backdrop-blur-xl md:hidden"
-            style={{ background: "oklch(0.145 0.012 260 / 0.97)" }}
+            style={{ background: "oklch(1 0 0 / 0.97)" }}
           >
             <div className="container-x flex h-full flex-col justify-center gap-6">
               {LINKS.map((l, i) => (
