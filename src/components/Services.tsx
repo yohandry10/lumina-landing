@@ -17,13 +17,13 @@ import { useLanguage } from "@/lib/language";
 import { Section, SectionHeading, itemVariants } from "./Section";
 
 const SERVICE_ICONS = {
-  hydrology: Droplets,
+  civilHydraulic: HardHat,
+  hydrologicalStudies: Droplets,
   geotechnics: Mountain,
-  generalWorks: HardHat,
-  hydrogeology: Waves,
+  generalWorks: Compass,
+  hydrogeologicalStudies: Waves,
   geographicEngineering: Map,
-  environmental: Leaf,
-  epcm: Compass,
+  environmentalEngineering: Leaf,
 } as const;
 
 const MIN_VISIBLE_SERVICES = 4;

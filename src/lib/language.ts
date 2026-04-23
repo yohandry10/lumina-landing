@@ -3,15 +3,21 @@ import { useEffect, useSyncExternalStore } from "react";
 export type Lang = "es" | "en";
 
 type ServiceId =
-  | "hydrology"
+  | "civilHydraulic"
+  | "hydrologicalStudies"
   | "geotechnics"
   | "generalWorks"
-  | "hydrogeology"
+  | "hydrogeologicalStudies"
   | "geographicEngineering"
-  | "environmental"
-  | "epcm";
+  | "environmentalEngineering";
 
-type ValueId = "compliance" | "responsibility" | "efficiency" | "innovation";
+type ValueId =
+  | "compliance"
+  | "responsibility"
+  | "efficiency"
+  | "ethics"
+  | "innovation"
+  | "commitment";
 type ContactCardId = "office" | "phone" | "email";
 type FooterGroupId = "services" | "company" | "contact";
 
@@ -110,9 +116,11 @@ type SiteContent = {
     titleSuffix: string;
     body: string;
     missionTitle: string;
-    missionBody: string;
+    missionBody: string[];
     visionTitle: string;
-    visionBody: string;
+    visionBody: string[];
+    sectorsTitle: string;
+    sectors: string[];
     values: ValueItem[];
     imageAlt: string;
   };
@@ -258,54 +266,101 @@ const siteContent: Record<Lang, SiteContent> = {
       scroll: "Descubre más",
     },
     services: {
-      overline: "Servicios",
-      titlePrefix: "Soluciones de ingeniería ",
-      titleHighlight: "integrales",
-      titleSuffix: " de principio a fin",
+      overline: "Nuestros servicios especializados",
+      titlePrefix: "Servicios ",
+      titleHighlight: "especializados",
+      titleSuffix: " para construcción y minería",
       subtitle:
-        "Cubrimos todas las etapas de ingeniería, desde la etapa conceptual, prefactibilidad, factibilidad, básica hasta la ingeniería de detalle.",
+        "Desarrollamos diseño, estudios y supervisión técnica para proyectos civiles, mineros, hidráulicos, geotécnicos, hidrogeológicos, geográficos y ambientales.",
       items: [
         {
-          id: "hydrology",
-          title: "Hidrología",
-          desc: "Modelamiento hidráulico, caudales de diseño, balance hídrico y transporte de sedimentos.",
-          bullets: ["Máximas avenidas", "Estaciones pluviométricas", "Flujos hiperconcentrados"],
+          id: "civilHydraulic",
+          title: "Diseño civil e hidráulico",
+          desc: "Diseño especializado para infraestructura minera, hidráulica y sistemas de disposición con enfoque técnico integral.",
+          bullets: [
+            "Diseño de instalación de plantas de procesamiento",
+            "Diseño de sistemas de revestimiento con geosintéticos",
+            "Diseño de instalaciones de disposición de relaves",
+            "Diseño civil de infraestructura minera",
+            "Manejo de materiales excedentes",
+            "Hidráulica fluvial",
+            "Balance de aguas",
+            "Diseño de infraestructuras hidráulicas en general",
+            "Análisis de roturas de presa",
+            "Estudio de sedimentos",
+          ],
+        },
+        {
+          id: "hydrologicalStudies",
+          title: "Estudios hidrológicos",
+          desc: "Evaluación hidrológica e hidráulica para oferta, demanda, caudales de diseño y modelamiento de eventos extremos.",
+          bullets: [
+            "Estudios hidrométricos y batimétricos",
+            "Determinación de caudales de diseño de avenida para diferentes periodos de retorno",
+            "Simulación de caudales medios y máximos",
+            "Balance hídrico con fines de oferta y demanda",
+            "Estudio de máximas avenidas mediante modelamiento hidráulico y transporte de sedimentos",
+            "Evaluación de flujos de sedimentos hiperconcentrados",
+            "Instalación de estaciones pluviométricas y climatológicas",
+            "Revisión de estudios de hidrología e hidráulicos",
+          ],
         },
         {
           id: "geotechnics",
           title: "Geotecnia",
-          desc: "Peligro sísmico, estabilidad física, diseño de cimentaciones y análisis dinámico avanzado.",
-          bullets: ["Elementos finitos", "Equilibrio límite", "Instrumentación geotécnica"],
+          desc: "Análisis sísmico, estabilidad, cimentaciones e instrumentación para infraestructura crítica y proyectos mineros.",
+          bullets: [
+            "Estudio de peligro sísmico",
+            "Análisis de respuesta sísmica y determinación de espectros de diseño",
+            "Análisis de estabilidad física por equilibrio límite y desplazamientos por sismo",
+            "Análisis numérico para el diseño de cimentaciones",
+            "Análisis dinámico mediante elementos finitos y diferencias finitas",
+            "Análisis de consolidación para grandes deformaciones",
+            "Definición de niveles de alerta",
+            "Diseño, supervisión de instalación, procesamiento en interpretación de instrumentación geotécnica",
+          ],
         },
         {
           id: "generalWorks",
           title: "Obras y servicios generales",
-          desc: "Supervisión integral de obras públicas viales, civiles, geotécnicas e hidráulicas.",
-          bullets: ["Supervisión EPCM", "Control de calidad", "Cierre de obra"],
+          desc: "Supervisión y acompañamiento técnico para obras públicas, civiles y estudios de ingeniería.",
+          bullets: [
+            "Supervisión de obras públicas viales",
+            "Supervisión de obras civiles, geotécnicas e hidráulicas",
+            "Supervisión de estudios de ingeniería",
+          ],
         },
         {
-          id: "hydrogeology",
-          title: "Hidrogeología",
-          desc: "Simulación de flujos subterráneos, hidráulica subterránea y supervisión de piezómetros.",
-          bullets: ["Modelamiento", "Diseño de pozos", "Monitoreo"],
+          id: "hydrogeologicalStudies",
+          title: "Estudios hidrogeológicos",
+          desc: "Análisis de flujos subterráneos y diseño de instrumentación para monitoreo hidrogeológico.",
+          bullets: [
+            "Simulación de flujos",
+            "Hidráulica subterránea",
+            "Diseño y supervisión de instalaciones de piezómetros",
+          ],
         },
         {
           id: "geographicEngineering",
           title: "Ingeniería geográfica",
-          desc: "Catastros, cartografía, planificación territorial, fotogrametría y modelado 3D.",
-          bullets: ["LiDAR & drones", "Topografía", "Batimetría"],
+          desc: "Levantamiento y representación del territorio mediante topografía, cartografía, fotogrametría y modelado.",
+          bullets: [
+            "Catastros",
+            "Cartografía",
+            "Planificación territorial",
+            "Levantamientos topográficos",
+            "Fotogrametría, mapeo, topografía, batimetría y modelado 3D",
+          ],
         },
         {
-          id: "environmental",
-          title: "Ambiental",
-          desc: "Instrumentos de gestión, permisos y servicios biológicos para proyectos sostenibles.",
-          bullets: ["DAAC · DIA · DAP", "PMA · ITM", "Caudales ecológicos"],
-        },
-        {
-          id: "epcm",
-          title: "Consultoría EPCM",
-          desc: "Acompañamiento integral en ingeniería, procura, construcción y gestión de proyectos.",
-          bullets: ["Ingeniería de detalle", "Gestión de procura", "Cierre y entrega"],
+          id: "environmentalEngineering",
+          title: "Ingeniería ambiental",
+          desc: "Gestión ambiental, permisos y soporte biológico para la viabilidad y sostenibilidad de proyectos.",
+          bullets: [
+            "Instrumentos de gestión ambiental (DAAC, DIA, DAP, etc.)",
+            "Permisos (PMA, ITM, etc.)",
+            "Servicios biológicos (estudios de caudales ecológicos, monitoreo de áreas restauradas, etc.)",
+          ],
         },
       ],
       showMore: "Mostrar más servicios",
@@ -316,21 +371,28 @@ const siteContent: Record<Lang, SiteContent> = {
     },
     about: {
       overline: "Quiénes somos",
-      titlePrefix: "Ingeniería de ",
-      titleHighlight: "vanguardia",
-      titleSuffix: " para el desarrollo del Perú",
-      body: "Hanan Ingeniería se especializa en el diseño de infraestructura minera, geotecnia, hidráulica, hidrología y gestión ambiental. Desarrollamos soluciones integrales e innovadoras que responden con precisión a los retos de la construcción y la minería en el Perú, asegurando altos estándares de seguridad, calidad y sostenibilidad, además del estricto cumplimiento de plazos y normativas técnicas.",
+      titlePrefix: "Ingeniería, construcción y ",
+      titleHighlight: "gestión",
+      titleSuffix: " de proyectos",
+      body: "Hanan Ingeniería es una de las empresas de ingeniería, construcción y gestión de proyectos más importante de la región de Apurímac. Se especializa en sectores clave como infraestructura, minería y metales.",
       missionTitle: "Misión",
-      missionBody:
-        "Soluciones técnicas e innovadoras a desafíos constructivos, con uso eficiente de recursos y cumplimiento de plazos sin afectar la calidad.",
+      missionBody: [
+        "Nuestra misión principal es brindar soluciones técnicas e innovadoras a problemas complejos enfocados en el uso efectivo y eficiente de recursos para poder satisfacer los requerimientos de nuestros clientes cumpliendo con los compromisos de tiempo.",
+        "Nuestra misión es ofrecer soluciones técnicas e innovadoras que respondan de manera efectiva a los desafíos constructivos de nuestros clientes garantizando un uso eficiente de recursos y cumplimiento de plazos sin afectar la calidad de nuestro trabajo.",
+      ],
       visionTitle: "Visión",
-      visionBody:
-        "Ser líderes en soluciones innovadoras y sostenibles para construcción y minería en el Perú, transformando desafíos en oportunidades de desarrollo.",
+      visionBody: [
+        "Ser reconocidos como líderes en soluciones innovadoras y sostenibles para la construcción y la minería en el Perú, generando confianza y valor en cada proyecto. Aspiramos a transformar desafíos en oportunidades de desarrollo, contribuyendo al progreso del país con excelencia, seguridad y compromiso social.",
+      ],
+      sectorsTitle: "Sectores",
+      sectors: ["Construcción", "Minería"],
       values: [
         { id: "compliance", label: "Cumplimiento" },
         { id: "responsibility", label: "Responsabilidad" },
         { id: "efficiency", label: "Eficiencia" },
+        { id: "ethics", label: "Ética" },
         { id: "innovation", label: "Innovación" },
+        { id: "commitment", label: "Compromiso" },
       ],
       imageAlt: "Equipo de ingenieros",
     },
@@ -401,7 +463,7 @@ const siteContent: Record<Lang, SiteContent> = {
         {
           id: "office",
           title: "Oficina principal",
-          lines: ["Av. Circunvalación 12, piso 3", "Abancay · Apurímac · Perú"],
+          lines: ["Av. Circunvalación 12M, piso 3", "Abancay · Apurímac · Perú"],
         },
         {
           id: "phone",
@@ -414,7 +476,15 @@ const siteContent: Record<Lang, SiteContent> = {
           lines: ["contacto@hananingenieria.com"],
         },
       ],
-      serviceOptions: ["Geotecnia", "Hidrología", "Hidrogeología", "Ambiental"],
+      serviceOptions: [
+        "Diseño civil e hidráulico",
+        "Estudios hidrológicos",
+        "Geotecnia",
+        "Obras y servicios generales",
+        "Estudios hidrogeológicos",
+        "Ingeniería geográfica",
+        "Ingeniería ambiental",
+      ],
       form: {
         overline: "Solicitud técnica",
         intro: "Comparte los datos clave y te respondemos con una propuesta técnica clara.",
@@ -437,15 +507,20 @@ const siteContent: Record<Lang, SiteContent> = {
     map: {
       sectionAria: "Ubicación en mapa",
       iframeTitle: "Ubicación de Hanan Ingeniería",
-      label: "Av. Circunvalación 12, piso 3",
-      sublabel: "Abancay 03001, Perú",
+      label: "Av. Circunvalación 12M, piso 3",
+      sublabel: "Abancay, Apurímac, Perú",
     },
     footer: {
       groups: [
         {
           id: "services",
           title: "Servicios",
-          links: ["Geotecnia", "Hidrología", "Hidrogeología", "Ambiental"],
+          links: [
+            "Diseño civil e hidráulico",
+            "Estudios hidrológicos",
+            "Geotecnia",
+            "Ingeniería ambiental",
+          ],
         },
         {
           id: "company",
@@ -599,54 +674,101 @@ const siteContent: Record<Lang, SiteContent> = {
       scroll: "Discover more",
     },
     services: {
-      overline: "Services",
-      titlePrefix: "Comprehensive engineering ",
-      titleHighlight: "solutions",
-      titleSuffix: " from start to finish",
+      overline: "Our specialized services",
+      titlePrefix: "Specialized ",
+      titleHighlight: "services",
+      titleSuffix: " for construction and mining",
       subtitle:
-        "We cover every engineering stage, from conceptual planning, pre-feasibility, feasibility and basic engineering through detailed engineering.",
+        "We develop design, studies and technical supervision for civil, mining, hydraulic, geotechnical, hydrogeological, geographic and environmental projects.",
       items: [
         {
-          id: "hydrology",
-          title: "Hydrology",
-          desc: "Hydraulic modeling, design flows, water balance and sediment transport.",
-          bullets: ["Peak flood events", "Rain gauge stations", "Hyperconcentrated flows"],
+          id: "civilHydraulic",
+          title: "Civil and hydraulic design",
+          desc: "Specialized design for mining infrastructure, hydraulic works and disposal systems with an integrated technical approach.",
+          bullets: [
+            "Processing plant facility design",
+            "Geomembrane and geosynthetic lining system design",
+            "Tailings disposal facility design",
+            "Civil design for mining infrastructure",
+            "Excess material management",
+            "River hydraulics",
+            "Water balance",
+            "General hydraulic infrastructure design",
+            "Dam breach analysis",
+            "Sediment studies",
+          ],
+        },
+        {
+          id: "hydrologicalStudies",
+          title: "Hydrological studies",
+          desc: "Hydrological and hydraulic evaluation for water supply, demand, design flows and extreme-event modeling.",
+          bullets: [
+            "Hydrometric and bathymetric studies",
+            "Design flood flow determination for different return periods",
+            "Average and peak flow simulation",
+            "Water balance for supply and demand purposes",
+            "Maximum flood studies using hydraulic modeling and sediment transport",
+            "Hyperconcentrated sediment flow assessment",
+            "Installation of rainfall and climate monitoring stations",
+            "Review of hydrology and hydraulic studies",
+          ],
         },
         {
           id: "geotechnics",
           title: "Geotechnics",
-          desc: "Seismic hazard, physical stability, foundation design and advanced dynamic analysis.",
-          bullets: ["Finite elements", "Limit equilibrium", "Geotechnical instrumentation"],
+          desc: "Seismic analysis, stability, foundations and instrumentation for critical infrastructure and mining projects.",
+          bullets: [
+            "Seismic hazard studies",
+            "Seismic response analysis and design spectrum definition",
+            "Physical stability analysis using limit equilibrium and seismic displacement methods",
+            "Numerical analysis for foundation design",
+            "Dynamic analysis using finite elements and finite differences",
+            "Consolidation analysis for large deformations",
+            "Alert level definition",
+            "Design, installation supervision, processing and interpretation of geotechnical instrumentation",
+          ],
         },
         {
           id: "generalWorks",
           title: "Works and general services",
-          desc: "Comprehensive supervision of road, civil, geotechnical and hydraulic public works.",
-          bullets: ["EPCM supervision", "Quality control", "Project closeout"],
+          desc: "Supervision and technical support for public works, civil construction and engineering studies.",
+          bullets: [
+            "Supervision of public road works",
+            "Supervision of civil, geotechnical and hydraulic works",
+            "Supervision of engineering studies",
+          ],
         },
         {
-          id: "hydrogeology",
-          title: "Hydrogeology",
-          desc: "Groundwater flow simulation, subsurface hydraulics and piezometer supervision.",
-          bullets: ["Modeling", "Well design", "Monitoring"],
+          id: "hydrogeologicalStudies",
+          title: "Hydrogeological studies",
+          desc: "Groundwater flow analysis and instrumentation design for hydrogeological monitoring.",
+          bullets: [
+            "Flow simulation",
+            "Subsurface hydraulics",
+            "Design and supervision of piezometer installations",
+          ],
         },
         {
           id: "geographicEngineering",
           title: "Geographic engineering",
-          desc: "Cadastre, cartography, land planning, photogrammetry and 3D modeling.",
-          bullets: ["LiDAR & drones", "Surveying", "Bathymetry"],
+          desc: "Territorial survey and representation through topography, cartography, photogrammetry and modeling.",
+          bullets: [
+            "Cadastre",
+            "Cartography",
+            "Land-use planning",
+            "Topographic surveys",
+            "Photogrammetry, mapping, topography, bathymetry and 3D modeling",
+          ],
         },
         {
-          id: "environmental",
-          title: "Environmental",
-          desc: "Management instruments, permitting and biological services for sustainable projects.",
-          bullets: ["DAAC · DIA · DAP", "PMA · ITM", "Ecological flows"],
-        },
-        {
-          id: "epcm",
-          title: "EPCM consulting",
-          desc: "End-to-end support in engineering, procurement, construction and project management.",
-          bullets: ["Detailed engineering", "Procurement management", "Closeout and handover"],
+          id: "environmentalEngineering",
+          title: "Environmental engineering",
+          desc: "Environmental management, permitting and biological support for project viability and sustainability.",
+          bullets: [
+            "Environmental management instruments (DAAC, DIA, DAP, etc.)",
+            "Permits (PMA, ITM, etc.)",
+            "Biological services (ecological flow studies, restored-area monitoring, etc.)",
+          ],
         },
       ],
       showMore: "Show more services",
@@ -657,21 +779,28 @@ const siteContent: Record<Lang, SiteContent> = {
     },
     about: {
       overline: "Who we are",
-      titlePrefix: "Cutting-edge ",
-      titleHighlight: "engineering",
-      titleSuffix: " for Peru's development",
-      body: "Hanan Ingeniería specializes in mining infrastructure design, geotechnics, hydraulics, hydrology and environmental management. We develop comprehensive and innovative solutions that respond precisely to the challenges of construction and mining in Peru, ensuring high standards of safety, quality and sustainability, together with strict compliance with schedules and technical regulations.",
+      titlePrefix: "Engineering, construction and project ",
+      titleHighlight: "management",
+      titleSuffix: "",
+      body: "Hanan Ingeniería is one of the leading engineering, construction and project management companies in the Apurimac region. It specializes in key sectors such as infrastructure, mining and metals.",
       missionTitle: "Mission",
-      missionBody:
-        "Deliver innovative technical solutions to construction challenges, using resources efficiently and meeting schedules without compromising quality.",
+      missionBody: [
+        "Our main mission is to provide technical and innovative solutions to complex problems, focused on the effective and efficient use of resources to meet our clients' requirements while honoring time commitments.",
+        "Our mission is to offer technical and innovative solutions that respond effectively to our clients' construction challenges, ensuring efficient use of resources and compliance with deadlines without affecting the quality of our work.",
+      ],
       visionTitle: "Vision",
-      visionBody:
-        "To lead innovative and sustainable solutions for construction and mining in Peru, turning challenges into development opportunities.",
+      visionBody: [
+        "To be recognized as leaders in innovative and sustainable solutions for construction and mining in Peru, generating trust and value in every project. We aspire to turn challenges into development opportunities, contributing to the country's progress with excellence, safety and social commitment.",
+      ],
+      sectorsTitle: "Sectors",
+      sectors: ["Construction", "Mining"],
       values: [
         { id: "compliance", label: "Compliance" },
         { id: "responsibility", label: "Responsibility" },
         { id: "efficiency", label: "Efficiency" },
+        { id: "ethics", label: "Ethics" },
         { id: "innovation", label: "Innovation" },
+        { id: "commitment", label: "Commitment" },
       ],
       imageAlt: "Engineering team",
     },
@@ -742,7 +871,7 @@ const siteContent: Record<Lang, SiteContent> = {
         {
           id: "office",
           title: "Main office",
-          lines: ["Av. Circunvalación 12, floor 3", "Abancay · Apurimac · Peru"],
+          lines: ["Av. Circunvalación 12M, floor 3", "Abancay · Apurimac · Peru"],
         },
         {
           id: "phone",
@@ -755,7 +884,15 @@ const siteContent: Record<Lang, SiteContent> = {
           lines: ["contacto@hananingenieria.com"],
         },
       ],
-      serviceOptions: ["Geotechnics", "Hydrology", "Hydrogeology", "Environmental"],
+      serviceOptions: [
+        "Civil and hydraulic design",
+        "Hydrological studies",
+        "Geotechnics",
+        "Works and general services",
+        "Hydrogeological studies",
+        "Geographic engineering",
+        "Environmental engineering",
+      ],
       form: {
         overline: "Technical inquiry",
         intro: "Share the key details and we will reply with a clear technical proposal.",
@@ -778,15 +915,20 @@ const siteContent: Record<Lang, SiteContent> = {
     map: {
       sectionAria: "Map location",
       iframeTitle: "Hanan Ingeniería location",
-      label: "Av. Circunvalación 12, floor 3",
-      sublabel: "Abancay 03001, Peru",
+      label: "Av. Circunvalación 12M, floor 3",
+      sublabel: "Abancay, Apurimac, Peru",
     },
     footer: {
       groups: [
         {
           id: "services",
           title: "Services",
-          links: ["Geotechnics", "Hydrology", "Hydrogeology", "Environmental"],
+          links: [
+            "Civil and hydraulic design",
+            "Hydrological studies",
+            "Geotechnics",
+            "Environmental engineering",
+          ],
         },
         {
           id: "company",

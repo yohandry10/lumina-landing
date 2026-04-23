@@ -10,8 +10,12 @@ const MAP_ACTIONS = [
   { id: "google", href: GOOGLE_MAPS_URL, icon: "/maps.png" },
   { id: "waze", href: WAZE_URL, icon: "/waze.svg" },
 ] as const;
+const CONTACT_SECTION_HREF = "/#contacto";
 
 function getFooterHref(groupId: string, label: string) {
+  if (label === "Trabaja con nosotros" || label === "Work with us") {
+    return CONTACT_SECTION_HREF;
+  }
   if (groupId !== "contact") return "#";
   if (label.includes("@")) return `mailto:${label}`;
   if (label.startsWith("+")) return `tel:${label.replace(/\s+/g, "")}`;

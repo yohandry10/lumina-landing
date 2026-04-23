@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Target, Eye, Sparkles, Shield, Zap, HeartHandshake } from "lucide-react";
+import { Target, Eye, Sparkles, Shield, Zap, HeartHandshake, Scale, Handshake } from "lucide-react";
 import { useLanguage } from "@/lib/language";
 import { Section, containerVariants, itemVariants } from "./Section";
 
@@ -8,6 +8,8 @@ const VALUE_ICONS = {
   responsibility: HeartHandshake,
   efficiency: Zap,
   innovation: Sparkles,
+  ethics: Scale,
+  commitment: Handshake,
 } as const;
 
 export function About() {
@@ -94,9 +96,13 @@ export function About() {
                   </div>
                   <h3 className="font-display text-[18px] font-bold">{content.about.missionTitle}</h3>
                 </div>
-                <p className="mt-4 text-[14px] leading-[1.65] text-muted-foreground">
-                  {content.about.missionBody}
-                </p>
+                <div className="mt-4 space-y-3">
+                  {content.about.missionBody.map((paragraph) => (
+                    <p key={paragraph} className="text-[14px] leading-[1.65] text-muted-foreground">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
               <div className="card-base !p-6">
                 <div className="flex items-center gap-3">
@@ -105,9 +111,29 @@ export function About() {
                   </div>
                   <h3 className="font-display text-[18px] font-bold">{content.about.visionTitle}</h3>
                 </div>
-                <p className="mt-4 text-[14px] leading-[1.65] text-muted-foreground">
-                  {content.about.visionBody}
-                </p>
+                <div className="mt-4 space-y-3">
+                  {content.about.visionBody.map((paragraph) => (
+                    <p key={paragraph} className="text-[14px] leading-[1.65] text-muted-foreground">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="mt-8">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                {content.about.sectorsTitle}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {content.about.sectors.map((sector) => (
+                  <div
+                    key={sector}
+                    className="inline-flex items-center rounded-full border border-border bg-[color:var(--surface)] px-4 py-2 text-[13px] font-medium text-foreground"
+                  >
+                    {sector}
+                  </div>
+                ))}
               </div>
             </motion.div>
 
