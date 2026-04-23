@@ -4,11 +4,11 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Services } from "@/components/Services";
-import { Sectors } from "@/components/Sectors";
 import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { ParallaxBand } from "@/components/ParallaxBand";
 import { Contact } from "@/components/Contact";
+import { MapSection } from "@/components/MapSection";
 import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/")({
@@ -24,11 +24,11 @@ function Index() {
       <main>
         <Hero />
         <Services />
-        <Sectors />
         <About />
         <ParallaxBand />
         <Projects />
         <Contact />
+        <MapSection />
       </main>
       <Footer />
     </div>

@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLanguage, type Lang } from "@/lib/language";
 import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 
 const links = [
   { href: "#inicio", key: "nav.home" },
   { href: "#nosotros", key: "nav.about" },
-  { href: "#sectores", key: "nav.sectors" },
   { href: "#servicios", key: "nav.services" },
   { href: "#proyectos", key: "nav.projects" },
   { href: "#contacto", key: "nav.contact" },
@@ -17,6 +17,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { lang, setLang, t } = useLanguage();
+  const headerHeightClass = "h-[82px] sm:h-[88px]";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -36,33 +37,33 @@ export function Navbar() {
     };
   }, [open]);
 
-  const solid = scrolled || open;
+  const solid = !open;
 
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 top-0 z-[100] transition-[background,box-shadow,color,backdrop-filter] duration-300"
+        className="fixed inset-x-0 top-0 z-[100] border-b border-black/6 transition-[background,box-shadow,color,backdrop-filter] duration-300"
         style={{
-          background: open
-            ? "transparent"
-            : solid
-              ? "color-mix(in oklab, white 84%, transparent)"
-              : "linear-gradient(180deg, rgba(15, 26, 42, 0.32) 0%, rgba(15, 26, 42, 0.12) 58%, transparent 100%)",
-          backdropFilter: open ? "none" : (solid ? "saturate(180%) blur(16px)" : "none"),
-          WebkitBackdropFilter: open ? "none" : (solid ? "saturate(180%) blur(16px)" : "none"),
-          boxShadow: !open && solid
-            ? "0 1px 0 color-mix(in oklab, var(--line) 88%, transparent), 0 10px 28px -18px rgba(24, 36, 58, 0.32)"
+          background: open ? "transparent" : "rgba(255,255,255,0.97)",
+          backdropFilter: open ? "none" : "saturate(180%) blur(16px)",
+          WebkitBackdropFilter: open ? "none" : "saturate(180%) blur(16px)",
+          boxShadow: !open
+            ? scrolled
+              ? "0 18px 36px -28px rgba(24, 36, 58, 0.28)"
+              : "0 10px 24px -26px rgba(24, 36, 58, 0.2)"
             : "none",
-          color: open ? "white" : (solid ? "var(--navy)" : "rgba(255,255,255,0.94)"),
-          textShadow: (open || solid) ? "none" : "0 1px 2px rgba(11, 18, 31, 0.18)",
+          color: open ? "white" : "var(--navy)",
+          textShadow: "none",
         }}
       >
-        <div className="mx-auto flex h-[72px] max-w-[1320px] items-center justify-between px-6 md:px-10 lg:px-12">
-          <a href="#inicio" className="flex items-baseline gap-2">
-            <span className="font-display text-[20px] font-bold tracking-tight">HANAN</span>
-            <span className="hidden text-[11px] font-semibold uppercase tracking-[0.26em] opacity-80 sm:inline">
-              INGENIERIA
-            </span>
+        <div
+          className={`mx-auto flex max-w-[1320px] items-center justify-between px-6 md:px-10 lg:px-12 ${headerHeightClass}`}
+        >
+          <a href="#inicio" className="flex items-center">
+            <Logo
+              className="h-[64px] w-[210px] sm:h-[72px] sm:w-[236px]"
+              imageClassName="h-[228%] w-[228%]"
+            />
           </a>
 
           <nav className="hidden items-center gap-8 lg:flex">
@@ -93,28 +94,36 @@ export function Navbar() {
               aria-label="Menu"
               aria-expanded={open}
               style={{
-                borderColor: open ? "rgba(255,255,255,0.2)" : (solid ? "rgba(24, 36, 58, 0.12)" : "rgba(255,255,255,0.18)"),
-                backgroundColor: open ? "rgba(255,255,255,0.1)" : (solid ? "rgba(255,255,255,0.8)" : "rgba(10, 20, 34, 0.3)"),
-                color: open ? "white" : (solid ? "var(--navy)" : "white"),
+                borderColor: open
+                  ? "rgba(255,255,255,0.2)"
+                  : solid
+                    ? "rgba(24, 36, 58, 0.12)"
+                    : "rgba(255,255,255,0.18)",
+                backgroundColor: open
+                  ? "rgba(255,255,255,0.1)"
+                  : solid
+                    ? "rgba(255,255,255,0.8)"
+                    : "rgba(10, 20, 34, 0.3)",
+                color: open ? "white" : solid ? "var(--navy)" : "white",
               }}
             >
               <div className="relative h-5 w-6">
                 <span
                   className={cn(
                     "absolute h-[2px] w-full bg-current transition-all duration-300 ease-out",
-                    open ? "top-2.5 rotate-45" : "top-0"
+                    open ? "top-2.5 rotate-45" : "top-0",
                   )}
                 />
                 <span
                   className={cn(
                     "absolute top-2.5 h-[2px] bg-current transition-all duration-200 ease-out",
-                    open ? "w-0 opacity-0" : "w-full opacity-100"
+                    open ? "w-0 opacity-0" : "w-full opacity-100",
                   )}
                 />
                 <span
                   className={cn(
                     "absolute h-[2px] w-full bg-current transition-all duration-300 ease-out",
-                    open ? "top-2.5 -rotate-45" : "top-5"
+                    open ? "top-2.5 -rotate-45" : "top-5",
                   )}
                 />
               </div>
@@ -122,6 +131,7 @@ export function Navbar() {
           </div>
         </div>
       </motion.header>
+      <div aria-hidden="true" className={headerHeightClass} />
 
       <AnimatePresence>
         {open && (
@@ -153,7 +163,7 @@ export function Navbar() {
 
             {/* Background texture layer */}
             <div className="grain pointer-events-none absolute inset-0 opacity-[0.08]" />
-            
+
             <div className="flex flex-1 flex-col justify-between overflow-y-auto px-8 pb-10 pt-28">
               <nav className="flex flex-col gap-6">
                 {links.map((l, i) => (
@@ -196,7 +206,8 @@ export function Navbar() {
                       {lang === "es" ? "Sede Central" : "Headquarters"}
                     </p>
                     <p className="text-[13px] font-medium leading-relaxed text-white/70">
-                      Miraflores, Lima<br />
+                      Miraflores, Lima
+                      <br />
                       Perú
                     </p>
                   </div>
@@ -271,11 +282,8 @@ function LangToggle({
           className="min-w-[42px] rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] transition-all duration-200"
           style={{
             backgroundColor: lang === l ? "var(--amber)" : "transparent",
-            color: lang === l
-              ? "white"
-              : solid
-                ? "rgba(31, 48, 75, 0.74)"
-                : "rgba(255,255,255,0.82)",
+            color:
+              lang === l ? "white" : solid ? "rgba(31, 48, 75, 0.74)" : "rgba(255,255,255,0.82)",
             boxShadow: lang === l ? "0 10px 18px -14px rgba(231, 146, 30, 0.9)" : "none",
           }}
         >

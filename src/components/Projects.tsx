@@ -76,11 +76,7 @@ export function Projects() {
       <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <SectionHeading
           overline="Proyectos"
-          title={
-            <>
-              Trabajos que <span className="text-gradient">hablan por nosotros</span>.
-            </>
-          }
+          title="Trabajos realizados"
           subtitle="Selección de proyectos donde nuestro equipo aportó conocimiento técnico, innovación y rigor para resolver desafíos complejos."
         />
         <div className="flex gap-2">

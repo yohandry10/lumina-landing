@@ -1,58 +1,95 @@
-import { motion } from "framer-motion";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/lib/language";
-import { CountUp } from "./CountUp";
 
-const stats = [
-  { value: 200, suffix: "+", labelKey: "stats.projects" },
-  { value: 15, suffix: "+", labelKey: "stats.years" },
-  { value: 7, suffix: "", labelKey: "stats.specs" },
-  { value: 0, suffix: "", labelKey: "stats.region", custom: "Apurímac+" },
-];
+const slides = [
+  { src: "/2.jpg", position: "50% 50%" },
+  { src: "/3.jpg", position: "56% 48%" },
+  { src: "/4.jpg", position: "44% 44%" },
+] as const;
+
+const SLIDE_DURATION_MS = 20000;
+const cinematicEase = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
   const titleWords1 = t("hero.title.1").split(" ");
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    for (const slide of slides) {
+      const image = new window.Image();
+      image.src = slide.src;
+    }
+  }, []);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setActiveIndex((current) => (current + 1) % slides.length);
+    }, SLIDE_DURATION_MS);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activeIndex]);
+
+  const activeSlide = slides[activeIndex];
 
   return (
     <section id="inicio" className="relative min-h-screen w-full overflow-hidden">
-      {/* LAYER 1 — photo */}
-      <motion.div
+      <div className="absolute inset-0 bg-black" />
+
+      <div className="absolute inset-0">
+        <AnimatePresence initial={false} mode="sync">
+          <motion.img
+            key={activeSlide.src}
+            src={activeSlide.src}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: activeSlide.position }}
+            initial={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, scale: 1.08, filter: "brightness(0.92) saturate(1.02)" }
+            }
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 1, scale: 1.02, filter: "brightness(1) saturate(1)" }
+            }
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, scale: 1, filter: "brightness(0.88) saturate(0.98)" }
+            }
+            transition={{ duration: shouldReduceMotion ? 0.35 : 1.6, ease: cinematicEase }}
+          />
+        </AnimatePresence>
+      </div>
+
+      <div className="absolute inset-0 bg-black/38" />
+      <div
         className="absolute inset-0"
-        initial={{ scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 8, ease: "easeOut" }}
-      >
-        <img
-          src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=2000&q=80"
-          alt="Sitio de construcción aéreo en los Andes"
-          className="h-full w-full object-cover object-center"
-          loading="eager"
-        />
-      </motion.div>
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(8,12,18,0.22) 0%, rgba(8,12,18,0.08) 24%, rgba(8,12,18,0.12) 62%, rgba(8,12,18,0.34) 100%)",
+        }}
+      />
 
-      {/* LAYER 2 — gradient */}
-      <div className="absolute inset-0 gradient-hero" />
-
-      {/* LAYER 3 — noise */}
-      <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03] mix-blend-overlay">
-        <filter id="n">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#n)" />
-      </svg>
-
-      {/* Content */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-6 pb-40 pt-28 md:px-10 md:pb-44">
         <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="inline-flex items-center rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-amber"
+            className="inline-flex items-center rounded-full px-5 py-2 text-[12px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] backdrop-blur-md"
             style={{
-              border: "1px solid rgba(231, 146, 30, 0.55)",
-              backgroundColor: "rgba(231, 146, 30, 0.10)",
+              border: "1px solid rgba(231, 146, 30, 0.72)",
+              backgroundColor: "rgba(9, 14, 22, 0.52)",
+              textShadow: "0 1px 2px rgba(0,0,0,0.35)",
             }}
           >
             {t("hero.eyebrow")}
@@ -66,15 +103,15 @@ export function Hero() {
             }}
           >
             <span className="block">
-              {titleWords1.map((w, i) => (
+              {titleWords1.map((word, index) => (
                 <motion.span
-                  key={i}
+                  key={word + index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + i * 0.06, duration: 0.5 }}
+                  transition={{ delay: 0.3 + index * 0.06, duration: 0.5 }}
                   className="mr-[0.22em] inline-block"
                 >
-                  {w}
+                  {word}
                 </motion.span>
               ))}
             </span>
@@ -111,7 +148,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.6 }}
+            transition={{ delay: 1, duration: 0.6 }}
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
             <motion.a
@@ -124,6 +161,7 @@ export function Hero() {
               {t("hero.cta.services")}
               <ArrowRight size={16} />
             </motion.a>
+
             <motion.a
               href="#contacto"
               whileHover={{ scale: 1.03 }}
@@ -138,14 +176,15 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
         className="absolute bottom-[7.5rem] left-1/2 z-10 -translate-x-1/2 text-center text-white/60"
       >
-        <div className="text-[11px] font-medium uppercase tracking-[0.28em]">{t("hero.scroll")}</div>
+        <div className="text-[11px] font-medium uppercase tracking-[0.28em]">
+          {t("hero.scroll")}
+        </div>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -154,27 +193,6 @@ export function Hero() {
           <ChevronDown size={20} />
         </motion.div>
       </motion.div>
-
-      {/* Hero stats strip */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 px-4 md:px-8">
-        <div className="mx-auto max-w-5xl rounded-t-[30px] bg-white shadow-navy-soft lg:max-w-[1040px]">
-          <div className="flex snap-x snap-mandatory overflow-x-auto md:grid md:grid-cols-4 md:overflow-visible">
-            {stats.map((s, i) => (
-              <div
-                key={i}
-                className="flex min-w-[70%] snap-start items-center justify-center border-line px-6 py-7 md:min-w-0 md:px-4 [&:not(:last-child)]:md:border-r"
-              >
-                <div className="text-center">
-                  <div className="font-display text-[28px] font-bold text-amber">
-                    {s.custom ? s.custom : <CountUp to={s.value} suffix={s.suffix} />}
-                  </div>
-                  <div className="mt-1 text-[13px] text-muted-ink">{t(s.labelKey)}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </section>
   );
 }

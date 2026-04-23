@@ -33,14 +33,14 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Hanan Ingeniería: diseño civil, hidráulico, geotécnico y ambiental para proyectos de construcción y minería en el Perú. Desde Apurímac al país.",
+          "Hanan Ingeniería: geotecnia, hidrología, hidrogeología y gestión ambiental para proyectos de construcción y minería en el Perú. Desde Apurímac al país.",
       },
       { name: "author", content: "Hanan Ingeniería" },
       { property: "og:title", content: "Hanan Ingeniería — Ingeniería que transforma desafíos" },
       {
         property: "og:description",
         content:
-          "Soluciones técnicas e innovadoras para construcción y minería. Diseño, geotecnia, hidrología, EPCM y supervisión.",
+          "Soluciones técnicas e innovadoras para construcción y minería. Geotecnia, hidrología, hidrogeología y gestión ambiental.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

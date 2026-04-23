@@ -1,6 +1,6 @@
-import { motion, type Variants } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import {
-  Layers,
   Mountain,
   Droplets,
   Compass,
@@ -10,20 +10,15 @@ import {
   Waves,
   ArrowUpRight,
   Check,
+  ChevronDown,
   Sparkles,
 } from "lucide-react";
-import { Section, SectionHeading, containerVariants, itemVariants } from "./Section";
+import { Section, SectionHeading, itemVariants } from "./Section";
 
 const SERVICES = [
   {
-    Icon: Layers,
-    title: "Diseño civil e hidráulico",
-    desc: "Plantas de procesamiento, infraestructura minera, presas, geosintéticos y manejo de materiales excedentes.",
-    bullets: ["Disposición de relaves", "Hidráulica fluvial", "Análisis de roturas"],
-  },
-  {
     Icon: Droplets,
-    title: "Estudios hidrológicos",
+    title: "Hidrología",
     desc: "Modelamiento hidráulico, caudales de diseño, balance hídrico y transporte de sedimentos.",
     bullets: ["Máximas avenidas", "Estaciones pluviométricas", "Flujos hiperconcentrados"],
   },
@@ -41,7 +36,7 @@ const SERVICES = [
   },
   {
     Icon: Waves,
-    title: "Estudios hidrogeológicos",
+    title: "Hidrogeología",
     desc: "Simulación de flujos subterráneos, hidráulica subterránea y supervisión de piezómetros.",
     bullets: ["Modelamiento", "Diseño de pozos", "Monitoreo"],
   },
@@ -53,7 +48,7 @@ const SERVICES = [
   },
   {
     Icon: Leaf,
-    title: "Ingeniería ambiental",
+    title: "Ambiental",
     desc: "Instrumentos de gestión, permisos y servicios biológicos para proyectos sostenibles.",
     bullets: ["DAAC · DIA · DAP", "PMA · ITM", "Caudales ecológicos"],
   },
@@ -63,13 +58,9 @@ const SERVICES = [
     desc: "Acompañamiento integral en ingeniería, procura, construcción y gestión de proyectos.",
     bullets: ["Ingeniería de detalle", "Gestión de procura", "Cierre y entrega"],
   },
-];
+] as const;
 
-/* ─── animation ─── */
-const gridVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
-};
+const MIN_VISIBLE_SERVICES = 4;
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 24, scale: 0.97 },
@@ -82,116 +73,125 @@ const cardVariants: Variants = {
 };
 
 export function Services() {
+  const [expanded, setExpanded] = useState(false);
+  const visibleServices = expanded ? SERVICES : SERVICES.slice(0, MIN_VISIBLE_SERVICES);
+
   return (
     <Section id="servicios">
-      {/* ── header ── */}
-      <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
-        <SectionHeading
-          overline="Servicios"
-          title={
-            <>
-              Capacidades <span className="text-gradient">técnicas</span>{" "}
-              de extremo a extremo.
-            </>
-          }
-          subtitle="Cubrimos todo el ciclo de vida de un proyecto de ingeniería: desde estudios preliminares y diseño, hasta supervisión, construcción y cierre."
-        />
-        <a
-          href="#contacto"
-          className="group inline-flex items-center gap-2 text-[14px] font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Ver capacidades completas
-          <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </a>
-      </div>
+      <SectionHeading
+        overline="Servicios"
+        title={
+          <>
+            Soluciones de ingeniería <span className="text-gradient">integrales</span> de principio
+            a fin
+          </>
+        }
+        subtitle="Cubrimos todas las etapas de ingeniería, desde la etapa conceptual, prefactibilidad, factibilidad, básica hasta la ingeniería de detalle."
+      />
 
-      {/* ── cards grid ── */}
-      <motion.div
-        variants={gridVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
-      >
-        {SERVICES.map(({ Icon, title, desc, bullets }, i) => (
-          <motion.article
-            key={i}
-            variants={cardVariants}
-            className="service-card group relative flex h-full flex-col overflow-hidden rounded-[16px] border border-border bg-surface p-7 transition-all duration-300"
-            whileHover={{
-              y: -6,
-              transition: { type: "spring", stiffness: 300, damping: 22 },
-            }}
-          >
-            {/* hover shimmer */}
-            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-              style={{
-                background: "linear-gradient(105deg, transparent 38%, color-mix(in oklab, var(--accent) 6%, transparent) 50%, transparent 62%)",
-              }}
-            />
-
-            {/* number tag */}
-            <span
-              className="absolute right-5 top-5 font-display text-[11px] font-bold tabular-nums opacity-30"
-              style={{ color: "var(--accent)" }}
-            >
-              {String(i + 1).padStart(2, "0")}
-            </span>
-
-            {/* icon */}
-            <div
-              className="flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-110"
-              style={{
-                background: "color-mix(in oklab, var(--accent) 8%, transparent)",
-                borderColor: "color-mix(in oklab, var(--accent) 18%, transparent)",
-                color: "var(--accent)",
+      <motion.div layout className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <AnimatePresence initial={false}>
+          {visibleServices.map(({ Icon, title, desc, bullets }, i) => (
+            <motion.article
+              layout
+              key={title}
+              variants={cardVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="service-card group relative flex h-full flex-col overflow-hidden rounded-[16px] border border-border bg-surface p-7 transition-all duration-300"
+              whileHover={{
+                y: -6,
+                transition: { type: "spring", stiffness: 300, damping: 22 },
               }}
             >
-              <Icon size={22} strokeWidth={1.6} />
-            </div>
+              <div
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                style={{
+                  background:
+                    "linear-gradient(105deg, transparent 38%, color-mix(in oklab, var(--accent) 6%, transparent) 50%, transparent 62%)",
+                }}
+              />
 
-            {/* content */}
-            <h3 className="mt-5 font-display text-[18px] font-bold leading-snug text-foreground">
-              {title}
-            </h3>
-            <p className="mt-2.5 flex-1 text-[13.5px] leading-[1.7] text-muted-foreground">
-              {desc}
-            </p>
+              <span
+                className="absolute right-5 top-5 font-display text-[11px] font-bold tabular-nums opacity-30"
+                style={{ color: "var(--accent)" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
 
-            {/* bullets with check icons */}
-            <ul className="mt-5 space-y-2.5 border-t border-border pt-5">
-              {bullets.map((b) => (
-                <li
-                  key={b}
-                  className="flex items-center gap-2.5 text-[13px] text-muted-foreground"
-                >
-                  <span
-                    className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full"
-                    style={{
-                      background: "color-mix(in oklab, var(--accent) 10%, transparent)",
-                    }}
+              <div
+                className="flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-110"
+                style={{
+                  background: "color-mix(in oklab, var(--accent) 8%, transparent)",
+                  borderColor: "color-mix(in oklab, var(--accent) 18%, transparent)",
+                  color: "var(--accent)",
+                }}
+              >
+                <Icon size={22} strokeWidth={1.6} />
+              </div>
+
+              <h3 className="mt-5 font-display text-[18px] font-bold leading-snug text-foreground">
+                {title}
+              </h3>
+              <p className="mt-2.5 flex-1 text-[13.5px] leading-[1.7] text-muted-foreground">
+                {desc}
+              </p>
+
+              <ul className="mt-5 space-y-2.5 border-t border-border pt-5">
+                {bullets.map((bullet) => (
+                  <li
+                    key={bullet}
+                    className="flex items-center gap-2.5 text-[13px] text-muted-foreground"
                   >
-                    <Check
-                      size={11}
-                      strokeWidth={2.5}
-                      style={{ color: "var(--accent)" }}
-                    />
-                  </span>
-                  {b}
-                </li>
-              ))}
-            </ul>
+                    <span
+                      className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full"
+                      style={{
+                        background: "color-mix(in oklab, var(--accent) 10%, transparent)",
+                      }}
+                    >
+                      <Check size={11} strokeWidth={2.5} style={{ color: "var(--accent)" }} />
+                    </span>
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
 
-            {/* bottom accent line on hover */}
-            <div
-              className="absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-500 group-hover:w-full"
-              style={{ background: "var(--gradient-accent)" }}
-            />
-          </motion.article>
-        ))}
+              <div
+                className="absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-500 group-hover:w-full"
+                style={{ background: "var(--gradient-accent)" }}
+              />
+            </motion.article>
+          ))}
+        </AnimatePresence>
       </motion.div>
 
-      {/* ── bottom CTA strip ── */}
+      {SERVICES.length > MIN_VISIBLE_SERVICES && (
+        <motion.div
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-8 flex justify-center"
+        >
+          <motion.button
+            type="button"
+            onClick={() => setExpanded((current) => !current)}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-3 rounded-full border border-border bg-surface px-6 py-3 text-[14px] font-semibold text-foreground transition-colors hover:bg-surface-2"
+          >
+            {expanded ? "Mostrar menos" : "Mostrar más servicios"}
+            <motion.span
+              animate={{ rotate: expanded ? 180 : 0 }}
+              transition={{ duration: 0.24, ease: "easeInOut" }}
+            >
+              <ChevronDown size={16} />
+            </motion.span>
+          </motion.button>
+        </motion.div>
+      )}
+
       <motion.div
         variants={itemVariants}
         initial="hidden"

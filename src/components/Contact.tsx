@@ -3,22 +3,14 @@ import { useState } from "react";
 import { MapPin, Phone, Mail, Send, CheckCircle2 } from "lucide-react";
 import { Section, SectionHeading, containerVariants, itemVariants } from "./Section";
 
-const SERVICE_OPTIONS = [
-  "Diseño civil / hidráulico",
-  "Geotecnia",
-  "Hidrología",
-  "Hidrogeología",
-  "Supervisión EPCM",
-  "Ambiental",
-  "Otro",
-];
+const SERVICE_OPTIONS = ["Geotecnia", "Hidrología", "Hidrogeología", "Ambiental"];
 
 export function Contact() {
   const [sent, setSent] = useState(false);
 
   return (
     <Section id="contacto" className="bg-[color:var(--deep)]">
-      <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+      <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:items-start">
         <div className="lg:col-span-5">
           <SectionHeading
             overline="Contacto"
@@ -35,7 +27,7 @@ export function Contact() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="mt-10 space-y-5"
+            className="mt-10 space-y-4"
           >
             {[
               {
@@ -51,7 +43,7 @@ export function Contact() {
               {
                 Icon: Mail,
                 title: "Correo",
-                lines: ["informes@hananingenieria.com", "Respuesta < 48h"],
+                lines: ["informes@hananingenieria.com"],
               },
             ].map(({ Icon, title, lines }, i) => (
               <motion.div
@@ -63,9 +55,7 @@ export function Contact() {
                   <Icon size={18} strokeWidth={1.6} />
                 </div>
                 <div>
-                  <div className="font-display text-[15px] font-bold text-foreground">
-                    {title}
-                  </div>
+                  <div className="font-display text-[15px] font-bold text-foreground">{title}</div>
                   {lines.map((l, j) => (
                     <div key={j} className="mt-1 text-[13px] text-muted-foreground">
                       {l}
@@ -89,34 +79,55 @@ export function Contact() {
               setSent(true);
               setTimeout(() => setSent(false), 4000);
             }}
-            className="glass-panel p-6 md:p-10"
+            className="glass-panel space-y-6 p-6 md:p-8"
           >
+            <motion.div variants={itemVariants} className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--accent)]">
+                  Solicitud técnica
+                </p>
+                <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
+                  Comparte los datos clave y te respondemos con una propuesta técnica clara.
+                </p>
+              </div>
+              <div className="hidden h-12 w-12 items-center justify-center rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--surface)] text-[color:var(--accent)] md:flex">
+                <Send size={18} strokeWidth={1.7} />
+              </div>
+            </motion.div>
+
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <FieldWrap label="Nombre completo" required>
+              <FieldWrap fieldId="contact-name" label="Nombre completo" required>
                 <input
                   type="text"
+                  id="contact-name"
                   required
                   placeholder="Tu nombre"
-                  className="input-base"
+                  className="contact-input"
                 />
               </FieldWrap>
-              <FieldWrap label="Empresa / Institución">
-                <input type="text" placeholder="Tu empresa" className="input-base" />
+              <FieldWrap fieldId="contact-company" label="Empresa / Institución">
+                <input
+                  type="text"
+                  id="contact-company"
+                  placeholder="Tu empresa"
+                  className="contact-input"
+                />
               </FieldWrap>
-              <FieldWrap label="Correo" required>
+              <FieldWrap fieldId="contact-email" label="Correo" required>
                 <input
                   type="email"
+                  id="contact-email"
                   required
                   placeholder="tu@correo.com"
-                  className="input-base"
+                  className="contact-input"
                 />
               </FieldWrap>
-              <FieldWrap label="Teléfono">
-                <input type="tel" placeholder="+51" className="input-base" />
+              <FieldWrap fieldId="contact-phone" label="Teléfono">
+                <input type="tel" id="contact-phone" placeholder="+51" className="contact-input" />
               </FieldWrap>
             </div>
 
-            <FieldWrap label="Servicio de interés" required className="mt-5">
+            <FieldWrap label="Servicio de interés" required>
               <div className="flex flex-wrap gap-2">
                 {SERVICE_OPTIONS.map((s) => (
                   <ServiceChip key={s} label={s} />
@@ -124,16 +135,17 @@ export function Contact() {
               </div>
             </FieldWrap>
 
-            <FieldWrap label="Cuéntanos sobre tu proyecto" required className="mt-5">
+            <FieldWrap fieldId="contact-message" label="Cuéntanos sobre tu proyecto" required>
               <textarea
+                id="contact-message"
                 required
                 rows={5}
-                placeholder="Alcance, ubicación, plazos esperados…"
-                className="input-base resize-none"
+                placeholder="Alcance, ubicación, plazos esperados..."
+                className="contact-input min-h-[160px] resize-none"
               />
             </FieldWrap>
 
-            <div className="mt-6 flex flex-col items-stretch justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="flex flex-col items-stretch justify-between gap-4 border-t border-[color:var(--color-border)] pt-5 sm:flex-row sm:items-center">
               <p className="text-[12px] text-muted-foreground">
                 Al enviar aceptas nuestra política de privacidad. No compartimos tus datos.
               </p>
@@ -164,42 +176,32 @@ export function Contact() {
 }
 
 function FieldWrap({
+  fieldId,
   label,
   required,
   children,
-  className = "",
 }: {
+  fieldId?: string;
   label: string;
   required?: boolean;
   children: React.ReactNode;
-  className?: string;
 }) {
   return (
-    <motion.label variants={itemVariants} className={`block ${className}`}>
-      <span className="block text-[12px] font-medium uppercase tracking-wider text-muted-foreground">
-        {label} {required && <span style={{ color: "var(--accent)" }}>*</span>}
-      </span>
+    <motion.div variants={itemVariants}>
+      {fieldId ? (
+        <label
+          htmlFor={fieldId}
+          className="block text-[12px] font-medium uppercase tracking-wider text-muted-foreground"
+        >
+          {label} {required && <span style={{ color: "var(--accent)" }}>*</span>}
+        </label>
+      ) : (
+        <span className="block text-[12px] font-medium uppercase tracking-wider text-muted-foreground">
+          {label} {required && <span style={{ color: "var(--accent)" }}>*</span>}
+        </span>
+      )}
       <div className="mt-2">{children}</div>
-      <style>{`
-        .input-base {
-          width: 100%;
-          background: color-mix(in oklab, var(--surface) 70%, transparent);
-          border: 1px solid var(--color-border);
-          border-radius: 12px;
-          padding: 12px 14px;
-          font-family: var(--font-sans);
-          font-size: 14px;
-          color: var(--foreground);
-          transition: var(--transition-smooth);
-          outline: none;
-        }
-        .input-base::placeholder { color: var(--muted-foreground); }
-        .input-base:focus {
-          border-color: color-mix(in oklab, var(--accent) 60%, transparent);
-          box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
-        }
-      `}</style>
-    </motion.label>
+    </motion.div>
   );
 }
 
@@ -209,16 +211,8 @@ function ServiceChip({ label }: { label: string }) {
     <button
       type="button"
       onClick={() => setOn((v) => !v)}
-      className="rounded-full border px-4 py-1.5 text-[12px] font-medium transition-all"
-      style={{
-        background: on
-          ? "color-mix(in oklab, var(--accent) 18%, transparent)"
-          : "transparent",
-        borderColor: on
-          ? "color-mix(in oklab, var(--accent) 50%, transparent)"
-          : "var(--color-border)",
-        color: on ? "var(--accent)" : "var(--muted-foreground)",
-      }}
+      data-active={on ? "true" : "false"}
+      className="contact-chip"
     >
       {label}
     </button>

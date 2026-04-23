@@ -41,29 +41,6 @@ export function About() {
               />
             </motion.div>
 
-            {/* Floating glass stat */}
-            <motion.div
-              variants={itemVariants}
-              className="glass-panel absolute -bottom-8 -right-4 w-[230px] p-5 sm:-right-8"
-            >
-              <div className="flex items-center gap-3">
-                <div className="icon-tile !h-10 !w-10">
-                  <Target size={18} />
-                </div>
-                <div>
-                  <div className="font-display text-[22px] font-bold text-foreground">
-                    100%
-                  </div>
-                  <div className="text-[11px] uppercase tracking-widest text-muted-foreground">
-                    Ingeniería local
-                  </div>
-                </div>
-              </div>
-              <p className="mt-3 text-[12px] leading-[1.5] text-muted-foreground">
-                Talento técnico desarrollado en Apurímac al servicio del Perú.
-              </p>
-            </motion.div>
-
             {/* decorative outline */}
             <div
               className="pointer-events-none absolute -left-6 -top-6 h-24 w-24 rounded-2xl"
@@ -92,18 +69,18 @@ export function About() {
               className="mt-3 font-display font-bold leading-[1.1] text-foreground"
               style={{ fontSize: "clamp(28px, 4vw, 52px)" }}
             >
-              Una de las firmas de ingeniería más{" "}
-              <span className="text-gradient">importantes de Apurímac</span>.
+              Ingeniería de <span className="text-gradient">vanguardia</span> para el desarrollo del
+              Perú
             </motion.h2>
             <motion.p
               variants={itemVariants}
               className="mt-5 max-w-2xl text-[17px] leading-[1.7] text-muted-foreground"
             >
-              Hanan Ingeniería se especializa en infraestructura, minería y
-              metales. Ofrecemos soluciones técnicas e innovadoras que
-              responden de manera efectiva a los desafíos de la construcción y
-              la minería en el Perú, garantizando seguridad, calidad y
-              cumplimiento de plazos.
+              Hanan Ingeniería se especializa en el diseño de infraestructura minera, geotecnia,
+              hidráulica, hidrología y gestión ambiental. Desarrollamos soluciones integrales e
+              innovadoras que responden con precisión a los retos de la construcción y la minería en
+              el Perú, asegurando altos estándares de seguridad, calidad y sostenibilidad, además
+              del estricto cumplimiento de plazos y normativas técnicas.
             </motion.p>
 
             <motion.div
@@ -118,9 +95,8 @@ export function About() {
                   <h3 className="font-display text-[18px] font-bold">Misión</h3>
                 </div>
                 <p className="mt-4 text-[14px] leading-[1.65] text-muted-foreground">
-                  Soluciones técnicas e innovadoras a desafíos constructivos,
-                  con uso eficiente de recursos y cumplimiento de plazos sin
-                  afectar la calidad.
+                  Soluciones técnicas e innovadoras a desafíos constructivos, con uso eficiente de
+                  recursos y cumplimiento de plazos sin afectar la calidad.
                 </p>
               </div>
               <div className="card-base !p-6">
@@ -131,17 +107,13 @@ export function About() {
                   <h3 className="font-display text-[18px] font-bold">Visión</h3>
                 </div>
                 <p className="mt-4 text-[14px] leading-[1.65] text-muted-foreground">
-                  Ser líderes en soluciones innovadoras y sostenibles para
-                  construcción y minería en el Perú, transformando desafíos en
-                  oportunidades de desarrollo.
+                  Ser líderes en soluciones innovadoras y sostenibles para construcción y minería en
+                  el Perú, transformando desafíos en oportunidades de desarrollo.
                 </p>
               </div>
             </motion.div>
 
-            <motion.div
-              variants={itemVariants}
-              className="mt-8 flex flex-wrap gap-3"
-            >
+            <motion.div variants={itemVariants} className="mt-8 flex flex-wrap gap-3">
               {VALUES.map(({ Icon, label }) => (
                 <div
                   key={label}
