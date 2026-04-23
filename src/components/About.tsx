@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
 import { Target, Eye, Sparkles, Shield, Zap, HeartHandshake } from "lucide-react";
+import { useLanguage } from "@/lib/language";
 import { Section, containerVariants, itemVariants } from "./Section";
 
-const VALUES = [
-  { Icon: Shield, label: "Cumplimiento" },
-  { Icon: HeartHandshake, label: "Responsabilidad" },
-  { Icon: Zap, label: "Eficiencia" },
-  { Icon: Sparkles, label: "Innovación" },
-];
+const VALUE_ICONS = {
+  compliance: Shield,
+  responsibility: HeartHandshake,
+  efficiency: Zap,
+  innovation: Sparkles,
+} as const;
 
 export function About() {
+  const { content } = useLanguage();
+
   return (
     <Section id="nosotros">
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
@@ -28,7 +31,7 @@ export function About() {
             >
               <img
                 src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1200&q=80"
-                alt="Equipo de ingenieros"
+                alt={content.about.imageAlt}
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -62,25 +65,22 @@ export function About() {
               className="text-[11px] font-semibold uppercase tracking-[0.22em]"
               style={{ color: "var(--accent)" }}
             >
-              Quiénes somos
+              {content.about.overline}
             </motion.p>
             <motion.h2
               variants={itemVariants}
               className="mt-3 font-display font-bold leading-[1.1] text-foreground"
               style={{ fontSize: "clamp(28px, 4vw, 52px)" }}
             >
-              Ingeniería de <span className="text-gradient">vanguardia</span> para el desarrollo del
-              Perú
+              {content.about.titlePrefix}
+              <span className="text-gradient">{content.about.titleHighlight}</span>
+              {content.about.titleSuffix}
             </motion.h2>
             <motion.p
               variants={itemVariants}
               className="mt-5 max-w-2xl text-[17px] leading-[1.7] text-muted-foreground"
             >
-              Hanan Ingeniería se especializa en el diseño de infraestructura minera, geotecnia,
-              hidráulica, hidrología y gestión ambiental. Desarrollamos soluciones integrales e
-              innovadoras que responden con precisión a los retos de la construcción y la minería en
-              el Perú, asegurando altos estándares de seguridad, calidad y sostenibilidad, además
-              del estricto cumplimiento de plazos y normativas técnicas.
+              {content.about.body}
             </motion.p>
 
             <motion.div
@@ -92,11 +92,10 @@ export function About() {
                   <div className="icon-tile !h-10 !w-10">
                     <Target size={18} />
                   </div>
-                  <h3 className="font-display text-[18px] font-bold">Misión</h3>
+                  <h3 className="font-display text-[18px] font-bold">{content.about.missionTitle}</h3>
                 </div>
                 <p className="mt-4 text-[14px] leading-[1.65] text-muted-foreground">
-                  Soluciones técnicas e innovadoras a desafíos constructivos, con uso eficiente de
-                  recursos y cumplimiento de plazos sin afectar la calidad.
+                  {content.about.missionBody}
                 </p>
               </div>
               <div className="card-base !p-6">
@@ -104,25 +103,28 @@ export function About() {
                   <div className="icon-tile !h-10 !w-10">
                     <Eye size={18} />
                   </div>
-                  <h3 className="font-display text-[18px] font-bold">Visión</h3>
+                  <h3 className="font-display text-[18px] font-bold">{content.about.visionTitle}</h3>
                 </div>
                 <p className="mt-4 text-[14px] leading-[1.65] text-muted-foreground">
-                  Ser líderes en soluciones innovadoras y sostenibles para construcción y minería en
-                  el Perú, transformando desafíos en oportunidades de desarrollo.
+                  {content.about.visionBody}
                 </p>
               </div>
             </motion.div>
 
             <motion.div variants={itemVariants} className="mt-8 flex flex-wrap gap-3">
-              {VALUES.map(({ Icon, label }) => (
-                <div
-                  key={label}
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-[color:var(--surface)] px-4 py-2 text-[13px] font-medium text-foreground"
-                >
-                  <Icon size={14} style={{ color: "var(--accent)" }} />
-                  {label}
-                </div>
-              ))}
+              {content.about.values.map(({ id, label }) => {
+                const Icon = VALUE_ICONS[id];
+
+                return (
+                  <div
+                    key={label}
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-[color:var(--surface)] px-4 py-2 text-[13px] font-medium text-foreground"
+                  >
+                    <Icon size={14} style={{ color: "var(--accent)" }} />
+                    {label}
+                  </div>
+                );
+              })}
             </motion.div>
           </motion.div>
         </div>

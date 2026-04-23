@@ -1,6 +1,4 @@
 export const MAP_SECTION_ID = "ubicacion";
-export const MAP_LABEL = "Av. Circunvalación 12, piso 3";
-export const MAP_SUBLABEL = "Abancay 03001, Perú";
 export const MAP_COORDS = "-13.63986037360912,-72.88881202309943";
 
 export const MAP_EMBED_SRC =

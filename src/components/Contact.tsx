@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { MapPin, Phone, Mail, Send, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/lib/language";
 import { Section, SectionHeading, containerVariants, itemVariants } from "./Section";
 
-const SERVICE_OPTIONS = ["Geotecnia", "Hidrología", "Hidrogeología", "Ambiental"];
+const CONTACT_ICONS = {
+  office: MapPin,
+  phone: Phone,
+  email: Mail,
+} as const;
 
 export function Contact() {
+  const { content } = useLanguage();
   const [sent, setSent] = useState(false);
 
   return (
@@ -13,13 +19,15 @@ export function Contact() {
       <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:items-start">
         <div className="lg:col-span-5">
           <SectionHeading
-            overline="Contacto"
+            overline={content.contact.overline}
             title={
               <>
-                Hablemos de tu <span className="text-gradient">próximo proyecto</span>.
+                {content.contact.titlePrefix}
+                <span className="text-gradient">{content.contact.titleHighlight}</span>
+                {content.contact.titleSuffix}
               </>
             }
-            subtitle="Cuéntanos sobre tu proyecto y nuestro equipo técnico responderá con una propuesta a la medida en menos de 48 horas."
+            subtitle={content.contact.subtitle}
           />
 
           <motion.div
@@ -29,45 +37,34 @@ export function Contact() {
             viewport={{ once: true, margin: "-80px" }}
             className="mt-10 space-y-4"
           >
-            {[
-              {
-                Icon: MapPin,
-                title: "Oficina principal",
-                lines: ["Av. Circunvalación 12M, Piso 3", "Abancay · Apurímac · Perú"],
-              },
-              {
-                Icon: Phone,
-                title: "Teléfono",
-                lines: ["+51 000 000 000", "Lun – Vie · 8:00 – 18:00"],
-              },
-              {
-                Icon: Mail,
-                title: "Correo",
-                lines: ["informes@hananingenieria.com"],
-              },
-            ].map(({ Icon, title, lines }, i) => (
-              <motion.div
-                key={i}
-                variants={itemVariants}
-                className="flex items-start gap-4 rounded-[var(--radius-card)] border border-border bg-[color:var(--surface)] p-5"
-              >
-                <div className="icon-tile">
-                  <Icon size={18} strokeWidth={1.6} />
-                </div>
-                <div>
-                  <div className="font-display text-[15px] font-bold text-foreground">{title}</div>
-                  {lines.map((l, j) => (
-                    <div key={j} className="mt-1 text-[13px] text-muted-foreground">
-                      {l}
+            {content.contact.cards.map(({ id, title, lines }, i) => {
+              const Icon = CONTACT_ICONS[id];
+
+              return (
+                <motion.div
+                  key={i}
+                  variants={itemVariants}
+                  className="flex items-start gap-4 rounded-[var(--radius-card)] border border-border bg-[color:var(--surface)] p-5"
+                >
+                  <div className="icon-tile">
+                    <Icon size={18} strokeWidth={1.6} />
+                  </div>
+                  <div>
+                    <div className="font-display text-[15px] font-bold text-foreground">
+                      {title}
                     </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+                    {lines.map((line, index) => (
+                      <div key={index} className="mt-1 text-[13px] text-muted-foreground">
+                        {line}
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
 
-        {/* Form */}
         <div className="lg:col-span-7">
           <motion.form
             variants={containerVariants}
@@ -84,10 +81,10 @@ export function Contact() {
             <motion.div variants={itemVariants} className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--accent)]">
-                  Solicitud técnica
+                  {content.contact.form.overline}
                 </p>
                 <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
-                  Comparte los datos clave y te respondemos con una propuesta técnica clara.
+                  {content.contact.form.intro}
                 </p>
               </div>
               <div className="hidden h-12 w-12 items-center justify-center rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--surface)] text-[color:var(--accent)] md:flex">
@@ -96,59 +93,62 @@ export function Contact() {
             </motion.div>
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <FieldWrap fieldId="contact-name" label="Nombre completo" required>
+              <FieldWrap fieldId="contact-name" label={content.contact.form.nameLabel} required>
                 <input
                   type="text"
                   id="contact-name"
                   required
-                  placeholder="Tu nombre"
+                  placeholder={content.contact.form.namePlaceholder}
                   className="contact-input"
                 />
               </FieldWrap>
-              <FieldWrap fieldId="contact-company" label="Empresa / Institución">
+              <FieldWrap fieldId="contact-company" label={content.contact.form.companyLabel}>
                 <input
                   type="text"
                   id="contact-company"
-                  placeholder="Tu empresa"
+                  placeholder={content.contact.form.companyPlaceholder}
                   className="contact-input"
                 />
               </FieldWrap>
-              <FieldWrap fieldId="contact-email" label="Correo" required>
+              <FieldWrap fieldId="contact-email" label={content.contact.form.emailLabel} required>
                 <input
                   type="email"
                   id="contact-email"
                   required
-                  placeholder="tu@correo.com"
+                  placeholder={content.contact.form.emailPlaceholder}
                   className="contact-input"
                 />
               </FieldWrap>
-              <FieldWrap fieldId="contact-phone" label="Teléfono">
-                <input type="tel" id="contact-phone" placeholder="+51" className="contact-input" />
+              <FieldWrap fieldId="contact-phone" label={content.contact.form.phoneLabel}>
+                <input
+                  type="tel"
+                  id="contact-phone"
+                  placeholder={content.contact.form.phonePlaceholder}
+                  className="contact-input"
+                />
               </FieldWrap>
             </div>
 
-            <FieldWrap label="Servicio de interés" required>
+            <FieldWrap label={content.contact.form.serviceLabel} required>
               <div className="flex flex-wrap gap-2">
-                {SERVICE_OPTIONS.map((s) => (
-                  <ServiceChip key={s} label={s} />
+                {content.contact.serviceOptions.map((option) => (
+                  <ServiceChip key={option} label={option} />
                 ))}
               </div>
             </FieldWrap>
 
-            <FieldWrap fieldId="contact-message" label="Cuéntanos sobre tu proyecto" required>
+            <FieldWrap fieldId="contact-message" label={content.contact.form.messageLabel} required>
               <textarea
                 id="contact-message"
                 required
                 rows={5}
-                placeholder="Alcance, ubicación, plazos esperados..."
+                placeholder={content.contact.form.messagePlaceholder}
                 className="contact-input min-h-[160px] resize-none"
               />
             </FieldWrap>
 
             <div className="flex flex-col items-stretch justify-between gap-4 border-t border-[color:var(--color-border)] pt-5 sm:flex-row sm:items-center">
-              <p className="text-[12px] text-muted-foreground">
-                Al enviar aceptas nuestra política de privacidad. No compartimos tus datos.
-              </p>
+              <p className="text-[12px] text-muted-foreground">{content.contact.form.privacy}</p>
               <motion.button
                 type="submit"
                 whileHover={{ scale: 1.02 }}
@@ -158,11 +158,11 @@ export function Contact() {
                 {sent ? (
                   <>
                     <CheckCircle2 size={16} />
-                    Enviado
+                    {content.contact.form.sent}
                   </>
                 ) : (
                   <>
-                    Enviar solicitud
+                    {content.contact.form.submit}
                     <Send size={16} />
                   </>
                 )}
@@ -210,7 +210,7 @@ function ServiceChip({ label }: { label: string }) {
   return (
     <button
       type="button"
-      onClick={() => setOn((v) => !v)}
+      onClick={() => setOn((value) => !value)}
       data-active={on ? "true" : "false"}
       className="contact-chip"
     >

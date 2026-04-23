@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/language";
 import { Logo } from "./Logo";
 
 const STAGE_PROGRESS = {
@@ -8,16 +9,8 @@ const STAGE_PROGRESS = {
   out: 1,
 } as const;
 
-const STAGE_LABEL = {
-  survey: "Levantando datos del frente",
-  lock: "Consolidando sistema técnico",
-  out: "Listo para desplegar",
-} as const;
-
-const PHASES = ["Levantamiento", "Análisis", "Despliegue"] as const;
-const DISCIPLINES = ["Geotecnia", "Hidrología", "Ambiental"] as const;
-
 export function Preloader() {
+  const { content } = useLanguage();
   const [stage, setStage] = useState<"survey" | "lock" | "out" | "gone">("survey");
 
   useEffect(() => {
@@ -28,7 +21,7 @@ export function Preloader() {
   }, []);
 
   const progress = stage === "gone" ? 1 : STAGE_PROGRESS[stage];
-  const statusLabel = stage === "gone" ? STAGE_LABEL.out : STAGE_LABEL[stage];
+  const statusLabel = stage === "gone" ? content.preloader.stageLabel.out : content.preloader.stageLabel[stage];
 
   return (
     <AnimatePresence>
@@ -80,9 +73,13 @@ export function Preloader() {
                 <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
 
                 <div className="relative flex items-center justify-between gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/38">
-                  <span>Abancay, Perú</span>
+                  <span>{content.preloader.location}</span>
                   <span>
-                    {stage === "survey" ? "Site Scan" : stage === "lock" ? "Data Lock" : "Ready"}
+                    {stage === "survey"
+                      ? content.preloader.topStatus.survey
+                      : stage === "lock"
+                        ? content.preloader.topStatus.lock
+                        : content.preloader.topStatus.out}
                   </span>
                 </div>
 
@@ -106,7 +103,7 @@ export function Preloader() {
                 </motion.p>
 
                 <div className="relative mt-6 flex flex-wrap items-center justify-center gap-2">
-                  {DISCIPLINES.map((item, index) => (
+                  {content.preloader.disciplines.map((item, index) => (
                     <motion.span
                       key={item}
                       initial={{ opacity: 0, y: 8 }}
@@ -121,7 +118,7 @@ export function Preloader() {
 
                 <div className="relative mt-7 space-y-3">
                   <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.28em] text-white/34">
-                    <span>Preparando sistema</span>
+                    <span>{content.preloader.progressLabel}</span>
                     <span>{Math.round(progress * 100)}%</span>
                   </div>
 
@@ -144,7 +141,7 @@ export function Preloader() {
                   </div>
 
                   <div className="grid grid-cols-3 gap-2">
-                    {PHASES.map((label, index) => {
+                    {content.preloader.phases.map((label, index) => {
                       const active =
                         (stage === "survey" && index === 0) ||
                         (stage === "lock" && index <= 1) ||
@@ -175,7 +172,7 @@ export function Preloader() {
                 transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
                 className="pointer-events-none absolute -left-4 top-14 hidden rounded-full border border-amber/30 bg-amber/10 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-amber/80 sm:block"
               >
-                Frente 01
+                {content.preloader.frontTag}
               </motion.div>
 
               <motion.div
@@ -183,7 +180,7 @@ export function Preloader() {
                 transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
                 className="pointer-events-none absolute -right-4 bottom-16 hidden rounded-full border border-white/10 bg-white/[0.05] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/55 sm:block"
               >
-                Sistema listo
+                {content.preloader.readyTag}
               </motion.div>
             </div>
           </div>

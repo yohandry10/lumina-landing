@@ -6,18 +6,27 @@ import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 
 const links = [
-  { href: "#inicio", key: "nav.home" },
-  { href: "#nosotros", key: "nav.about" },
-  { href: "#servicios", key: "nav.services" },
-  { href: "#proyectos", key: "nav.projects" },
-  { href: "#contacto", key: "nav.contact" },
-];
+  { href: "#inicio", id: "home" },
+  { href: "#nosotros", id: "about" },
+  { href: "#servicios", id: "services" },
+  { href: "#proyectos", id: "projects" },
+  { href: "/prensa", id: "press" },
+  { href: "#contacto", id: "contact" },
+] as const;
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { lang, setLang, t } = useLanguage();
+  const { lang, setLang, content } = useLanguage();
   const headerHeightClass = "h-[82px] sm:h-[88px]";
+  const navLabels = {
+    home: content.nav.home,
+    about: content.nav.about,
+    services: content.nav.services,
+    projects: content.nav.projects,
+    press: content.nav.press,
+    contact: content.nav.contact,
+  } as const;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -74,24 +83,29 @@ export function Navbar() {
                 className="group relative text-[14px] font-semibold transition-colors"
                 style={{ color: solid ? "var(--navy)" : "rgba(255,255,255,0.94)" }}
               >
-                {t(l.key)}
+                {navLabels[l.id]}
                 <span className="absolute -bottom-1 left-0 h-[2px] w-full origin-left scale-x-0 bg-amber transition-transform duration-200 group-hover:scale-x-100" />
               </a>
             ))}
           </nav>
 
           <div className="flex items-center gap-3">
-            <LangToggle lang={lang} setLang={setLang} solid={solid} />
+            <LangToggle
+              lang={lang}
+              setLang={setLang}
+              solid={solid}
+              ariaLabel={content.nav.languageSelector}
+            />
             <a
               href="#contacto"
               className="hidden rounded-full bg-amber px-5 py-2.5 text-[13px] font-semibold text-white shadow-sm transition-all hover:bg-amber-dark hover:shadow-md md:inline-flex"
             >
-              {t("nav.cta")}
+              {content.nav.cta}
             </a>
             <button
               className="group relative z-[110] flex h-12 w-12 items-center justify-center rounded-full border bg-white/10 backdrop-blur-md transition-all lg:hidden"
               onClick={() => setOpen((v) => !v)}
-              aria-label="Menu"
+              aria-label={content.nav.menuLabel}
               aria-expanded={open}
               style={{
                 borderColor: open
@@ -187,7 +201,7 @@ export function Navbar() {
                       <div className="h-[1px] w-6 bg-white/10 transition-all group-hover:w-12 group-hover:bg-amber" />
                     </div>
                     <span className="font-display text-[44px] font-bold leading-tight tracking-tight text-white transition-all group-hover:translate-x-2 sm:text-[52px]">
-                      {t(l.key)}
+                      {navLabels[l.id]}
                     </span>
                   </motion.a>
                 ))}
@@ -203,26 +217,27 @@ export function Navbar() {
                   <div className="flex flex-col gap-3">
                     <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
                       <span className="h-1.5 w-1.5 rounded-full bg-amber" />
-                      {lang === "es" ? "Sede Central" : "Headquarters"}
+                      {content.nav.mobileLocationLabel}
                     </p>
                     <p className="text-[13px] font-medium leading-relaxed text-white/70">
-                      Miraflores, Lima
+                      {content.nav.mobileLocationCity}
                       <br />
-                      Perú
+                      {content.nav.mobileLocationCountry}
                     </p>
                   </div>
                   <div className="flex flex-col gap-4">
                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
-                      {lang === "es" ? "Conecta" : "Connect"}
+                      {content.nav.mobileConnect}
                     </p>
                     <div className="flex gap-4">
-                      {["LinkedIn", "Instagram"].map((social) => (
+                      {content.nav.mobileSocials.map((social) => (
                         <a
-                          key={social}
+                          key={social.label}
                           href="#"
+                          aria-label={social.label}
                           className="text-[12px] font-bold text-white/50 transition-colors hover:text-amber"
                         >
-                          {social === "LinkedIn" ? "LI" : "IN"}
+                          {social.short}
                         </a>
                       ))}
                     </div>
@@ -236,7 +251,7 @@ export function Navbar() {
                 >
                   <div className="absolute inset-0 translate-y-full bg-gradient-to-t from-black/20 to-transparent transition-transform duration-300 group-hover:translate-y-0" />
                   <span className="relative z-10 font-display text-[18px] font-bold">
-                    {t("nav.cta")}
+                    {content.nav.cta}
                   </span>
                   <div className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-md transition-transform duration-300 group-hover:translate-x-2">
                     <ArrowRight size={18} />
@@ -255,10 +270,12 @@ function LangToggle({
   lang,
   setLang,
   solid,
+  ariaLabel,
 }: {
   lang: Lang;
   setLang: (l: Lang) => void;
   solid: boolean;
+  ariaLabel: string;
 }) {
   return (
     <div
@@ -272,7 +289,7 @@ function LangToggle({
           ? "0 8px 18px -16px rgba(24, 36, 58, 0.34)"
           : "inset 0 0 0 1px rgba(255,255,255,0.03)",
       }}
-      aria-label="Language selector"
+      aria-label={ariaLabel}
     >
       {(["es", "en"] as Lang[]).map((l) => (
         <button

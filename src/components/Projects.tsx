@@ -1,48 +1,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
+import { useLanguage } from "@/lib/language";
 import { Section, SectionHeading } from "./Section";
 
-const PROJECTS = [
-  {
-    title: "Diseño de relavera — Mina Sur",
-    location: "Apurímac",
-    sector: "Minería",
-    img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Análisis de estabilidad de presa",
-    location: "Cusco",
-    sector: "Geotecnia",
-    img: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Modelamiento hidráulico fluvial",
-    location: "Apurímac",
-    sector: "Hidrología",
-    img: "https://images.unsplash.com/photo-1437482078695-73f5ca6c96e2?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Supervisión de obra vial",
-    location: "Andahuaylas",
-    sector: "Construcción",
-    img: "https://images.unsplash.com/photo-1541976590-713941681591?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Catastro y fotogrametría",
-    location: "Abancay",
-    sector: "Geográfica",
-    img: "https://images.unsplash.com/photo-1473773508845-188df298d2d1?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Estudio hidrogeológico",
-    location: "Ayacucho",
-    sector: "Hidrogeología",
-    img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
-  },
-];
-
 export function Projects() {
+  const { content } = useLanguage();
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
@@ -75,21 +38,21 @@ export function Projects() {
     <Section id="proyectos" className="!pb-16 md:!pb-24">
       <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <SectionHeading
-          overline="Proyectos"
-          title="Trabajos realizados"
-          subtitle="Selección de proyectos donde nuestro equipo aportó conocimiento técnico, innovación y rigor para resolver desafíos complejos."
+          overline={content.projects.overline}
+          title={content.projects.title}
+          subtitle={content.projects.subtitle}
         />
         <div className="flex gap-2">
           <button
             onClick={() => scrollBy(-1)}
-            aria-label="Anterior"
+            aria-label={content.projects.previousAria}
             className="grid h-11 w-11 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/50 hover:text-foreground"
           >
             <ArrowLeft size={16} />
           </button>
           <button
             onClick={() => scrollBy(1)}
-            aria-label="Siguiente"
+            aria-label={content.projects.nextAria}
             className="grid h-11 w-11 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/50 hover:text-foreground"
           >
             <ArrowRight size={16} />
@@ -103,7 +66,7 @@ export function Projects() {
           className="scrollbar-none flex w-full snap-x snap-mandatory gap-6 overflow-x-auto px-6 md:px-[6vw]"
           style={{ scrollSnapType: "x mandatory", cursor: "grab" }}
         >
-          {PROJECTS.map((p, i) => (
+          {content.projects.items.map((p, i) => (
             <motion.article
               key={i}
               initial={{ opacity: 0, y: 30 }}
@@ -155,7 +118,7 @@ export function Projects() {
                   className="mt-5 inline-flex items-center gap-2 text-[13px] font-medium transition-colors"
                   style={{ color: "var(--accent)" }}
                 >
-                  Ver caso de estudio
+                  {content.projects.caseStudyCta}
                   <ArrowRight size={14} />
                 </a>
               </div>
@@ -166,7 +129,7 @@ export function Projects() {
 
         {/* Dots */}
         <div className="mt-8 flex justify-center gap-2">
-          {PROJECTS.map((_, i) => (
+          {content.projects.items.map((_, i) => (
             <motion.button
               key={i}
               onClick={() => {
@@ -184,7 +147,7 @@ export function Projects() {
               style={{
                 background: i === active ? "var(--gradient-accent)" : "var(--muted-foreground)",
               }}
-              aria-label={`Ir al proyecto ${i + 1}`}
+              aria-label={`${content.projects.dotAriaPrefix} ${i + 1}`}
             />
           ))}
         </div>

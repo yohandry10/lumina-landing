@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/lib/language";
 
 export function ParallaxBand() {
+  const { content } = useLanguage();
+
   return (
     <section className="relative h-[480px] w-full overflow-hidden">
       {/* Image */}
@@ -64,8 +67,9 @@ export function ParallaxBand() {
           className="mt-6 max-w-3xl font-display font-bold leading-[1.1] text-white"
           style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
         >
-          ¿Listo para llevar tu proyecto al{" "}
-          <span className="text-gradient">siguiente nivel</span>?
+          {content.parallax.titlePrefix}
+          <span className="text-gradient">{content.parallax.titleHighlight}</span>
+          {content.parallax.titleSuffix}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -74,8 +78,7 @@ export function ParallaxBand() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mt-4 max-w-xl text-[18px] leading-[1.7] text-white/76"
         >
-          Conversemos sobre cómo podemos aportar ingeniería de excelencia,
-          presupuesto acorde a tu perfil y compromiso con los plazos.
+          {content.parallax.subtitle}
         </motion.p>
         <motion.a
           initial={{ opacity: 0, y: 20 }}
@@ -85,7 +88,7 @@ export function ParallaxBand() {
           href="#contacto"
           className="btn-pill btn-primary group mt-8 !px-9 !py-4 !text-[16px]"
         >
-          Solicitar cotización
+          {content.parallax.cta}
           <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
         </motion.a>
       </div>

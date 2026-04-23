@@ -13,9 +13,9 @@ const SLIDE_DURATION_MS = 20000;
 const cinematicEase = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
-  const { t } = useLanguage();
+  const { content } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
-  const titleWords1 = t("hero.title.1").split(" ");
+  const titleWords1 = content.hero.titleLine1.split(" ");
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export function Hero() {
               textShadow: "0 1px 2px rgba(0,0,0,0.35)",
             }}
           >
-            {t("hero.eyebrow")}
+            {content.hero.eyebrow}
           </motion.div>
 
           <h1
@@ -123,7 +123,7 @@ export function Hero() {
                 className="mr-[0.2em] inline-block text-amber"
                 style={{ textShadow: "none" }}
               >
-                {t("hero.title.2a")}
+                {content.hero.titleHighlight}
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
@@ -131,7 +131,7 @@ export function Hero() {
                 transition={{ delay: 0.6, duration: 0.5 }}
                 className="inline-block text-white"
               >
-                {t("hero.title.2b")}
+                {content.hero.titleLine2}
               </motion.span>
             </span>
           </h1>
@@ -142,7 +142,7 @@ export function Hero() {
             transition={{ delay: 0.7, duration: 0.6 }}
             className="mt-7 max-w-[700px] text-[17px] leading-[1.8] text-white/78 md:text-[18px]"
           >
-            {t("hero.subtitle")}
+            {content.hero.subtitle}
           </motion.p>
 
           <motion.div
@@ -158,7 +158,7 @@ export function Hero() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="inline-flex items-center gap-2 rounded-full bg-amber px-7 py-3.5 text-[15px] font-semibold text-white shadow-amber-glow"
             >
-              {t("hero.cta.services")}
+              {content.hero.ctaServices}
               <ArrowRight size={16} />
             </motion.a>
 
@@ -170,7 +170,7 @@ export function Hero() {
               className="inline-flex items-center rounded-full border border-white/45 px-7 py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-white/10"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.04)" }}
             >
-              {t("hero.cta.contact")}
+              {content.hero.ctaContact}
             </motion.a>
           </motion.div>
         </div>
@@ -183,7 +183,7 @@ export function Hero() {
         className="absolute bottom-[7.5rem] left-1/2 z-10 -translate-x-1/2 text-center text-white/60"
       >
         <div className="text-[11px] font-medium uppercase tracking-[0.28em]">
-          {t("hero.scroll")}
+          {content.hero.scroll}
         </div>
         <motion.div
           animate={{ y: [0, 6, 0] }}
