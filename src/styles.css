@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Hanan Ingeniería — Design System
+ * Hanan Ingeniería — Design Framework
  * Premium engineering, mining & construction firm.
  * Aesthetic: dark editorial, industrial precision, glass + accent gradients.
  */
@@ -74,7 +74,7 @@
   --popover: var(--surface);
   --popover-foreground: var(--foreground);
 
-  /* Accent: hero orange system */
+  /* Accent: hero orange scheme */
   --accent: #e7921e;
   --accent-foreground: oklch(1 0 0);
   --accent-2: #cf7f15;

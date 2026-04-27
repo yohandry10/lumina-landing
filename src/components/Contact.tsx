@@ -16,8 +16,8 @@ export function Contact() {
 
   return (
     <Section id="contacto" className="bg-[color:var(--deep)]">
-      <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:items-start">
-        <div className="lg:col-span-5">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-stretch">
+        <div>
           <SectionHeading
             overline={content.contact.overline}
             title={
@@ -65,7 +65,7 @@ export function Contact() {
           </motion.div>
         </div>
 
-        <div className="lg:col-span-7">
+        <div>
           <motion.form
             variants={containerVariants}
             initial="hidden"
@@ -76,23 +76,23 @@ export function Contact() {
               setSent(true);
               setTimeout(() => setSent(false), 4000);
             }}
-            className="glass-panel space-y-6 p-6 md:p-8"
+            className="contact-form glass-panel h-full space-y-3 p-4 md:p-5"
           >
             <motion.div variants={itemVariants} className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--accent)]">
                   {content.contact.form.overline}
                 </p>
-                <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
+                <p className="mt-2 max-w-md text-[13px] leading-relaxed text-muted-foreground">
                   {content.contact.form.intro}
                 </p>
               </div>
-              <div className="hidden h-12 w-12 items-center justify-center rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--surface)] text-[color:var(--accent)] md:flex">
+              <div className="hidden h-10 w-10 items-center justify-center rounded-xl border border-[color:var(--color-border)] bg-[color:var(--surface)] text-[color:var(--accent)] md:flex">
                 <Send size={18} strokeWidth={1.7} />
               </div>
             </motion.div>
 
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <FieldWrap fieldId="contact-name" label={content.contact.form.nameLabel} required>
                 <input
                   type="text"
@@ -130,7 +130,7 @@ export function Contact() {
             </div>
 
             <FieldWrap label={content.contact.form.serviceLabel} required>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1">
                 {content.contact.serviceOptions.map((option) => (
                   <ServiceChip key={option} label={option} />
                 ))}
@@ -141,13 +141,13 @@ export function Contact() {
               <textarea
                 id="contact-message"
                 required
-                rows={5}
+                rows={1}
                 placeholder={content.contact.form.messagePlaceholder}
-                className="contact-input min-h-[160px] resize-none"
+                className="contact-input min-h-[46px] resize-none"
               />
             </FieldWrap>
 
-            <div className="flex flex-col items-stretch justify-between gap-4 border-t border-[color:var(--color-border)] pt-5 sm:flex-row sm:items-center">
+            <div className="flex flex-col items-stretch justify-between gap-2 border-t border-[color:var(--color-border)] pt-3 sm:flex-row sm:items-center">
               <p className="text-[12px] text-muted-foreground">{content.contact.form.privacy}</p>
               <motion.button
                 type="submit"
@@ -200,7 +200,7 @@ function FieldWrap({
           {label} {required && <span style={{ color: "var(--accent)" }}>*</span>}
         </span>
       )}
-      <div className="mt-2">{children}</div>
+      <div className="mt-1.5">{children}</div>
     </motion.div>
   );
 }

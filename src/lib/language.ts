@@ -276,10 +276,10 @@ const siteContent: Record<Lang, SiteContent> = {
         {
           id: "civilHydraulic",
           title: "Diseño civil e hidráulico",
-          desc: "Diseño especializado para infraestructura minera, hidráulica y sistemas de disposición con enfoque técnico integral.",
+          desc: "Diseño especializado para infraestructura minera, hidráulica y depósitos de disposición con enfoque técnico integral.",
           bullets: [
             "Diseño de instalación de plantas de procesamiento",
-            "Diseño de sistemas de revestimiento con geosintéticos",
+            "Diseño de revestimientos con geosintéticos",
             "Diseño de instalaciones de disposición de relaves",
             "Diseño civil de infraestructura minera",
             "Manejo de materiales excedentes",
@@ -551,22 +551,22 @@ const siteContent: Record<Lang, SiteContent> = {
       terms: "Términos",
     },
     preloader: {
-      location: "Abancay, Perú",
+      location: "Ingeniería que construye, Perú",
       topStatus: {
-        survey: "Levantamiento",
-        lock: "Consolidación",
-        out: "Listo",
+        survey: "Topografía",
+        lock: "Geotecnia",
+        out: "Operación",
       },
       stageLabel: {
-        survey: "Levantando datos del frente",
-        lock: "Consolidando sistema técnico",
-        out: "Listo para desplegar",
+        survey: "Levantamiento topográfico en campo",
+        lock: "Evaluando estabilidad estructural",
+        out: "Inicio de operaciones",
       },
       disciplines: ["Geotecnia", "Hidrología", "Ambiental"],
-      progressLabel: "Preparando sistema",
-      phases: ["Levantamiento", "Análisis", "Despliegue"],
-      frontTag: "Frente 01",
-      readyTag: "Sistema listo",
+      progressLabel: "Cargando planos",
+      phases: ["Exploración", "Ingeniería", "Operación"],
+      frontTag: "Tajo 01",
+      readyTag: "Terreno listo",
     },
     press: {
       backHome: "Volver al inicio",
@@ -629,7 +629,7 @@ const siteContent: Record<Lang, SiteContent> = {
           title:
             "Hanan Ingeniería obtiene la certificación ISO 9001:2015 para sus servicios de consultoría en geotecnia e hidrología",
           summary:
-            "Tras un proceso de auditoría de seis meses, Hanan Ingeniería obtuvo la certificación ISO 9001:2015 en su sistema de gestión de calidad aplicado a los servicios de consultoría en geotecnia, hidrología e hidrogeología. La certificación valida los procesos internos de la empresa y refuerza su compromiso con la excelencia técnica y la mejora continua.",
+            "Tras un proceso de auditoría de seis meses, Hanan Ingeniería obtuvo la certificación ISO 9001:2015 en su modelo de gestión de calidad aplicado a los servicios de consultoría en geotecnia, hidrología e hidrogeología. La certificación valida los procesos internos de la empresa y refuerza su compromiso con la excelencia técnica y la mejora continua.",
           img: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
         },
       ],
@@ -684,10 +684,10 @@ const siteContent: Record<Lang, SiteContent> = {
         {
           id: "civilHydraulic",
           title: "Civil and hydraulic design",
-          desc: "Specialized design for mining infrastructure, hydraulic works and disposal systems with an integrated technical approach.",
+          desc: "Specialized design for mining infrastructure, hydraulic works and disposal facilities with an integrated technical approach.",
           bullets: [
             "Processing plant facility design",
-            "Geomembrane and geosynthetic lining system design",
+            "Geomembrane and geosynthetic lining design",
             "Tailings disposal facility design",
             "Civil design for mining infrastructure",
             "Excess material management",
@@ -959,22 +959,22 @@ const siteContent: Record<Lang, SiteContent> = {
       terms: "Terms",
     },
     preloader: {
-      location: "Abancay, Peru",
+      location: "Engineering that builds, Peru",
       topStatus: {
-        survey: "Site scan",
-        lock: "System lock",
-        out: "Ready",
+        survey: "Topography",
+        lock: "Geotechnics",
+        out: "Operation",
       },
       stageLabel: {
-        survey: "Collecting field data",
-        lock: "Consolidating technical system",
-        out: "Ready to deploy",
+        survey: "Field topographic survey",
+        lock: "Evaluating structural stability",
+        out: "Commencing operations",
       },
       disciplines: ["Geotechnics", "Hydrology", "Environmental"],
-      progressLabel: "Preparing system",
-      phases: ["Survey", "Analysis", "Deploy"],
-      frontTag: "Front 01",
-      readyTag: "System ready",
+      progressLabel: "Loading blueprints",
+      phases: ["Exploration", "Engineering", "Operation"],
+      frontTag: "Pit 01",
+      readyTag: "Site ready",
     },
     press: {
       backHome: "Back to home",
@@ -1037,7 +1037,7 @@ const siteContent: Record<Lang, SiteContent> = {
           title:
             "Hanan Ingeniería earns ISO 9001:2015 certification for its geotechnical and hydrology consulting services",
           summary:
-            "After a six-month audit process, Hanan Ingeniería obtained ISO 9001:2015 certification for its quality management system applied to geotechnical, hydrology and hydrogeology consulting services. The certification validates the company's internal processes and reinforces its commitment to technical excellence and continuous improvement.",
+            "After a six-month audit process, Hanan Ingeniería obtained ISO 9001:2015 certification for its quality management framework applied to geotechnical, hydrology and hydrogeology consulting services. The certification validates the company's internal processes and reinforces its commitment to technical excellence and continuous improvement.",
           img: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
         },
       ],
