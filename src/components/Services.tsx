@@ -26,7 +26,7 @@ const SERVICE_ICONS = {
   environmentalEngineering: Leaf,
 } as const;
 
-const MIN_VISIBLE_SERVICES = 4;
+const MIN_VISIBLE_SERVICES = 2;
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 24, scale: 0.97 },
@@ -59,7 +59,7 @@ export function Services() {
         subtitle={content.services.subtitle}
       />
 
-      <motion.div layout className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <motion.div layout className="mt-16 flex flex-col gap-6">
         <AnimatePresence initial={false}>
           {visibleServices.map(({ id, title, desc, bullets }, i) => {
             const Icon = SERVICE_ICONS[id];
@@ -72,66 +72,70 @@ export function Services() {
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                className="service-card group relative flex h-full flex-col overflow-hidden rounded-[16px] border border-border bg-surface p-7 transition-all duration-300"
-                whileHover={{
-                  y: -6,
-                  transition: { type: "spring", stiffness: 300, damping: 22 },
-                }}
+                className="group relative flex w-full flex-col overflow-hidden rounded-2xl sm:rounded-[24px] border border-border/50 bg-surface shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-border hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.08)] md:flex-row"
               >
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "linear-gradient(105deg, transparent 38%, color-mix(in oklab, var(--accent) 6%, transparent) 50%, transparent 62%)",
-                  }}
-                />
+                {/* Left Section: Info */}
+                <div className="relative flex w-full flex-col justify-between bg-surface-2/30 p-5 sm:p-8 md:w-[35%] lg:p-10">
+                  <div
+                    className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 0% 0%, color-mix(in oklab, var(--accent) 4%, transparent) 0%, transparent 70%)",
+                    }}
+                  />
 
-                <span
-                  className="absolute right-5 top-5 font-display text-[11px] font-bold tabular-nums opacity-30"
-                  style={{ color: "var(--accent)" }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                  <div className="relative z-10">
+                    <div
+                      className="flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl shadow-sm transition-transform duration-500 group-hover:scale-110"
+                      style={{
+                        background: "color-mix(in oklab, var(--accent) 10%, transparent)",
+                        color: "var(--accent)",
+                      }}
+                    >
+                      <Icon className="h-5 w-5 sm:h-[26px] sm:w-[26px]" strokeWidth={1.5} />
+                    </div>
 
-                <div
-                  className="flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    background: "color-mix(in oklab, var(--accent) 8%, transparent)",
-                    borderColor: "color-mix(in oklab, var(--accent) 18%, transparent)",
-                    color: "var(--accent)",
-                  }}
-                >
-                  <Icon size={22} strokeWidth={1.6} />
+                    <h3 className="mt-5 sm:mt-8 font-display text-[18px] sm:text-[22px] font-bold leading-tight text-foreground transition-colors group-hover:text-accent">
+                      {title}
+                    </h3>
+                    <p className="mt-3 sm:mt-4 text-[13.5px] sm:text-[14.5px] leading-relaxed text-muted-foreground">
+                      {desc}
+                    </p>
+                  </div>
+
+                  <span
+                    className="absolute right-4 top-4 sm:right-6 sm:top-6 font-display text-[32px] sm:text-[48px] font-black tracking-tighter opacity-[0.03] transition-all duration-500 group-hover:scale-110 group-hover:opacity-[0.08]"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
 
-                <h3 className="mt-5 font-display text-[18px] font-bold leading-snug text-foreground">
-                  {title}
-                </h3>
-                <p className="mt-2.5 flex-1 text-[13.5px] leading-[1.7] text-muted-foreground">
-                  {desc}
-                </p>
-
-                <ul className="mt-5 space-y-2.5 border-t border-border pt-5">
-                  {bullets.map((bullet) => (
-                    <li
-                      key={bullet}
-                      className="flex items-center gap-2.5 text-[13px] text-muted-foreground"
-                    >
-                      <span
-                        className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full"
-                        style={{
-                          background: "color-mix(in oklab, var(--accent) 10%, transparent)",
-                        }}
+                {/* Right Section: Bullets */}
+                <div className="flex w-full flex-col justify-center border-t border-border/50 p-5 sm:p-8 md:w-[65%] md:border-l md:border-t-0 lg:p-10">
+                  <ul className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                    {bullets.map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="flex items-start gap-2.5 sm:gap-3.5 text-[13px] sm:text-[14px] leading-relaxed text-muted-foreground transition-colors group-hover:text-foreground/90"
                       >
-                        <Check size={11} strokeWidth={2.5} style={{ color: "var(--accent)" }} />
-                      </span>
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                        <span
+                          className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
+                          style={{
+                            background: "color-mix(in oklab, var(--accent) 15%, transparent)",
+                          }}
+                        >
+                          <Check size={10} strokeWidth={3} style={{ color: "var(--accent)" }} />
+                        </span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
+                {/* Left accent line */}
                 <div
-                  className="absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-500 group-hover:w-full"
+                  className="absolute bottom-0 left-0 h-[4px] w-full transition-all duration-500 group-hover:h-[6px] md:h-full md:w-[4px] md:group-hover:h-full md:group-hover:w-[6px]"
                   style={{ background: "var(--gradient-accent)" }}
                 />
               </motion.article>

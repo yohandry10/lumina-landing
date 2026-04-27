@@ -79,7 +79,7 @@ export function Hero() {
         }}
       />
 
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 pb-40 pt-28 md:px-10 md:pb-44">
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-5 pb-24 pt-24 sm:px-6 md:px-10 md:pb-44 md:pt-28">
         <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -180,7 +180,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
-        className="absolute bottom-[7.5rem] left-1/2 z-10 -translate-x-1/2 text-center text-white/60"
+        className="absolute bottom-20 left-1/2 z-10 -translate-x-1/2 text-center text-white/60 md:bottom-[7.5rem]"
       >
         <div className="text-[11px] font-medium uppercase tracking-[0.28em]">
           {content.hero.scroll}

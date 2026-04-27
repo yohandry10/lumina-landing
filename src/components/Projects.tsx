@@ -60,7 +60,7 @@ export function Projects() {
         </div>
       </div>
 
-      <div className="-mx-6 mt-12 md:-mx-[calc((100vw-1200px)/2+24px)]">
+      <div className="-mx-6 mt-12 overflow-hidden md:-mx-[calc((100vw-1200px)/2+24px)]">
         <div
           ref={trackRef}
           className="scrollbar-none flex w-full snap-x snap-mandatory gap-6 overflow-x-auto px-6 md:px-[6vw]"
