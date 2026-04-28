@@ -24,14 +24,14 @@ const FOOTER_HOME_LINKS: Record<string, string> = {
   "Work with us": CONTACT_SECTION_HREF,
 };
 const FOOTER_SERVICE_LINKS: Record<string, string> = {
-  "Diseño civil e hidráulico": "/#servicios",
-  "Estudios hidrológicos": "/proyectos/modelamiento-hidraulico-fluvial",
-  Geotecnia: "/proyectos/analisis-estabilidad-presa",
-  "Ingeniería ambiental": "/#servicios",
-  "Civil and hydraulic design": "/#servicios",
-  "Hydrological studies": "/proyectos/modelamiento-hidraulico-fluvial",
-  Geotechnics: "/proyectos/analisis-estabilidad-presa",
-  "Environmental engineering": "/#servicios",
+  "Diseño civil e hidráulico": "/#servicio-diseno-civil-hidraulico",
+  "Estudios hidrológicos": "/#servicio-estudios-hidrologicos",
+  Geotecnia: "/#servicio-geotecnia",
+  "Ingeniería ambiental": "/#servicio-ingenieria-ambiental",
+  "Civil and hydraulic design": "/#servicio-diseno-civil-hidraulico",
+  "Hydrological studies": "/#servicio-estudios-hidrologicos",
+  Geotechnics: "/#servicio-geotecnia",
+  "Environmental engineering": "/#servicio-ingenieria-ambiental",
 };
 
 function getFooterHref(groupId: string, label: string) {

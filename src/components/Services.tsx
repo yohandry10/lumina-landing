@@ -25,6 +25,20 @@ const SERVICE_ICONS = {
   geographicEngineering: Map,
   environmentalEngineering: Leaf,
 } as const;
+type ServiceId = keyof typeof SERVICE_ICONS;
+
+const SERVICE_ANCHORS: Record<ServiceId, string> = {
+  civilHydraulic: "servicio-diseno-civil-hidraulico",
+  hydrologicalStudies: "servicio-estudios-hidrologicos",
+  geotechnics: "servicio-geotecnia",
+  generalWorks: "servicio-obras-servicios-generales",
+  hydrogeologicalStudies: "servicio-estudios-hidrogeologicos",
+  geographicEngineering: "servicio-ingenieria-geografica",
+  environmentalEngineering: "servicio-ingenieria-ambiental",
+};
+const SERVICE_IDS_BY_ANCHOR = Object.fromEntries(
+  Object.entries(SERVICE_ANCHORS).map(([id, anchor]) => [anchor, id]),
+) as Record<string, ServiceId>;
 
 const MIN_VISIBLE_SERVICES = 2;
 
@@ -50,6 +64,27 @@ export function Services() {
     update();
     mql.addEventListener("change", update);
     return () => mql.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    const openServiceFromHash = () => {
+      const anchor = window.location.hash.replace("#", "");
+      const serviceId = SERVICE_IDS_BY_ANCHOR[anchor];
+
+      if (!serviceId) return;
+
+      setExpanded(true);
+      setOpenCard(serviceId);
+
+      window.setTimeout(() => {
+        document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    };
+
+    openServiceFromHash();
+    window.addEventListener("hashchange", openServiceFromHash);
+
+    return () => window.removeEventListener("hashchange", openServiceFromHash);
   }, []);
 
   const visibleServices =
@@ -79,7 +114,11 @@ export function Services() {
           const isLast = i === visibleServices.length - 1;
 
           return (
-            <div key={id} className={!isLast ? "border-b border-border/40" : ""}>
+            <div
+              key={id}
+              id={isMobile ? SERVICE_ANCHORS[id] : undefined}
+              className={!isLast ? "scroll-mt-28 border-b border-border/40" : "scroll-mt-28"}
+            >
               <button
                 type="button"
                 onClick={() => setOpenCard(isOpen ? null : id)}
@@ -156,6 +195,7 @@ export function Services() {
               <motion.article
                 layout
                 key={title}
+                id={!isMobile ? SERVICE_ANCHORS[id] : undefined}
                 variants={cardVariants}
                 initial="hidden"
                 animate="visible"
