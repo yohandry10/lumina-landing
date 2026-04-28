@@ -172,13 +172,13 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -16, scale: 0.97, filter: "blur(8px)" }}
               transition={{ duration: 0.44, ease: [0.16, 1, 0.3, 1] }}
-              className={`fixed inset-x-4 ${menuTopClass} z-[90] flex max-h-[min(520px,calc(100dvh-122px))] flex-col overflow-hidden rounded-[24px] border border-white/70 bg-white shadow-[0_34px_90px_-44px_rgba(6,14,25,0.88)] lg:hidden`}
+              className={`fixed inset-x-3 bottom-3 ${menuTopClass} z-[90] flex flex-col overflow-hidden rounded-[24px] border border-white/70 bg-white shadow-[0_34px_90px_-44px_rgba(6,14,25,0.88)] lg:hidden`}
             >
               <div className="pointer-events-none absolute inset-x-5 top-0 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-amber to-transparent" />
               <div className="relative mx-auto mt-3 h-1 w-10 rounded-full bg-black/10" />
 
-              <div className="relative flex flex-1 flex-col overflow-y-auto px-4 pb-4 pt-3">
-                <nav className="flex flex-col gap-1">
+              <div className="relative flex flex-1 flex-col justify-between overflow-y-auto px-4 pb-4 pt-4">
+                <nav className="flex flex-col gap-2">
                 {links.map((l, i) => (
                   <motion.a
                     key={l.href}
@@ -192,7 +192,7 @@ export function Navbar() {
                       duration: 0.34,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="group flex items-center rounded-[18px] border border-transparent px-3 py-2.5 transition-all duration-300 active:scale-[0.98] active:border-amber/20 active:bg-amber/[0.07]"
+                    className="group flex items-center rounded-[18px] border border-transparent px-3 py-3 transition-all duration-300 active:scale-[0.98] active:border-amber/20 active:bg-amber/[0.07]"
                   >
                     <span
                       className="mr-3 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-black tabular-nums"
@@ -219,7 +219,7 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
                 transition={{ delay: 0.27, duration: 0.38, ease: "easeOut" }}
-                className="mt-3 flex flex-col gap-3 rounded-[20px] bg-navy/[0.035] p-2.5"
+                className="mt-8 flex flex-col gap-3 rounded-[20px] bg-navy/[0.035] p-2.5"
               >
                 <div className="flex items-center justify-between rounded-2xl border border-black/[0.05] bg-white px-3.5 py-2.5">
                   <div className="flex flex-col">
