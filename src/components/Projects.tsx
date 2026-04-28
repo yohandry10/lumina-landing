@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/language";
+import { projectCases } from "@/lib/projectCases";
 import { Section, SectionHeading } from "./Section";
 
 export function Projects() {
@@ -114,7 +115,7 @@ export function Projects() {
                   {p.location}
                 </div>
                 <a
-                  href="#contacto"
+                  href={`/proyectos/${projectCases[i]?.slug ?? ""}`}
                   className="mt-5 inline-flex items-center gap-2 text-[13px] font-medium transition-colors"
                   style={{ color: "var(--accent)" }}
                 >
