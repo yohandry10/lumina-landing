@@ -19,7 +19,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { lang, setLang, content } = useLanguage();
   const headerHeightClass = "h-[82px] sm:h-[88px]";
-  const menuTopClass = "top-[92px] sm:top-[98px]";
+  const menuTopClass = "top-[94px] sm:top-[100px]";
   const navLabels = {
     home: content.nav.home,
     about: content.nav.about,
@@ -162,38 +162,40 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[80] bg-navy/20 backdrop-blur-[2px] lg:hidden"
+              className="fixed inset-0 z-[80] bg-navy/45 backdrop-blur-[5px] lg:hidden"
             />
             <motion.div
               id="mobile-nav"
               role="dialog"
               aria-modal="true"
-              initial={{ opacity: 0, y: -18, scale: 0.97, filter: "blur(10px)" }}
+              initial={{ opacity: 0, y: -20, scale: 0.96, filter: "blur(10px)" }}
               animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -12, scale: 0.98, filter: "blur(8px)" }}
-              transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-              className={`fixed inset-x-3 ${menuTopClass} z-[90] flex max-h-[min(560px,calc(100dvh-112px))] flex-col overflow-hidden rounded-[22px] border border-black/[0.06] bg-white/95 shadow-[0_30px_80px_-42px_rgba(24,36,58,0.65)] backdrop-blur-xl lg:hidden`}
+              exit={{ opacity: 0, y: -16, scale: 0.97, filter: "blur(8px)" }}
+              transition={{ duration: 0.44, ease: [0.16, 1, 0.3, 1] }}
+              className={`fixed inset-x-4 ${menuTopClass} z-[90] flex max-h-[min(520px,calc(100dvh-122px))] flex-col overflow-hidden rounded-[24px] border border-white/70 bg-white shadow-[0_34px_90px_-44px_rgba(6,14,25,0.88)] lg:hidden`}
             >
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-amber to-transparent" />
+              <div className="pointer-events-none absolute inset-x-5 top-0 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-amber to-transparent" />
+              <div className="relative mx-auto mt-3 h-1 w-10 rounded-full bg-black/10" />
 
-              <div className="relative flex flex-1 flex-col overflow-y-auto px-4 pb-4 pt-4">
-                <nav className="flex flex-col gap-1.5">
+              <div className="relative flex flex-1 flex-col overflow-y-auto px-4 pb-4 pt-3">
+                <nav className="flex flex-col gap-1">
                 {links.map((l, i) => (
                   <motion.a
                     key={l.href}
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    initial={{ opacity: 0, x: -16, rotateX: -16 }}
-                    animate={{ opacity: 1, x: 0, rotateX: 0 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.98 }}
                     transition={{
-                      delay: 0.08 + i * 0.045,
-                      duration: 0.38,
+                      delay: 0.06 + i * 0.035,
+                      duration: 0.34,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="group flex items-center rounded-2xl border border-transparent px-3 py-3 transition-all duration-300 active:scale-[0.98] active:border-amber/20 active:bg-amber/[0.06]"
+                    className="group flex items-center rounded-[18px] border border-transparent px-3 py-2.5 transition-all duration-300 active:scale-[0.98] active:border-amber/20 active:bg-amber/[0.07]"
                   >
                     <span
-                      className="mr-3 flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-black tabular-nums"
+                      className="mr-3 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-black tabular-nums"
                       style={{
                         background: "color-mix(in oklab, var(--accent) 10%, white)",
                         color: "var(--accent)",
@@ -201,7 +203,7 @@ export function Navbar() {
                     >
                       {i + 1}
                     </span>
-                    <span className="flex-1 text-[16px] font-semibold tracking-tight text-foreground transition-colors group-active:text-accent">
+                    <span className="flex-1 text-[15px] font-semibold tracking-tight text-foreground transition-colors group-active:text-accent">
                       {navLabels[l.id]}
                     </span>
                     <ArrowRight
@@ -215,15 +217,16 @@ export function Navbar() {
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.34, duration: 0.42, ease: "easeOut" }}
-                className="mt-4 flex flex-col gap-3"
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ delay: 0.27, duration: 0.38, ease: "easeOut" }}
+                className="mt-3 flex flex-col gap-3 rounded-[20px] bg-navy/[0.035] p-2.5"
               >
-                <div className="flex items-center justify-between rounded-2xl border border-black/[0.05] bg-black/[0.018] px-4 py-3">
+                <div className="flex items-center justify-between rounded-2xl border border-black/[0.05] bg-white px-3.5 py-2.5">
                   <div className="flex flex-col">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-foreground/35">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-foreground/35">
                       {content.nav.mobileLocationLabel}
                     </p>
-                    <p className="text-[13px] font-medium text-foreground/70">
+                    <p className="text-[12px] font-semibold text-foreground/70">
                       {content.nav.mobileLocationCity}, {content.nav.mobileLocationCountry}
                     </p>
                   </div>
@@ -244,7 +247,7 @@ export function Navbar() {
                 <a
                   href="#contacto"
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-white transition-all duration-300 active:scale-[0.99] hover:shadow-[0_12px_28px_-8px_rgba(231,146,30,0.5)]"
+                  className="flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-white shadow-[0_16px_34px_-20px_rgba(231,146,30,0.9)] transition-all duration-300 active:scale-[0.99] hover:shadow-[0_12px_28px_-8px_rgba(231,146,30,0.5)]"
                   style={{ background: "var(--gradient-accent)" }}
                 >
                   <span className="text-[14px] font-bold">
