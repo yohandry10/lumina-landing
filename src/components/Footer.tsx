@@ -11,10 +11,35 @@ const MAP_ACTIONS = [
   { id: "waze", href: WAZE_URL, icon: "/waze.svg" },
 ] as const;
 const CONTACT_SECTION_HREF = "/#contacto";
+const FOOTER_HOME_LINKS: Record<string, string> = {
+  Nosotros: "/#nosotros",
+  "Misión y visión": "/#nosotros",
+  Sectores: "/#nosotros",
+  Proyectos: "/#proyectos",
+  "Trabaja con nosotros": CONTACT_SECTION_HREF,
+  About: "/#nosotros",
+  "Mission and vision": "/#nosotros",
+  Industries: "/#nosotros",
+  Projects: "/#proyectos",
+  "Work with us": CONTACT_SECTION_HREF,
+};
+const FOOTER_SERVICE_LINKS: Record<string, string> = {
+  "Diseño civil e hidráulico": "/#servicios",
+  "Estudios hidrológicos": "/proyectos/modelamiento-hidraulico-fluvial",
+  Geotecnia: "/proyectos/analisis-estabilidad-presa",
+  "Ingeniería ambiental": "/#servicios",
+  "Civil and hydraulic design": "/#servicios",
+  "Hydrological studies": "/proyectos/modelamiento-hidraulico-fluvial",
+  Geotechnics: "/proyectos/analisis-estabilidad-presa",
+  "Environmental engineering": "/#servicios",
+};
 
 function getFooterHref(groupId: string, label: string) {
-  if (label === "Trabaja con nosotros" || label === "Work with us") {
-    return CONTACT_SECTION_HREF;
+  if (groupId === "services") {
+    return FOOTER_SERVICE_LINKS[label] ?? "/#servicios";
+  }
+  if (groupId === "company") {
+    return FOOTER_HOME_LINKS[label] ?? "/#inicio";
   }
   if (groupId !== "contact") return "#";
   if (label.includes("@")) return `mailto:${label}`;
@@ -42,7 +67,7 @@ export function Footer() {
             <div className="relative isolate inline-flex max-w-full">
               <div className="pointer-events-none absolute -inset-8 rounded-full bg-[radial-gradient(circle,rgba(231,146,30,0.2),transparent_62%)] opacity-75 blur-3xl" />
               <a
-                href="#top"
+                href="/#inicio"
                 className="relative inline-flex w-full max-w-[300px] items-center overflow-hidden rounded-[22px] border border-white/75 bg-white px-3 py-3 text-navy shadow-[0_28px_70px_-34px_rgba(0,0,0,0.55)]"
               >
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(246,248,251,0.98))]" />
@@ -83,7 +108,7 @@ export function Footer() {
                 {group.id === "contact" ? (
                   <li className="pt-2">
                     <a
-                      href={`#${MAP_SECTION_ID}`}
+                      href={`/#${MAP_SECTION_ID}`}
                       className="group inline-flex flex-col items-start text-left text-white/60 transition-all duration-300 hover:translate-x-1 hover:text-white"
                     >
                       <span className="inline-flex items-center text-[14px] font-medium">
