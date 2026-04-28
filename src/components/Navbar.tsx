@@ -19,6 +19,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { lang, setLang, content } = useLanguage();
   const headerHeightClass = "h-[82px] sm:h-[88px]";
+  const menuTopClass = "top-[92px] sm:top-[98px]";
   const navLabels = {
     home: content.nav.home,
     about: content.nav.about,
@@ -46,22 +47,22 @@ export function Navbar() {
     };
   }, [open]);
 
-  const solid = !open;
+  const solid = true;
 
   return (
     <>
       <motion.header
         className="fixed inset-x-0 top-0 z-[100] border-b border-black/6 transition-[background,box-shadow,color,backdrop-filter] duration-300"
         style={{
-          background: open ? "transparent" : "rgba(255,255,255,0.97)",
-          backdropFilter: open ? "none" : "saturate(180%) blur(16px)",
-          WebkitBackdropFilter: open ? "none" : "saturate(180%) blur(16px)",
-          boxShadow: !open
-            ? scrolled
+          background: "rgba(255,255,255,0.97)",
+          backdropFilter: "saturate(180%) blur(16px)",
+          WebkitBackdropFilter: "saturate(180%) blur(16px)",
+          boxShadow: open
+            ? "0 18px 44px -30px rgba(24, 36, 58, 0.35)"
+            : scrolled
               ? "0 18px 36px -28px rgba(24, 36, 58, 0.28)"
-              : "0 10px 24px -26px rgba(24, 36, 58, 0.2)"
-            : "none",
-          color: open ? "white" : "var(--navy)",
+              : "0 10px 24px -26px rgba(24, 36, 58, 0.2)",
+          color: "var(--navy)",
           textShadow: "none",
         }}
       >
@@ -103,41 +104,44 @@ export function Navbar() {
               {content.nav.cta}
             </a>
             <button
-              className="group relative z-[110] flex h-12 w-12 items-center justify-center rounded-full border bg-white/10 backdrop-blur-md transition-all lg:hidden"
+              className="group relative z-[110] flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 active:scale-95 lg:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label={content.nav.menuLabel}
               aria-expanded={open}
               style={{
                 borderColor: open
-                  ? "rgba(255,255,255,0.2)"
+                  ? "rgba(231, 146, 30, 0.28)"
                   : solid
                     ? "rgba(24, 36, 58, 0.12)"
                     : "rgba(255,255,255,0.18)",
                 backgroundColor: open
-                  ? "rgba(255,255,255,0.1)"
+                  ? "rgba(255,255,255,0.98)"
                   : solid
                     ? "rgba(255,255,255,0.8)"
                     : "rgba(10, 20, 34, 0.3)",
-                color: open ? "white" : solid ? "var(--navy)" : "white",
+                color: open ? "var(--navy)" : solid ? "var(--navy)" : "white",
+                boxShadow: open
+                  ? "0 14px 30px -18px rgba(24, 36, 58, 0.55), inset 0 0 0 1px rgba(231, 146, 30, 0.08)"
+                  : "0 10px 22px -18px rgba(24, 36, 58, 0.45)",
               }}
             >
-              <div className="relative h-5 w-6">
+              <div className="relative flex h-[18px] w-[18px] flex-col items-center justify-between">
                 <span
                   className={cn(
-                    "absolute h-[2px] w-full bg-current transition-all duration-300 ease-out",
-                    open ? "top-2.5 rotate-45" : "top-0",
+                    "absolute left-0 h-[2px] w-full origin-center rounded-full bg-current transition-all duration-300 ease-out",
+                    open ? "top-2 rotate-45 scale-x-110" : "top-0",
                   )}
                 />
                 <span
                   className={cn(
-                    "absolute top-2.5 h-[2px] bg-current transition-all duration-200 ease-out",
+                    "absolute left-0 top-2 h-[2px] rounded-full bg-current transition-all duration-200 ease-out",
                     open ? "w-0 opacity-0" : "w-full opacity-100",
                   )}
                 />
                 <span
                   className={cn(
-                    "absolute h-[2px] w-full bg-current transition-all duration-300 ease-out",
-                    open ? "top-2.5 -rotate-45" : "top-5",
+                    "absolute left-0 h-[2px] w-full origin-center rounded-full bg-current transition-all duration-300 ease-out",
+                    open ? "top-2 -rotate-45 scale-x-110" : "top-4",
                   )}
                 />
               </div>
@@ -149,117 +153,109 @@ export function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            id="mobile-nav"
-            role="dialog"
-            aria-modal="true"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-[90] flex flex-col overflow-hidden bg-navy lg:hidden"
-            style={{
-              backgroundColor: "#0d141f",
-              backgroundImage: "radial-gradient(circle at 50% -20%, #1f304b 0%, #0d141f 80%)",
-            }}
-          >
-            {/* Ambient Watermark Logo */}
+          <>
+            <motion.button
+              type="button"
+              aria-label={content.nav.menuLabel}
+              onClick={() => setOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-[80] bg-navy/20 backdrop-blur-[2px] lg:hidden"
+            />
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 0.03, scale: 1 }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none"
+              id="mobile-nav"
+              role="dialog"
+              aria-modal="true"
+              initial={{ opacity: 0, y: -18, scale: 0.97, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -12, scale: 0.98, filter: "blur(8px)" }}
+              transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+              className={`fixed inset-x-3 ${menuTopClass} z-[90] flex max-h-[min(560px,calc(100dvh-112px))] flex-col overflow-hidden rounded-[22px] border border-black/[0.06] bg-white/95 shadow-[0_30px_80px_-42px_rgba(24,36,58,0.65)] backdrop-blur-xl lg:hidden`}
             >
-              <span className="font-display text-[20vw] font-bold tracking-tighter text-white">
-                HANAN
-              </span>
-            </motion.div>
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-amber to-transparent" />
 
-            {/* Background texture layer */}
-            <div className="grain pointer-events-none absolute inset-0 opacity-[0.08]" />
-
-            <div className="flex flex-1 flex-col justify-between overflow-y-auto px-8 pb-10 pt-28">
-              <nav className="flex flex-col gap-6">
+              <div className="relative flex flex-1 flex-col overflow-y-auto px-4 pb-4 pt-4">
+                <nav className="flex flex-col gap-1.5">
                 {links.map((l, i) => (
                   <motion.a
                     key={l.href}
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    initial={{ opacity: 0, x: -20, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    initial={{ opacity: 0, x: -16, rotateX: -16 }}
+                    animate={{ opacity: 1, x: 0, rotateX: 0 }}
                     transition={{
-                      delay: 0.2 + i * 0.08,
-                      duration: 0.6,
+                      delay: 0.08 + i * 0.045,
+                      duration: 0.38,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="group relative flex flex-col"
+                    className="group flex items-center rounded-2xl border border-transparent px-3 py-3 transition-all duration-300 active:scale-[0.98] active:border-amber/20 active:bg-amber/[0.06]"
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="font-display text-[11px] font-bold tracking-[0.3em] text-amber">
-                        0{i + 1}
-                      </span>
-                      <div className="h-[1px] w-6 bg-white/10 transition-all group-hover:w-12 group-hover:bg-amber" />
-                    </div>
-                    <span className="font-display text-[44px] font-bold leading-tight tracking-tight text-white transition-all group-hover:translate-x-2 sm:text-[52px]">
+                    <span
+                      className="mr-3 flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-black tabular-nums"
+                      style={{
+                        background: "color-mix(in oklab, var(--accent) 10%, white)",
+                        color: "var(--accent)",
+                      }}
+                    >
+                      {i + 1}
+                    </span>
+                    <span className="flex-1 text-[16px] font-semibold tracking-tight text-foreground transition-colors group-active:text-accent">
                       {navLabels[l.id]}
                     </span>
+                    <ArrowRight
+                      size={15}
+                      className="text-black/20 transition-all duration-300 group-active:translate-x-1 group-active:text-accent"
+                    />
                   </motion.a>
                 ))}
-              </nav>
+                </nav>
 
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
-                className="mt-12 flex flex-col gap-8 rounded-[32px] border border-white/5 bg-white/[0.02] p-8 backdrop-blur-xl"
+                transition={{ delay: 0.34, duration: 0.42, ease: "easeOut" }}
+                className="mt-4 flex flex-col gap-3"
               >
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="flex flex-col gap-3">
-                    <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
-                      <span className="h-1.5 w-1.5 rounded-full bg-amber" />
+                <div className="flex items-center justify-between rounded-2xl border border-black/[0.05] bg-black/[0.018] px-4 py-3">
+                  <div className="flex flex-col">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-foreground/35">
                       {content.nav.mobileLocationLabel}
                     </p>
-                    <p className="text-[13px] font-medium leading-relaxed text-white/70">
-                      {content.nav.mobileLocationCity}
-                      <br />
-                      {content.nav.mobileLocationCountry}
+                    <p className="text-[13px] font-medium text-foreground/70">
+                      {content.nav.mobileLocationCity}, {content.nav.mobileLocationCountry}
                     </p>
                   </div>
-                  <div className="flex flex-col gap-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
-                      {content.nav.mobileConnect}
-                    </p>
-                    <div className="flex gap-4">
-                      {content.nav.mobileSocials.map((social) => (
-                        <a
-                          key={social.label}
-                          href="#"
-                          aria-label={social.label}
-                          className="text-[12px] font-bold text-white/50 transition-colors hover:text-amber"
-                        >
-                          {social.short}
-                        </a>
-                      ))}
-                    </div>
+                  <div className="flex gap-2">
+                    {content.nav.mobileSocials.map((social) => (
+                      <a
+                        key={social.label}
+                        href="#"
+                        aria-label={social.label}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/8 text-[10px] font-bold text-foreground/40 transition-colors hover:border-accent/30 hover:text-accent"
+                      >
+                        {social.short}
+                      </a>
+                    ))}
                   </div>
                 </div>
 
                 <a
                   href="#contacto"
                   onClick={() => setOpen(false)}
-                  className="group relative flex items-center justify-between overflow-hidden rounded-2xl bg-amber px-6 py-5 text-white transition-all hover:shadow-[0_20px_40px_-15px_rgba(231,146,30,0.4)]"
+                  className="flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-white transition-all duration-300 active:scale-[0.99] hover:shadow-[0_12px_28px_-8px_rgba(231,146,30,0.5)]"
+                  style={{ background: "var(--gradient-accent)" }}
                 >
-                  <div className="absolute inset-0 translate-y-full bg-gradient-to-t from-black/20 to-transparent transition-transform duration-300 group-hover:translate-y-0" />
-                  <span className="relative z-10 font-display text-[18px] font-bold">
+                  <span className="text-[14px] font-bold">
                     {content.nav.cta}
                   </span>
-                  <div className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-md transition-transform duration-300 group-hover:translate-x-2">
-                    <ArrowRight size={18} />
-                  </div>
+                  <ArrowRight size={15} />
                 </a>
               </motion.div>
             </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

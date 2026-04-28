@@ -377,7 +377,6 @@ const siteContent: Record<Lang, SiteContent> = {
       body: "Hanan Ingeniería es una de las empresas de ingeniería, construcción y gestión de proyectos más importante de la región de Apurímac. Se especializa en sectores clave como infraestructura, minería y metales.",
       missionTitle: "Misión",
       missionBody: [
-        "Nuestra misión principal es brindar soluciones técnicas e innovadoras a problemas complejos enfocados en el uso efectivo y eficiente de recursos para poder satisfacer los requerimientos de nuestros clientes cumpliendo con los compromisos de tiempo.",
         "Nuestra misión es ofrecer soluciones técnicas e innovadoras que respondan de manera efectiva a los desafíos constructivos de nuestros clientes garantizando un uso eficiente de recursos y cumplimiento de plazos sin afectar la calidad de nuestro trabajo.",
       ],
       visionTitle: "Visión",
