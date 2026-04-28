@@ -172,16 +172,20 @@ export function About() {
             <p className="mb-5 text-[12.5px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Valores
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
               {content.about.values.map(({ id, label }) => {
                 const Icon = VALUE_ICONS[id];
                 return (
                   <span
                     key={label}
-                    className="inline-flex items-center gap-2 rounded-xl bg-surface px-4 py-2 text-[14px] font-medium text-foreground shadow-sm ring-1 ring-border/50 transition-all hover:ring-accent/50"
+                    className="inline-flex h-11 w-full min-w-0 items-center gap-2 rounded-xl bg-surface px-3 text-[12.5px] font-semibold leading-none text-foreground shadow-sm ring-1 ring-border/50 transition-all hover:ring-accent/50 sm:h-auto sm:w-auto sm:px-4 sm:py-2 sm:text-[14px] sm:font-medium"
                   >
-                    <Icon size={15} style={{ color: "var(--accent)" }} />
-                    {label}
+                    <Icon
+                      size={15}
+                      className="shrink-0"
+                      style={{ color: "var(--accent)" }}
+                    />
+                    <span className="min-w-0 whitespace-nowrap">{label}</span>
                   </span>
                 );
               })}
