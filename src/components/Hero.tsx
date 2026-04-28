@@ -81,22 +81,8 @@ export function Hero() {
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-5 pb-24 pt-24 sm:px-6 md:px-10 md:pb-44 md:pt-28">
         <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="inline-flex items-center rounded-full px-5 py-2 text-[12px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] backdrop-blur-md"
-            style={{
-              border: "1px solid rgba(231, 146, 30, 0.72)",
-              backgroundColor: "rgba(9, 14, 22, 0.52)",
-              textShadow: "0 1px 2px rgba(0,0,0,0.35)",
-            }}
-          >
-            {content.hero.eyebrow}
-          </motion.div>
-
           <h1
-            className="mt-7 max-w-[920px] font-display font-bold leading-[0.96] tracking-[-0.045em] text-white"
+            className="max-w-[920px] font-display font-bold leading-[0.96] tracking-[-0.045em] text-white"
             style={{
               fontSize: "clamp(3.5rem, 6vw, 5.85rem)",
               textShadow: "0 1px 2px rgba(11, 18, 31, 0.16)",
