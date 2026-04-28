@@ -18,22 +18,12 @@ export function About() {
   return (
     <Section id="nosotros">
       <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-12">
-        <motion.p
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-[11.5px] font-bold uppercase tracking-[0.25em]"
-          style={{ color: "var(--accent)" }}
-        >
-          {content.about.overline}
-        </motion.p>
         <motion.h2
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-4 font-display font-bold leading-[1.15] text-foreground"
+          className="font-display font-bold leading-[1.15] text-foreground"
           style={{ fontSize: "clamp(32px, 4.5vw, 56px)" }}
         >
           {content.about.titlePrefix}
