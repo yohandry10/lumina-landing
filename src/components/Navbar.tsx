@@ -19,7 +19,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { lang, setLang, content } = useLanguage();
   const headerHeightClass = "h-[82px] sm:h-[88px]";
-  const menuTopClass = "top-[94px] sm:top-[100px]";
+  const menuTopClass = "top-[82px] sm:top-[88px]";
   const navLabels = {
     home: content.nav.home,
     about: content.nav.about,
@@ -154,31 +154,21 @@ export function Navbar() {
       <AnimatePresence>
         {open && (
           <>
-            <motion.button
-              type="button"
-              aria-label={content.nav.menuLabel}
-              onClick={() => setOpen(false)}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[80] bg-navy/45 backdrop-blur-[5px] lg:hidden"
-            />
             <motion.div
               id="mobile-nav"
               role="dialog"
               aria-modal="true"
-              initial={{ opacity: 0, y: -20, scale: 0.96, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -16, scale: 0.97, filter: "blur(8px)" }}
-              transition={{ duration: 0.44, ease: [0.16, 1, 0.3, 1] }}
-              className={`fixed inset-x-3 bottom-3 ${menuTopClass} z-[90] flex flex-col overflow-hidden rounded-[24px] border border-white/70 bg-white shadow-[0_34px_90px_-44px_rgba(6,14,25,0.88)] lg:hidden`}
+              initial={{ opacity: 0, y: -14, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
+              transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+              className={`fixed inset-x-0 bottom-0 ${menuTopClass} z-[90] flex flex-col overflow-hidden bg-white shadow-[0_-1px_0_rgba(24,36,58,0.06)] lg:hidden`}
             >
-              <div className="pointer-events-none absolute inset-x-5 top-0 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-amber to-transparent" />
-              <div className="relative mx-auto mt-3 h-1 w-10 rounded-full bg-black/10" />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-line" />
+              <div className="pointer-events-none absolute inset-x-0 top-px h-[3px] bg-gradient-to-r from-transparent via-amber/80 to-transparent" />
 
-              <div className="relative flex flex-1 flex-col justify-between overflow-y-auto px-4 pb-4 pt-4">
-                <nav className="flex flex-col gap-2">
+              <div className="relative mx-auto flex h-full w-full max-w-[520px] flex-1 flex-col justify-between overflow-y-auto px-6 pb-[max(22px,env(safe-area-inset-bottom))] pt-6">
+                <nav className="flex flex-col gap-2.5">
                 {links.map((l, i) => (
                   <motion.a
                     key={l.href}
@@ -192,7 +182,7 @@ export function Navbar() {
                       duration: 0.34,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="group flex items-center rounded-[18px] border border-transparent px-3 py-3 transition-all duration-300 active:scale-[0.98] active:border-amber/20 active:bg-amber/[0.07]"
+                    className="group flex items-center rounded-[18px] border border-transparent px-3 py-3.5 transition-all duration-300 active:scale-[0.98] active:border-amber/20 active:bg-amber/[0.07]"
                   >
                     <span
                       className="mr-3 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-black tabular-nums"
@@ -219,7 +209,7 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
                 transition={{ delay: 0.27, duration: 0.38, ease: "easeOut" }}
-                className="mt-8 flex flex-col gap-3 rounded-[20px] bg-navy/[0.035] p-2.5"
+                className="mt-10 flex flex-col gap-3 rounded-[22px] border border-black/[0.04] bg-navy/[0.035] p-2.5 shadow-[0_18px_44px_-34px_rgba(24,36,58,0.55)]"
               >
                 <div className="flex items-center justify-between rounded-2xl border border-black/[0.05] bg-white px-3.5 py-2.5">
                   <div className="flex flex-col">
