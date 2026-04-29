@@ -5,9 +5,8 @@ import { Preloader } from "@/components/Preloader";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { Services } from "@/components/Services";
 import { About } from "@/components/About";
-import { Projects } from "@/components/Projects";
+import { Clients } from "@/components/Clients";
 import { ParallaxBand } from "@/components/ParallaxBand";
 import { Contact } from "@/components/Contact";
 import { MapSection } from "@/components/MapSection";
@@ -36,10 +35,9 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <Services />
         <About />
+        <Clients />
         <ParallaxBand />
-        <Projects />
         <Contact />
         <MapSection />
       </main>

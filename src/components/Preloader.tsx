@@ -54,15 +54,8 @@ export function Preloader() {
                 {/* Industrial hazard stripe at the top */}
                 <div className="absolute top-0 inset-x-0 h-1.5 bg-[repeating-linear-gradient(45deg,var(--amber),var(--amber)_10px,transparent_10px,transparent_20px)]" />
 
-                <div className="relative flex items-center justify-between gap-3 text-[10px] font-black uppercase tracking-[0.25em] text-muted-ink">
+                <div className="relative flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-[0.25em] text-muted-ink">
                   <span>{content.preloader.location}</span>
-                  <span className="text-amber">
-                    {stage === "survey"
-                      ? content.preloader.topStatus.survey
-                      : stage === "lock"
-                        ? content.preloader.topStatus.lock
-                        : content.preloader.topStatus.out}
-                  </span>
                 </div>
 
                 <div className="relative mt-10 mb-4 flex justify-center">
@@ -77,20 +70,6 @@ export function Preloader() {
                 >
                   {statusLabel}
                 </motion.p>
-
-                <div className="relative mt-8 flex flex-wrap items-center justify-center gap-2">
-                  {content.preloader.disciplines.map((item, index) => (
-                    <motion.span
-                      key={item}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.15 + index * 0.08, duration: 0.4 }}
-                      className="rounded-sm border border-line bg-surface-2 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-ink"
-                    >
-                      {item}
-                    </motion.span>
-                  ))}
-                </div>
 
                 <div className="relative mt-10 space-y-4">
                   <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.2em] text-muted-ink">
@@ -112,28 +91,6 @@ export function Preloader() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2">
-                    {content.preloader.phases.map((label, index) => {
-                      const active =
-                        (stage === "survey" && index === 0) ||
-                        (stage === "lock" && index <= 1) ||
-                        stage === "out";
-
-                      return (
-                        <div
-                          key={label}
-                          className="border-l-4 px-2 py-2 text-left text-[9px] font-black uppercase tracking-[0.1em] transition-all bg-surface-2"
-                          style={{
-                            borderColor: active ? "var(--amber)" : "transparent",
-                            color: active ? "var(--navy)" : "var(--color-muted-ink)",
-                            opacity: active ? 1 : 0.5,
-                          }}
-                        >
-                          {label}
-                        </div>
-                      );
-                    })}
-                  </div>
                 </div>
               </motion.div>
             </div>

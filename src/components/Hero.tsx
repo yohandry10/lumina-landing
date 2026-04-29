@@ -1,41 +1,86 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/lib/language";
+import { SERVICE_SLUGS } from "@/lib/serviceData";
 
-const slides = [
-  { src: "/2.jpg", position: "50% 50%" },
-  { src: "/3.jpg", position: "56% 48%" },
-  { src: "/4.jpg", position: "44% 44%" },
+const heroMedia = [
+  { src: "/diseño-civil.mp4", position: "50% 50%", serviceId: "civilHydraulic", title: "service" },
+  {
+    src: "/copia3.mp4",
+    position: "44% 44%",
+    serviceId: "geotechnics",
+    title: "bullet-start",
+    bulletIndex: 2,
+    stopAt: [" por ", " using "],
+  },
+  { src: "/copia5.mp4", position: "50% 50%", serviceId: "generalWorks", title: "service" },
+  {
+    src: "/copia6.mp4",
+    position: "50% 50%",
+    serviceId: "generalWorks",
+    title: "bullet",
+    bulletIndex: 2,
+  },
 ] as const;
 
-const SLIDE_DURATION_MS = 20000;
+const SLIDE_DURATION_MS = 10000;
 const cinematicEase = [0.22, 1, 0.36, 1] as const;
+
+function splitTitle(title: string) {
+  const words = title.trim().split(/\s+/);
+  const highlight = words.pop() ?? title;
+
+  return {
+    prefixWords: words,
+    highlight,
+  };
+}
+
+function getSlideTitle(
+  service: { title: string; bullets: string[] } | undefined,
+  media: (typeof heroMedia)[number],
+) {
+  if (!service) return "";
+
+  if (media.title === "bullet" || media.title === "bullet-start") {
+    const bullet = service.bullets[media.bulletIndex] ?? service.title;
+
+    if (media.title === "bullet-start") {
+      const stopAt = media.stopAt.find((marker) => bullet.includes(marker));
+      return stopAt ? bullet.slice(0, bullet.indexOf(stopAt)) : bullet;
+    }
+
+    return bullet;
+  }
+
+  return service.title;
+}
 
 export function Hero() {
   const { content } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
-  const titleWords1 = content.hero.titleLine1.split(" ");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  const activeMedia = heroMedia[activeIndex % heroMedia.length];
+  const activeServiceHref = `/servicios/${SERVICE_SLUGS[activeMedia.serviceId]}`;
+  const slide = useMemo(() => {
+    const service = content.services.items.find((item) => item.id === activeMedia.serviceId);
 
-    for (const slide of slides) {
-      const image = new window.Image();
-      image.src = slide.src;
-    }
-  }, []);
+    return {
+      title: getSlideTitle(service, activeMedia),
+      desc: service?.desc ?? "",
+    };
+  }, [activeMedia, content]);
+  const { prefixWords, highlight } = splitTitle(slide.title);
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
-      setActiveIndex((current) => (current + 1) % slides.length);
+      setActiveIndex((current) => (current + 1) % heroMedia.length);
     }, SLIDE_DURATION_MS);
 
     return () => window.clearTimeout(timeoutId);
   }, [activeIndex]);
-
-  const activeSlide = slides[activeIndex];
 
   return (
     <section id="inicio" className="relative min-h-screen w-full overflow-hidden">
@@ -43,13 +88,17 @@ export function Hero() {
 
       <div className="absolute inset-0">
         <AnimatePresence initial={false} mode="sync">
-          <motion.img
-            key={activeSlide.src}
-            src={activeSlide.src}
-            alt=""
+          <motion.video
+            key={activeMedia.src}
+            src={activeMedia.src}
             aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: activeSlide.position }}
+            style={{ objectPosition: activeMedia.position }}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
             initial={
               shouldReduceMotion
                 ? { opacity: 0 }
@@ -89,7 +138,7 @@ export function Hero() {
             }}
           >
             <span className="block">
-              {titleWords1.map((word, index) => (
+              {prefixWords.map((word, index) => (
                 <motion.span
                   key={word + index}
                   initial={{ opacity: 0, y: 20 }}
@@ -101,35 +150,37 @@ export function Hero() {
                 </motion.span>
               ))}
             </span>
-            <span className="mt-1 block">
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="mr-[0.2em] inline-block text-amber"
-                style={{ textShadow: "none" }}
-              >
-                {content.hero.titleHighlight}
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                className="inline-block text-white"
-              >
-                {content.hero.titleLine2}
-              </motion.span>
+            <span className="mt-1 block overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={highlight}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.6, ease: cinematicEase }}
+                  className="mr-[0.2em] inline-block text-amber"
+                  style={{ textShadow: "none" }}
+                >
+                  {highlight}
+                </motion.span>
+              </AnimatePresence>
             </span>
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-            className="mt-7 max-w-[700px] text-[17px] leading-[1.8] text-white/78 md:text-[18px]"
-          >
-            {content.hero.subtitle}
-          </motion.p>
+          <div className="mt-7 max-w-[700px]">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={slide.desc}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.5, ease: cinematicEase }}
+                className="text-[17px] leading-[1.8] text-white/78 md:text-[18px]"
+              >
+                {slide.desc}
+              </motion.p>
+            </AnimatePresence>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -138,7 +189,7 @@ export function Hero() {
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
             <motion.a
-              href="#servicios"
+              href={activeServiceHref}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -149,7 +200,7 @@ export function Hero() {
             </motion.a>
 
             <motion.a
-              href="#contacto"
+              href="/#contacto"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}

@@ -322,7 +322,7 @@ export function Services() {
           </div>
         </div>
         <motion.a
-          href="#contacto"
+          href="/#contacto"
           className="btn-pill btn-primary gap-2 text-[14px]"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}

@@ -15,28 +15,28 @@ const FOOTER_HOME_LINKS: Record<string, string> = {
   Nosotros: "/#nosotros",
   "Misión y visión": "/#nosotros",
   Sectores: "/#nosotros",
-  Proyectos: "/#proyectos",
+  Proyectos: "/proyectos",
   "Trabaja con nosotros": CONTACT_SECTION_HREF,
   About: "/#nosotros",
   "Mission and vision": "/#nosotros",
   Industries: "/#nosotros",
-  Projects: "/#proyectos",
+  Projects: "/proyectos",
   "Work with us": CONTACT_SECTION_HREF,
 };
 const FOOTER_SERVICE_LINKS: Record<string, string> = {
-  "Diseño civil e hidráulico": "/#servicio-diseno-civil-hidraulico",
-  "Estudios hidrológicos": "/#servicio-estudios-hidrologicos",
-  Geotecnia: "/#servicio-geotecnia",
-  "Ingeniería ambiental": "/#servicio-ingenieria-ambiental",
-  "Civil and hydraulic design": "/#servicio-diseno-civil-hidraulico",
-  "Hydrological studies": "/#servicio-estudios-hidrologicos",
-  Geotechnics: "/#servicio-geotecnia",
-  "Environmental engineering": "/#servicio-ingenieria-ambiental",
+  "Diseño civil e hidráulico": "/servicios/diseno-civil-hidraulico",
+  "Estudios hidrológicos": "/servicios/estudios-hidrologicos",
+  Geotecnia: "/servicios/geotecnia",
+  "Ingeniería ambiental": "/servicios/ingenieria-ambiental",
+  "Civil and hydraulic design": "/servicios/diseno-civil-hidraulico",
+  "Hydrological studies": "/servicios/estudios-hidrologicos",
+  Geotechnics: "/servicios/geotecnia",
+  "Environmental engineering": "/servicios/ingenieria-ambiental",
 };
 
 function getFooterHref(groupId: string, label: string) {
   if (groupId === "services") {
-    return FOOTER_SERVICE_LINKS[label] ?? "/#servicios";
+    return FOOTER_SERVICE_LINKS[label] ?? null;
   }
   if (groupId === "company") {
     return FOOTER_HOME_LINKS[label] ?? "/#inicio";

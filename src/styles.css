@@ -50,7 +50,7 @@
   --shadow-amber-glow: var(--shadow-amber-glow);
   --shadow-navy-soft: var(--shadow-navy-soft);
 
-  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -383,6 +383,23 @@
     );
     filter: blur(20px);
     mix-blend-mode: screen;
+  }
+
+  .clients-marquee {
+    animation: clients-marquee 34s linear infinite;
+  }
+
+  .clients-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes clients-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-50% - 0.375rem));
+    }
   }
 
   .preloader-grid {

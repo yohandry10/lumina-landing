@@ -66,6 +66,10 @@ type SiteContent = {
     homeDescription: string;
     pressTitle: string;
     pressDescription: string;
+    servicesTitle: string;
+    servicesDescription: string;
+    projectsTitle: string;
+    projectsDescription: string;
   };
   nav: {
     home: string;
@@ -88,10 +92,12 @@ type SiteContent = {
   };
   hero: {
     eyebrow: string;
-    titleLine1: string;
-    titleHighlight: string;
-    titleLine2: string;
-    subtitle: string;
+    slides: {
+      titleLine1: string;
+      titleHighlight: string;
+      titleLine2: string;
+      subtitle: string;
+    }[];
     ctaServices: string;
     ctaContact: string;
     scroll: string;
@@ -210,6 +216,14 @@ type SiteContent = {
     frontTag: string;
     readyTag: string;
   };
+  servicePage: {
+    backToServices: string;
+    otherServices: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+    ctaCta: string;
+    viewService: string;
+  };
   press: {
     backHome: string;
     overline: string;
@@ -235,6 +249,12 @@ const siteContent: Record<Lang, SiteContent> = {
       pressTitle: "Hanan Ingeniería — Notas de prensa",
       pressDescription:
         "Información actualizada sobre proyectos, logros institucionales y participación de Hanan Ingeniería en el sector de ingeniería civil y minera en el Perú.",
+      servicesTitle: "Hanan Ingeniería — Servicios especializados",
+      servicesDescription:
+        "Servicios especializados en ingeniería civil, hidrología, geotecnia, hidrogeología, ingeniería geográfica y ambiental para proyectos de construcción y minería.",
+      projectsTitle: "Hanan Ingeniería — Proyectos",
+      projectsDescription:
+        "Casos de estudio y proyectos realizados en ingeniería civil, minería, hidrología, geotecnia e infraestructura en Apurímac y el Perú.",
     },
     nav: {
       home: "Inicio",
@@ -257,10 +277,32 @@ const siteContent: Record<Lang, SiteContent> = {
     },
     hero: {
       eyebrow: "Ingeniería civil y minería - Apurímac, Perú",
-      titleLine1: "Ingeniería que",
-      titleHighlight: "construye",
-      titleLine2: "",
-      subtitle: "Soluciones especializadas en ingeniería para el rubro civil y minero.",
+      slides: [
+        {
+          titleLine1: "Ingeniería que",
+          titleHighlight: "construye",
+          titleLine2: "",
+          subtitle: "Diseño civil e hidráulico para infraestructura minera y obras de gran envergadura.",
+        },
+        {
+          titleLine1: "Ingeniería que",
+          titleHighlight: "protege",
+          titleLine2: "",
+          subtitle: "Estudios hidrológicos, geotécnicos e hidrogeológicos para proyectos seguros y sostenibles.",
+        },
+        {
+          titleLine1: "Ingeniería que",
+          titleHighlight: "transforma",
+          titleLine2: "",
+          subtitle: "Ingeniería geográfica y ambiental para el desarrollo responsable del territorio.",
+        },
+        {
+          titleLine1: "Ingeniería que",
+          titleHighlight: "supervisa",
+          titleLine2: "",
+          subtitle: "Supervisión técnica de obras civiles, geotécnicas e hidráulicas con estándares de calidad.",
+        },
+      ],
       ctaServices: "Ver nuestros servicios",
       ctaContact: "Contáctenos",
       scroll: "Descubre más",
@@ -567,6 +609,14 @@ const siteContent: Record<Lang, SiteContent> = {
       frontTag: "Tajo 01",
       readyTag: "Terreno listo",
     },
+    servicePage: {
+      backToServices: "Volver a servicios",
+      otherServices: "Otros servicios",
+      ctaTitle: "¿Necesitas una solución a medida?",
+      ctaSubtitle: "Nuestro equipo diseña paquetes personalizados para cada proyecto.",
+      ctaCta: "Solicitar cotización",
+      viewService: "Ver servicio",
+    },
     press: {
       backHome: "Volver al inicio",
       overline: "Sala de prensa",
@@ -642,6 +692,12 @@ const siteContent: Record<Lang, SiteContent> = {
       pressTitle: "Hanan Ingeniería — Press room",
       pressDescription:
         "Up-to-date information about projects, institutional milestones and Hanan Ingeniería's participation in Peru's civil and mining engineering sector.",
+      servicesTitle: "Hanan Ingeniería — Specialized services",
+      servicesDescription:
+        "Specialized services in civil engineering, hydrology, geotechnics, hydrogeology, geographic and environmental engineering for construction and mining projects.",
+      projectsTitle: "Hanan Ingeniería — Projects",
+      projectsDescription:
+        "Case studies and projects in civil engineering, mining, hydrology, geotechnics and infrastructure in Apurimac and Peru.",
     },
     nav: {
       home: "Home",
@@ -664,10 +720,32 @@ const siteContent: Record<Lang, SiteContent> = {
     },
     hero: {
       eyebrow: "Civil and mining engineering - Apurimac, Peru",
-      titleLine1: "Engineering that",
-      titleHighlight: "builds",
-      titleLine2: "",
-      subtitle: "Specialized engineering solutions for the civil and mining sector.",
+      slides: [
+        {
+          titleLine1: "Engineering that",
+          titleHighlight: "builds",
+          titleLine2: "",
+          subtitle: "Civil and hydraulic design for mining infrastructure and large-scale construction projects.",
+        },
+        {
+          titleLine1: "Engineering that",
+          titleHighlight: "protects",
+          titleLine2: "",
+          subtitle: "Hydrological, geotechnical and hydrogeological studies for safe and sustainable projects.",
+        },
+        {
+          titleLine1: "Engineering that",
+          titleHighlight: "transforms",
+          titleLine2: "",
+          subtitle: "Geographic and environmental engineering for responsible territorial development.",
+        },
+        {
+          titleLine1: "Engineering that",
+          titleHighlight: "supervises",
+          titleLine2: "",
+          subtitle: "Technical supervision of civil, geotechnical and hydraulic works with quality standards.",
+        },
+      ],
       ctaServices: "View our services",
       ctaContact: "Contact us",
       scroll: "Discover more",
@@ -974,6 +1052,14 @@ const siteContent: Record<Lang, SiteContent> = {
       phases: ["Exploration", "Engineering", "Operation"],
       frontTag: "Pit 01",
       readyTag: "Site ready",
+    },
+    servicePage: {
+      backToServices: "Back to services",
+      otherServices: "Other services",
+      ctaTitle: "Need a custom solution?",
+      ctaSubtitle: "Our team designs customized packages for every project.",
+      ctaCta: "Request a quote",
+      viewService: "View service",
     },
     press: {
       backHome: "Back to home",

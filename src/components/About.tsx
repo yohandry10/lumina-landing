@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Target, Eye, Sparkles, Shield, Zap, HeartHandshake, Scale, Handshake } from "lucide-react";
 import { useLanguage } from "@/lib/language";
-import { Section, containerVariants, itemVariants } from "./Section";
+import { Section, SectionHeading, containerVariants, itemVariants } from "./Section";
 
 const VALUE_ICONS = {
   compliance: Shield,
@@ -17,28 +17,19 @@ export function About() {
 
   return (
     <Section id="nosotros">
-      <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-12">
-        <motion.h2
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="font-display font-bold leading-[1.15] text-foreground"
-          style={{ fontSize: "clamp(32px, 4.5vw, 56px)" }}
-        >
-          {content.about.titlePrefix}
-          <span className="text-gradient">{content.about.titleHighlight}</span>
-          {content.about.titleSuffix}
-        </motion.h2>
-        <motion.p
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-6 text-[17px] leading-[1.75] text-muted-foreground"
-        >
-          {content.about.body}
-        </motion.p>
+      <div className="mb-14">
+        <SectionHeading
+          overline={content.about.overline}
+          title={
+            <>
+              {content.about.titlePrefix}
+              <span className="text-gradient">{content.about.titleHighlight}</span>
+              {content.about.titleSuffix}
+            </>
+          }
+          subtitle={content.about.body}
+          align="center"
+        />
       </div>
 
       {/* Full-width Panoramic Image */}
@@ -50,7 +41,7 @@ export function About() {
         className="relative mb-12 w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden rounded-[32px] border border-border/50 shadow-md"
       >
         <img
-          src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=2000&q=80"
+          src="/hanna.png"
           alt={content.about.imageAlt}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"

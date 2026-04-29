@@ -11,8 +11,7 @@ export function ParallaxBand() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-scroll md:bg-fixed"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1800&q=80')",
+          backgroundImage: "url('/3.jpg')",
         }}
       />
       {/* Dark overlay */}
@@ -65,7 +64,7 @@ export function ParallaxBand() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-6 max-w-3xl font-display font-bold leading-[1.1] text-white"
-          style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
+          style={{ fontSize: "clamp(34px, 4.5vw, 58px)" }}
         >
           {content.parallax.titlePrefix}
           <span className="text-gradient">{content.parallax.titleHighlight}</span>
@@ -85,7 +84,7 @@ export function ParallaxBand() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          href="#contacto"
+          href="/#contacto"
           className="btn-pill btn-primary group mt-8 !px-9 !py-4 !text-[16px]"
         >
           {content.parallax.cta}

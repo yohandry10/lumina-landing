@@ -70,17 +70,15 @@ export function SectionHeading({
       </motion.p>
       <motion.h2
         variants={itemVariants}
-        className={`mt-3 font-display font-bold leading-[1.1] ${
-          invert ? "text-foreground" : "text-foreground"
-        }`}
-        style={{ fontSize: "clamp(28px, 4vw, 52px)" }}
+        className="mt-3 font-display font-bold leading-[1.08] text-foreground"
+        style={{ fontSize: "clamp(34px, 4.5vw, 58px)" }}
       >
         {title}
       </motion.h2>
       {subtitle && (
         <motion.p
           variants={itemVariants}
-          className="mt-4 max-w-xl text-[17px] leading-[1.7] text-muted-foreground"
+          className="mt-5 max-w-xl text-[17px] leading-[1.7] text-muted-foreground"
           style={isCenter ? { marginInline: "auto" } : undefined}
         >
           {subtitle}
