@@ -556,31 +556,8 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ delay: 0.27, duration: 0.38, ease: "easeOut" }}
-                  className="mt-10 flex flex-col gap-3 rounded-[22px] border border-black/[0.04] bg-navy/[0.035] p-2.5 shadow-[0_18px_44px_-34px_rgba(24,36,58,0.55)]"
+                  className="mt-10 rounded-[22px] border border-black/[0.04] bg-navy/[0.035] p-2.5 shadow-[0_18px_44px_-34px_rgba(24,36,58,0.55)]"
                 >
-                  <div className="flex items-center justify-between rounded-2xl border border-black/[0.05] bg-white px-3.5 py-2.5">
-                    <div className="flex flex-col">
-                      <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-foreground/35">
-                        {content.nav.mobileLocationLabel}
-                      </p>
-                      <p className="text-[12px] font-semibold text-foreground/70">
-                        {content.nav.mobileLocationCity}, {content.nav.mobileLocationCountry}
-                      </p>
-                    </div>
-                    <div className="flex gap-2">
-                      {content.nav.mobileSocials.map((social) => (
-                        <a
-                          key={social.label}
-                          href="#"
-                          aria-label={social.label}
-                          className="flex h-8 w-8 items-center justify-center rounded-full border border-black/8 text-[10px] font-bold text-foreground/40 transition-colors hover:border-accent/30 hover:text-accent"
-                        >
-                          {social.short}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-
                   <a
                     href="/#contacto"
                     onClick={() => setOpen(false)}

@@ -257,6 +257,9 @@ type SiteContent = {
     subtitle: string;
     readMore: string;
     viewAll: string;
+    previousAria: string;
+    nextAria: string;
+    dotAriaPrefix: string;
   };
 };
 
@@ -766,6 +769,9 @@ const siteContent: Record<Lang, SiteContent> = {
       subtitle: "Mantente informado sobre nuestros proyectos, logros y participación en el sector.",
       readMore: "Leer más",
       viewAll: "Ver todas las noticias",
+      previousAria: "Noticia anterior",
+      nextAria: "Siguiente noticia",
+      dotAriaPrefix: "Ir a la noticia",
     },
   },
   en: {
@@ -1270,6 +1276,9 @@ const siteContent: Record<Lang, SiteContent> = {
       subtitle: "Stay informed about our projects, milestones and industry participation.",
       readMore: "Read more",
       viewAll: "View all news",
+      previousAria: "Previous news item",
+      nextAria: "Next news item",
+      dotAriaPrefix: "Go to news item",
     },
   },
 };
