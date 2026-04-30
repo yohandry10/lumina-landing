@@ -9,11 +9,30 @@ const STAGE_PROGRESS = {
   out: 1,
 } as const;
 
+const PRELOADER_KEY = "hanan_preloader_shown";
+
 export function Preloader() {
   const { content } = useLanguage();
-  const [stage, setStage] = useState<"survey" | "lock" | "out" | "gone">("survey");
+  const [stage, setStage] = useState<"survey" | "lock" | "out" | "gone">(() => {
+    try {
+      if (typeof window !== "undefined" && sessionStorage.getItem(PRELOADER_KEY)) {
+        return "gone";
+      }
+    } catch {
+      return "survey";
+    }
+    return "survey";
+  });
 
   useEffect(() => {
+    try {
+      if (typeof window !== "undefined" && sessionStorage.getItem(PRELOADER_KEY)) {
+        return;
+      }
+      sessionStorage.setItem(PRELOADER_KEY, "1");
+    } catch {
+      // Storage can be unavailable in private or restricted browser contexts.
+    }
     const t1 = setTimeout(() => setStage("lock"), 1050);
     const t2 = setTimeout(() => setStage("out"), 2550);
     const t3 = setTimeout(() => setStage("gone"), 3200);
@@ -21,7 +40,8 @@ export function Preloader() {
   }, []);
 
   const progress = stage === "gone" ? 1 : STAGE_PROGRESS[stage];
-  const statusLabel = stage === "gone" ? content.preloader.stageLabel.out : content.preloader.stageLabel[stage];
+  const statusLabel =
+    stage === "gone" ? content.preloader.stageLabel.out : content.preloader.stageLabel[stage];
 
   return (
     <AnimatePresence>
@@ -85,12 +105,12 @@ export function Preloader() {
                       style={{
                         originX: 0,
                         backgroundColor: "var(--amber)",
-                        backgroundImage: "repeating-linear-gradient(45deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 8px, transparent 8px, transparent 16px)"
+                        backgroundImage:
+                          "repeating-linear-gradient(45deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 8px, transparent 8px, transparent 16px)",
                       }}
                       className="h-full w-full"
                     />
                   </div>
-
                 </div>
               </motion.div>
             </div>

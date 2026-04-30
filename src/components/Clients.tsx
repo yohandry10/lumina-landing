@@ -42,11 +42,7 @@ export function Clients() {
 
   return (
     <Section id="clientes" className="overflow-hidden bg-[color:var(--deep)]">
-      <SectionHeading
-        overline={copy.overline}
-        title={copy.title}
-        subtitle={copy.subtitle}
-      />
+      <SectionHeading overline={copy.overline} title={copy.title} subtitle={copy.subtitle} />
 
       <div className="relative mt-12 -mx-4 overflow-hidden py-2 sm:-mx-8 lg:-mx-12">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[color:var(--deep)] to-transparent" />

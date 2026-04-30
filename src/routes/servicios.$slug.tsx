@@ -120,10 +120,7 @@ function ServiceDetail() {
               <p className="mt-4 max-w-xl text-[17px] leading-[1.7] text-white/78">
                 {service.desc}
               </p>
-              <div
-                className="mt-5 h-[2px] w-10"
-                style={{ background: "var(--gradient-accent)" }}
-              />
+              <div className="mt-5 h-[2px] w-10" style={{ background: "var(--gradient-accent)" }} />
             </motion.div>
           </div>
         </section>

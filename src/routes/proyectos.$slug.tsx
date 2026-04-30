@@ -2,14 +2,7 @@ import { useEffect } from "react";
 import type { ReactNode } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CheckCircle2,
-  ClipboardList,
-  MapPin,
-  Target,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, ClipboardList, MapPin, Target } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -178,11 +171,7 @@ function ProjectDetail() {
                   {project.context}
                 </p>
                 <div className="mt-8 grid gap-5 md:grid-cols-2">
-                  <InfoBlock
-                    icon={<Target size={18} />}
-                    title="Desafío"
-                    text={project.challenge}
-                  />
+                  <InfoBlock icon={<Target size={18} />} title="Desafío" text={project.challenge} />
                   <InfoBlock
                     icon={<ClipboardList size={18} />}
                     title="Solución aplicada"
@@ -209,9 +198,7 @@ function ProjectDetail() {
                         className="mt-0.5 shrink-0"
                         style={{ color: "var(--accent)" }}
                       />
-                      <p className="text-[13.5px] leading-[1.65] text-muted-foreground">
-                        {item}
-                      </p>
+                      <p className="text-[13.5px] leading-[1.65] text-muted-foreground">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -322,15 +309,7 @@ function ProjectDetail() {
   );
 }
 
-function InfoBlock({
-  icon,
-  title,
-  text,
-}: {
-  icon: ReactNode;
-  title: string;
-  text: string;
-}) {
+function InfoBlock({ icon, title, text }: { icon: ReactNode; title: string; text: string }) {
   return (
     <div className="rounded-[14px] border border-border bg-background p-5">
       <div className="flex items-center gap-2">

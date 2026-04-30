@@ -8,6 +8,7 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Clients } from "@/components/Clients";
 import { ParallaxBand } from "@/components/ParallaxBand";
+import { PressPreview } from "@/components/PressPreview";
 import { Contact } from "@/components/Contact";
 import { MapSection } from "@/components/MapSection";
 import { Footer } from "@/components/Footer";
@@ -38,6 +39,7 @@ function Index() {
         <About />
         <Clients />
         <ParallaxBand />
+        <PressPreview />
         <Contact />
         <MapSection />
       </main>

@@ -76,6 +76,8 @@ type SiteContent = {
     about: string;
     services: string;
     projects: string;
+    sectors: string;
+    sectorItems: { label: string; slug: string }[];
     press: string;
     contact: string;
     cta: string;
@@ -224,6 +226,19 @@ type SiteContent = {
     ctaCta: string;
     viewService: string;
   };
+  sectorPage: {
+    backHome: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+    ctaCta: string;
+    sectors: {
+      slug: string;
+      title: string;
+      subtitle: string;
+      description: string[];
+      highlights: string[];
+    }[];
+  };
   press: {
     backHome: string;
     overline: string;
@@ -233,6 +248,15 @@ type SiteContent = {
     subtitle: string;
     readMore: string;
     notes: PressNote[];
+  };
+  pressPreview: {
+    overline: string;
+    titlePrefix: string;
+    titleHighlight: string;
+    titleSuffix: string;
+    subtitle: string;
+    readMore: string;
+    viewAll: string;
   };
 };
 
@@ -259,6 +283,11 @@ const siteContent: Record<Lang, SiteContent> = {
     nav: {
       home: "Inicio",
       about: "Nosotros",
+      sectors: "Sectores",
+      sectorItems: [
+        { label: "Construcción", slug: "construccion" },
+        { label: "Minería", slug: "mineria" },
+      ],
       services: "Servicios",
       projects: "Proyectos",
       press: "Prensa",
@@ -282,25 +311,29 @@ const siteContent: Record<Lang, SiteContent> = {
           titleLine1: "Ingeniería que",
           titleHighlight: "construye",
           titleLine2: "",
-          subtitle: "Diseño civil e hidráulico para infraestructura minera y obras de gran envergadura.",
+          subtitle:
+            "Diseño civil e hidráulico para infraestructura minera y obras de gran envergadura.",
         },
         {
           titleLine1: "Ingeniería que",
           titleHighlight: "protege",
           titleLine2: "",
-          subtitle: "Estudios hidrológicos, geotécnicos e hidrogeológicos para proyectos seguros y sostenibles.",
+          subtitle:
+            "Estudios hidrológicos, geotécnicos e hidrogeológicos para proyectos seguros y sostenibles.",
         },
         {
           titleLine1: "Ingeniería que",
           titleHighlight: "transforma",
           titleLine2: "",
-          subtitle: "Ingeniería geográfica y ambiental para el desarrollo responsable del territorio.",
+          subtitle:
+            "Ingeniería geográfica y ambiental para el desarrollo responsable del territorio.",
         },
         {
           titleLine1: "Ingeniería que",
           titleHighlight: "supervisa",
           titleLine2: "",
-          subtitle: "Supervisión técnica de obras civiles, geotécnicas e hidráulicas con estándares de calidad.",
+          subtitle:
+            "Supervisión técnica de obras civiles, geotécnicas e hidráulicas con estándares de calidad.",
         },
       ],
       ctaServices: "Ver nuestros servicios",
@@ -617,6 +650,48 @@ const siteContent: Record<Lang, SiteContent> = {
       ctaCta: "Solicitar cotización",
       viewService: "Ver servicio",
     },
+    sectorPage: {
+      backHome: "Volver al inicio",
+      ctaTitle: "¿Tienes un proyecto en este sector?",
+      ctaSubtitle: "Conversemos sobre cómo podemos ayudarte.",
+      ctaCta: "Solicitar cotización",
+      sectors: [
+        {
+          slug: "construccion",
+          title: "Construcción",
+          subtitle: "Infraestructura que impulsa el desarrollo",
+          description: [
+            "En Hanan Ingeniería desarrollamos soluciones integrales para el sector construcción, abarcando desde el diseño civil e hidráulico hasta la supervisión y ejecución de obras de infraestructura.",
+            "Nuestro equipo multidisciplinario acompaña cada fase del proyecto, garantizando calidad, cumplimiento de plazos y eficiencia en el uso de recursos para obras viales, edificaciones, sistemas hidráulicos y proyectos de saneamiento.",
+          ],
+          highlights: [
+            "Diseño civil e hidráulico de infraestructura",
+            "Supervisión y ejecución de obras viales",
+            "Estudios geotécnicos para cimentaciones",
+            "Sistemas de drenaje y saneamiento",
+            "Gestión ambiental de proyectos constructivos",
+            "Topografía y modelamiento 3D de terrenos",
+          ],
+        },
+        {
+          slug: "mineria",
+          title: "Minería",
+          subtitle: "Ingeniería de precisión para operaciones mineras",
+          description: [
+            "Brindamos servicios especializados de ingeniería para el sector minero, desde estudios de factibilidad hasta el diseño y supervisión de infraestructura crítica como relaveras, presas y sistemas de manejo de aguas.",
+            "Trabajamos con los estándares más exigentes de la industria, apoyando a empresas mineras en cada etapa de sus operaciones con soluciones técnicas que priorizan la seguridad, la sostenibilidad y la eficiencia operativa.",
+          ],
+          highlights: [
+            "Diseño de relaveras y depósitos de relaves",
+            "Estudios hidrogeológicos e hidrológicos",
+            "Análisis de estabilidad de presas y taludes",
+            "Monitoreo geotécnico e instrumentación",
+            "Gestión ambiental y planes de cierre de mina",
+            "Ingeniería geográfica y fotogrametría",
+          ],
+        },
+      ],
+    },
     press: {
       backHome: "Volver al inicio",
       overline: "Sala de prensa",
@@ -683,6 +758,15 @@ const siteContent: Record<Lang, SiteContent> = {
         },
       ],
     },
+    pressPreview: {
+      overline: "Noticias",
+      titlePrefix: "Últimas ",
+      titleHighlight: "novedades",
+      titleSuffix: "",
+      subtitle: "Mantente informado sobre nuestros proyectos, logros y participación en el sector.",
+      readMore: "Leer más",
+      viewAll: "Ver todas las noticias",
+    },
   },
   en: {
     meta: {
@@ -702,6 +786,11 @@ const siteContent: Record<Lang, SiteContent> = {
     nav: {
       home: "Home",
       about: "About",
+      sectors: "Sectors",
+      sectorItems: [
+        { label: "Construction", slug: "construccion" },
+        { label: "Mining", slug: "mineria" },
+      ],
       services: "Services",
       projects: "Projects",
       press: "Press",
@@ -725,25 +814,29 @@ const siteContent: Record<Lang, SiteContent> = {
           titleLine1: "Engineering that",
           titleHighlight: "builds",
           titleLine2: "",
-          subtitle: "Civil and hydraulic design for mining infrastructure and large-scale construction projects.",
+          subtitle:
+            "Civil and hydraulic design for mining infrastructure and large-scale construction projects.",
         },
         {
           titleLine1: "Engineering that",
           titleHighlight: "protects",
           titleLine2: "",
-          subtitle: "Hydrological, geotechnical and hydrogeological studies for safe and sustainable projects.",
+          subtitle:
+            "Hydrological, geotechnical and hydrogeological studies for safe and sustainable projects.",
         },
         {
           titleLine1: "Engineering that",
           titleHighlight: "transforms",
           titleLine2: "",
-          subtitle: "Geographic and environmental engineering for responsible territorial development.",
+          subtitle:
+            "Geographic and environmental engineering for responsible territorial development.",
         },
         {
           titleLine1: "Engineering that",
           titleHighlight: "supervises",
           titleLine2: "",
-          subtitle: "Technical supervision of civil, geotechnical and hydraulic works with quality standards.",
+          subtitle:
+            "Technical supervision of civil, geotechnical and hydraulic works with quality standards.",
         },
       ],
       ctaServices: "View our services",
@@ -1061,6 +1154,48 @@ const siteContent: Record<Lang, SiteContent> = {
       ctaCta: "Request a quote",
       viewService: "View service",
     },
+    sectorPage: {
+      backHome: "Back to home",
+      ctaTitle: "Have a project in this sector?",
+      ctaSubtitle: "Let's talk about how we can help.",
+      ctaCta: "Request a quote",
+      sectors: [
+        {
+          slug: "construccion",
+          title: "Construction",
+          subtitle: "Infrastructure that drives development",
+          description: [
+            "At Hanan Ingeniería we develop comprehensive solutions for the construction sector, ranging from civil and hydraulic design to the supervision and execution of infrastructure works.",
+            "Our multidisciplinary team accompanies every phase of the project, ensuring quality, deadline compliance and resource efficiency for road works, buildings, hydraulic systems and sanitation projects.",
+          ],
+          highlights: [
+            "Civil and hydraulic infrastructure design",
+            "Road works supervision and execution",
+            "Geotechnical studies for foundations",
+            "Drainage and sanitation systems",
+            "Environmental management of construction projects",
+            "Topography and 3D terrain modeling",
+          ],
+        },
+        {
+          slug: "mineria",
+          title: "Mining",
+          subtitle: "Precision engineering for mining operations",
+          description: [
+            "We provide specialized engineering services for the mining sector, from feasibility studies to the design and supervision of critical infrastructure such as tailings dams, embankments and water management systems.",
+            "We work with the most demanding industry standards, supporting mining companies at every stage of their operations with technical solutions that prioritize safety, sustainability and operational efficiency.",
+          ],
+          highlights: [
+            "Tailings dam and deposit design",
+            "Hydrogeological and hydrological studies",
+            "Dam and slope stability analysis",
+            "Geotechnical monitoring and instrumentation",
+            "Environmental management and mine closure plans",
+            "Geographic engineering and photogrammetry",
+          ],
+        },
+      ],
+    },
     press: {
       backHome: "Back to home",
       overline: "Press room",
@@ -1126,6 +1261,15 @@ const siteContent: Record<Lang, SiteContent> = {
           img: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
         },
       ],
+    },
+    pressPreview: {
+      overline: "News",
+      titlePrefix: "Latest ",
+      titleHighlight: "updates",
+      titleSuffix: "",
+      subtitle: "Stay informed about our projects, milestones and industry participation.",
+      readMore: "Read more",
+      viewAll: "View all news",
     },
   },
 };

@@ -131,7 +131,7 @@ export function Hero() {
       <div className="relative z-10 flex min-h-screen items-center justify-center px-5 pb-24 pt-24 sm:px-6 md:px-10 md:pb-44 md:pt-28">
         <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
           <h1
-            className="max-w-[920px] font-display font-bold leading-[0.96] tracking-[-0.045em] text-white"
+            className="max-w-[920px] font-display font-bold leading-[1.05] tracking-[-0.045em] text-white"
             style={{
               fontSize: "clamp(3.5rem, 6vw, 5.85rem)",
               textShadow: "0 1px 2px rgba(11, 18, 31, 0.16)",
@@ -150,7 +150,7 @@ export function Hero() {
                 </motion.span>
               ))}
             </span>
-            <span className="mt-1 block overflow-hidden">
+            <span className="mt-1 block overflow-visible">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={highlight}

@@ -113,28 +113,19 @@ function Prensa() {
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, transparent 40%, oklch(0.145 0.012 260 / 0.7) 100%)",
-                      }}
-                    />
-                    <span
-                      className="absolute left-4 top-4 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest backdrop-blur-md"
-                      style={{
-                        background: "color-mix(in oklab, var(--accent) 18%, transparent)",
-                        color: "var(--accent)",
-                        border: "1px solid color-mix(in oklab, var(--accent) 35%, transparent)",
-                      }}
-                    >
-                      {note.tag}
-                    </span>
                   </div>
                   <div className="flex flex-1 flex-col p-6">
-                    <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
-                      <Calendar size={12} />
-                      {note.date}
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground">
+                      <span className="inline-flex items-center gap-2">
+                        <Calendar size={12} />
+                        {note.date}
+                      </span>
+                      <span
+                        className="text-[10px] font-semibold uppercase tracking-widest"
+                        style={{ color: "var(--accent)" }}
+                      >
+                        {note.tag}
+                      </span>
                     </div>
                     <h3 className="mt-3 font-display text-[17px] font-bold leading-snug text-foreground">
                       {note.title}

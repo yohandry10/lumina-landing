@@ -155,9 +155,7 @@ export function Services() {
                     className="overflow-hidden"
                   >
                     <div className="px-4 pb-4 pt-1">
-                      <p className="text-[12.5px] leading-relaxed text-muted-foreground">
-                        {desc}
-                      </p>
+                      <p className="text-[12.5px] leading-relaxed text-muted-foreground">{desc}</p>
                       <ul className="mt-3.5 flex flex-col gap-2.5">
                         {bullets.map((bullet) => (
                           <li
@@ -316,9 +314,7 @@ export function Services() {
             <p className="font-display text-[15px] font-bold text-foreground">
               {content.services.customTitle}
             </p>
-            <p className="text-[13px] text-muted-foreground">
-              {content.services.customSubtitle}
-            </p>
+            <p className="text-[13px] text-muted-foreground">{content.services.customSubtitle}</p>
           </div>
         </div>
         <motion.a

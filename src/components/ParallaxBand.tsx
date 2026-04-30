@@ -18,8 +18,7 @@ export function ParallaxBand() {
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(rgba(13, 19, 31, 0.84), rgba(13, 19, 31, 0.84))",
+          background: "linear-gradient(rgba(13, 19, 31, 0.84), rgba(13, 19, 31, 0.84))",
         }}
       />
       {/* Animated gradient layer */}
