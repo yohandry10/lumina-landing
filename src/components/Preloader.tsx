@@ -13,20 +13,15 @@ const PRELOADER_KEY = "hanan_preloader_shown";
 
 export function Preloader() {
   const { content } = useLanguage();
-  const [stage, setStage] = useState<"survey" | "lock" | "out" | "gone">(() => {
-    try {
-      if (typeof window !== "undefined" && sessionStorage.getItem(PRELOADER_KEY)) {
-        return "gone";
-      }
-    } catch {
-      return "survey";
-    }
-    return "survey";
-  });
+  const [isMounted, setIsMounted] = useState(false);
+  const [stage, setStage] = useState<"survey" | "lock" | "out" | "gone">("survey");
 
   useEffect(() => {
+    setIsMounted(true);
+
     try {
-      if (typeof window !== "undefined" && sessionStorage.getItem(PRELOADER_KEY)) {
+      if (sessionStorage.getItem(PRELOADER_KEY)) {
+        setStage("gone");
         return;
       }
       sessionStorage.setItem(PRELOADER_KEY, "1");
@@ -38,6 +33,10 @@ export function Preloader() {
     const t3 = setTimeout(() => setStage("gone"), 3200);
     return () => [t1, t2, t3].forEach(clearTimeout);
   }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   const progress = stage === "gone" ? 1 : STAGE_PROGRESS[stage];
   const statusLabel =
