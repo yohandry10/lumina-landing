@@ -5,9 +5,9 @@ import { Logo } from "./Logo";
 import { GOOGLE_MAPS_URL, MAP_SECTION_ID, WAZE_URL } from "../lib/location";
 
 const SOCIAL_ICONS = [
-  { key: "whatsapp", Icon: WhatsAppIcon },
-  { key: "instagram", Icon: InstagramIcon },
-  { key: "facebook", Icon: FacebookIcon },
+  { key: "whatsapp", Icon: WhatsAppIcon, href: "#" },
+  { key: "instagram", Icon: InstagramIcon, href: "#" },
+  { key: "facebook", Icon: FacebookIcon, href: "https://www.facebook.com/hananingenieria/" },
 ] as const;
 const MAP_ACTIONS = [
   { id: "google", href: GOOGLE_MAPS_URL, icon: "/maps.png" },
@@ -78,16 +78,18 @@ export function Footer() {
               {content.footer.brandDescription}
             </p>
             <div className="mt-8 flex gap-3">
-              {SOCIAL_ICONS.map(({ key, Icon }) => {
+              {SOCIAL_ICONS.map(({ key, Icon, href }) => {
                 return (
-                  <span
+                  <a
                     key={key}
-                    role="img"
+                    href={href}
                     aria-label={content.footer.socialLabels[key]}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noreferrer" : undefined}
                     className="group grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white/50 transition-all duration-300 hover:border-amber/50 hover:bg-amber/10 hover:text-amber"
                   >
                     <Icon className="h-6 w-6" />
-                  </span>
+                  </a>
                 );
               })}
             </div>
