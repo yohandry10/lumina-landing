@@ -186,10 +186,9 @@ type SiteContent = {
     groups: FooterGroup[];
     brandDescription: string;
     socialLabels: {
-      linkedin: string;
       whatsapp: string;
-      telegram: string;
-      email: string;
+      instagram: string;
+      facebook: string;
     };
     mapActions: {
       google: string;
@@ -217,6 +216,17 @@ type SiteContent = {
     phases: string[];
     frontTag: string;
     readyTag: string;
+  };
+  servicesIndex: {
+    overline: string;
+    titlePrefix: string;
+    titleHighlight: string;
+    titleSuffix: string;
+    subtitle: string;
+    viewService: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+    ctaCta: string;
   };
   servicePage: {
     backToServices: string;
@@ -452,7 +462,7 @@ const siteContent: Record<Lang, SiteContent> = {
       titlePrefix: "Ingeniería, construcción y ",
       titleHighlight: "gestión",
       titleSuffix: " de proyectos",
-      body: "Hanan Ingeniería es una de las empresas de ingeniería, construcción y gestión de proyectos más importante de la región de Apurímac. Se especializa en sectores clave como infraestructura, minería y metales.",
+      body: "Hanan Ingeniería es una de las empresas de ingeniería, construcción y gestión de proyectos más importante del Perú. Se especializa en sectores clave como infraestructura, minería y metales.",
       missionTitle: "Misión",
       missionBody: [
         "Nuestra misión es ofrecer soluciones técnicas e innovadoras que respondan de manera efectiva a los desafíos constructivos de nuestros clientes garantizando un uso eficiente de recursos y cumplimiento de plazos sin afectar la calidad de nuestro trabajo.",
@@ -613,10 +623,9 @@ const siteContent: Record<Lang, SiteContent> = {
       brandDescription:
         "Soluciones de ingeniería avanzadas e innovadoras para los desafíos más complejos de la construcción y la minería, aportando excelencia técnica al desarrollo del Perú.",
       socialLabels: {
-        linkedin: "LinkedIn",
         whatsapp: "WhatsApp",
-        telegram: "Telegram",
-        email: "Email",
+        instagram: "Instagram",
+        facebook: "Facebook",
       },
       mapActions: {
         google: "Google Maps",
@@ -628,22 +637,33 @@ const siteContent: Record<Lang, SiteContent> = {
       terms: "Términos",
     },
     preloader: {
-      location: "Ingeniería que construye, Perú",
+      location: "Excelencia técnica",
       topStatus: {
         survey: "Topografía",
         lock: "Geotecnia",
         out: "Operación",
       },
       stageLabel: {
-        survey: "Levantamiento topográfico en campo",
-        lock: "Evaluando estabilidad estructural",
-        out: "Inicio de operaciones",
+        survey: "Ingeniería para grandes desafíos",
+        lock: "Ingeniería para grandes desafíos",
+        out: "Ingeniería para grandes desafíos",
       },
       disciplines: ["Geotecnia", "Hidrología", "Ambiental"],
-      progressLabel: "Cargando planos",
+      progressLabel: "Cargando",
       phases: ["Exploración", "Ingeniería", "Operación"],
       frontTag: "Tajo 01",
       readyTag: "Terreno listo",
+    },
+    servicesIndex: {
+      overline: "Nuestros servicios",
+      titlePrefix: "Soluciones ",
+      titleHighlight: "especializadas",
+      titleSuffix: " en ingeniería",
+      subtitle: "Ofrecemos un portafolio integral de servicios técnicos para proyectos de construcción y minería, respaldados por un equipo multidisciplinario de profesionales.",
+      viewService: "Conocer más",
+      ctaTitle: "¿Necesitas una solución a medida?",
+      ctaSubtitle: "Nuestro equipo diseña paquetes personalizados para cada proyecto.",
+      ctaCta: "Solicitar cotización",
     },
     servicePage: {
       backToServices: "Volver a servicios",
@@ -958,7 +978,7 @@ const siteContent: Record<Lang, SiteContent> = {
       titlePrefix: "Engineering, construction and project ",
       titleHighlight: "management",
       titleSuffix: "",
-      body: "Hanan Ingeniería is one of the leading engineering, construction and project management companies in the Apurimac region. It specializes in key sectors such as infrastructure, mining and metals.",
+      body: "Hanan Ingeniería is one of the leading engineering, construction and project management companies in Peru. It specializes in key sectors such as infrastructure, mining and metals.",
       missionTitle: "Mission",
       missionBody: [
         "Our main mission is to provide technical and innovative solutions to complex problems, focused on the effective and efficient use of resources to meet our clients' requirements while honoring time commitments.",
@@ -1120,10 +1140,9 @@ const siteContent: Record<Lang, SiteContent> = {
       brandDescription:
         "Advanced and innovative engineering solutions for the most complex construction and mining challenges, delivering technical excellence for Peru's development.",
       socialLabels: {
-        linkedin: "LinkedIn",
         whatsapp: "WhatsApp",
-        telegram: "Telegram",
-        email: "Email",
+        instagram: "Instagram",
+        facebook: "Facebook",
       },
       mapActions: {
         google: "Google Maps",
@@ -1135,22 +1154,33 @@ const siteContent: Record<Lang, SiteContent> = {
       terms: "Terms",
     },
     preloader: {
-      location: "Engineering that builds, Peru",
+      location: "Technical excellence",
       topStatus: {
         survey: "Topography",
         lock: "Geotechnics",
         out: "Operation",
       },
       stageLabel: {
-        survey: "Field topographic survey",
-        lock: "Evaluating structural stability",
-        out: "Commencing operations",
+        survey: "Engineering for major challenges",
+        lock: "Engineering for major challenges",
+        out: "Engineering for major challenges",
       },
       disciplines: ["Geotechnics", "Hydrology", "Environmental"],
-      progressLabel: "Loading blueprints",
+      progressLabel: "Loading",
       phases: ["Exploration", "Engineering", "Operation"],
       frontTag: "Pit 01",
       readyTag: "Site ready",
+    },
+    servicesIndex: {
+      overline: "Our services",
+      titlePrefix: "Specialized ",
+      titleHighlight: "solutions",
+      titleSuffix: " in engineering",
+      subtitle: "We offer a comprehensive portfolio of technical services for construction and mining projects, backed by a multidisciplinary team of professionals.",
+      viewService: "Learn more",
+      ctaTitle: "Need a custom solution?",
+      ctaSubtitle: "Our team designs customized packages for every project.",
+      ctaCta: "Request a quote",
     },
     servicePage: {
       backToServices: "Back to services",

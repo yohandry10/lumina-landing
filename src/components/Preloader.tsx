@@ -41,7 +41,6 @@ export function Preloader() {
   const progress = stage === "gone" ? 1 : STAGE_PROGRESS[stage];
   const statusLabel =
     stage === "gone" ? content.preloader.stageLabel.out : content.preloader.stageLabel[stage];
-
   return (
     <AnimatePresence>
       {stage !== "gone" && (

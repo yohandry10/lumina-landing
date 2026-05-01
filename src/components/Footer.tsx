@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
-import { Mail, ArrowRight, Globe, MessageCircle, Send } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLanguage, type Lang } from "@/lib/language";
 import { Logo } from "./Logo";
 import { GOOGLE_MAPS_URL, MAP_SECTION_ID, WAZE_URL } from "../lib/location";
 
-const SOCIAL_ICONS = [Globe, MessageCircle, Send, Mail] as const;
-const SOCIAL_KEYS = ["linkedin", "whatsapp", "telegram", "email"] as const;
+const SOCIAL_ICONS = [
+  { key: "whatsapp", Icon: WhatsAppIcon },
+  { key: "instagram", Icon: InstagramIcon },
+  { key: "facebook", Icon: FacebookIcon },
+] as const;
 const MAP_ACTIONS = [
   { id: "google", href: GOOGLE_MAPS_URL, icon: "/maps.png" },
   { id: "waze", href: WAZE_URL, icon: "/waze.svg" },
@@ -14,12 +17,12 @@ const CONTACT_SECTION_HREF = "/#contacto";
 const FOOTER_HOME_LINKS: Record<string, string> = {
   Nosotros: "/#nosotros",
   "Misión y visión": "/#nosotros",
-  Sectores: "/#nosotros",
+  Sectores: "/sectores/construccion",
   Proyectos: "/proyectos",
   "Trabaja con nosotros": CONTACT_SECTION_HREF,
   About: "/#nosotros",
   "Mission and vision": "/#nosotros",
-  Industries: "/#nosotros",
+  Industries: "/sectores/construccion",
   Projects: "/proyectos",
   "Work with us": CONTACT_SECTION_HREF,
 };
@@ -49,12 +52,6 @@ function getFooterHref(groupId: string, label: string) {
 
 export function Footer() {
   const { lang, setLang, content } = useLanguage();
-  const socialLabels = [
-    content.footer.socialLabels.linkedin,
-    content.footer.socialLabels.whatsapp,
-    content.footer.socialLabels.telegram,
-    content.footer.socialLabels.email,
-  ];
 
   return (
     <footer style={{ background: "#0d141f" }} className="relative overflow-hidden text-white">
@@ -81,19 +78,16 @@ export function Footer() {
               {content.footer.brandDescription}
             </p>
             <div className="mt-8 flex gap-3">
-              {SOCIAL_ICONS.map((Icon, index) => {
-                const href =
-                  SOCIAL_KEYS[index] === "email" ? "mailto:contacto@hananingenieria.com" : "#";
-
+              {SOCIAL_ICONS.map(({ key, Icon }) => {
                 return (
-                  <a
-                    key={SOCIAL_KEYS[index]}
-                    href={href}
-                    aria-label={socialLabels[index]}
-                    className="group grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-white/50 transition-all duration-300 hover:border-amber/50 hover:bg-amber/10 hover:text-amber"
+                  <span
+                    key={key}
+                    role="img"
+                    aria-label={content.footer.socialLabels[key]}
+                    className="group grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 text-white/50 transition-all duration-300 hover:border-amber/50 hover:bg-amber/10 hover:text-amber"
                   >
-                    <Icon size={16} />
-                  </a>
+                    <Icon className="h-6 w-6" />
+                  </span>
                 );
               })}
             </div>
@@ -208,6 +202,44 @@ export function Footer() {
         </motion.div>
       </div>
     </footer>
+  );
+}
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      <path
+        d="M4.9 19.1 6 15.2a7.4 7.4 0 1 1 2.8 2.7l-3.9 1.2Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.1 8.7c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.3.1.4-.1.6l-.4.5c-.1.1-.2.3 0 .5.4.8 1.1 1.5 2 2 .2.1.4.1.5-.1l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .5-.3 1.3-.7 1.6-.4.3-1.5.7-3.4-.1-2.8-1.2-4.6-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.2.6-1.8.8-2.2Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      <rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="3.4" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="16.7" cy="7.3" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      <path
+        d="M14 8.2h2V5h-2.6C10.7 5 9 6.7 9 9.3V12H6.8v3.2H9V21h3.5v-5.8h2.9L16 12h-3.5V9.7c0-.9.5-1.5 1.5-1.5Z"
+        fill="currentColor"
+      />
+    </svg>
   );
 }
 

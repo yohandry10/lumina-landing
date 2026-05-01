@@ -86,11 +86,11 @@ function ServiceDetail() {
               transition={{ duration: 0.4 }}
             >
               <Link
-                to="/"
+                to="/servicios"
                 className="inline-flex items-center gap-2 text-[13px] font-medium text-white/75 transition-colors hover:text-white"
               >
                 <ArrowLeft size={14} />
-                {content.nav.home}
+                {content.servicePage.backToServices}
               </Link>
             </motion.div>
 
@@ -228,10 +228,10 @@ function ServiceDetail() {
                 </h2>
               </div>
               <Link
-                to="/"
+                to="/servicios"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-[13px] font-semibold text-foreground transition-all hover:bg-surface-2"
               >
-                {content.nav.home}
+                {content.servicePage.backToServices}
                 <ArrowRight size={14} />
               </Link>
             </div>
