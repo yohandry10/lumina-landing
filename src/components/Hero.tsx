@@ -282,7 +282,7 @@ export function Hero() {
           </div>
 
           <div
-            className="relative mt-6 flex w-full justify-center md:hidden"
+            className="relative z-20 mt-6 flex w-full justify-center md:hidden"
             onTouchStart={(event) => event.stopPropagation()}
             onTouchEnd={(event) => event.stopPropagation()}
           >
@@ -293,7 +293,7 @@ export function Hero() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.98 }}
                   transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute bottom-full mb-3 w-[min(320px,calc(100vw-48px))] overflow-hidden rounded-[18px] border border-white/20 bg-black/62 p-1.5 text-left shadow-2xl backdrop-blur-xl"
+                  className="absolute bottom-full mb-2 max-h-[286px] w-[min(300px,calc(100vw-56px))] overflow-y-auto rounded-[16px] border border-white/18 bg-black/68 p-1.5 text-left shadow-2xl backdrop-blur-xl"
                 >
                   {content.services.items.map((service) => {
                     const isActive = service.id === activeMedia.serviceId;
@@ -303,8 +303,8 @@ export function Hero() {
                         key={service.id}
                         type="button"
                         onClick={() => goToService(service.id as ServiceId)}
-                        className={`flex w-full items-center rounded-[14px] px-4 py-3 text-left text-[13.5px] font-semibold transition-colors ${
-                          isActive ? "bg-amber text-white" : "text-white/82 active:bg-white/12"
+                        className={`flex w-full items-center rounded-[12px] px-3.5 py-2.5 text-left text-[13px] font-semibold leading-tight transition-colors ${
+                          isActive ? "bg-white/12 text-amber" : "text-white/82 active:bg-white/10"
                         }`}
                       >
                         {service.title}
@@ -318,9 +318,10 @@ export function Hero() {
             <button
               type="button"
               onClick={() => setServiceMenuOpen((open) => !open)}
-              className="max-w-[min(320px,calc(100vw-48px))] rounded-full border border-white/28 bg-black/24 px-5 py-2.5 text-[13px] font-semibold text-white/90 backdrop-blur-md transition-colors active:bg-white/12"
+              aria-expanded={serviceMenuOpen}
+              className="rounded-full border border-white/22 bg-black/22 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/78 backdrop-blur-md transition-colors active:bg-white/12"
             >
-              {activeService?.title ?? content.nav.services}
+              {content.nav.services}
             </button>
           </div>
 
