@@ -115,6 +115,11 @@ export function Hero() {
     setActiveIndex((current) => (current + direction + heroMedia.length) % heroMedia.length);
   }, []);
 
+  const goToSlide = useCallback((index: number) => {
+    setServiceMenuOpen(false);
+    setActiveIndex(index);
+  }, []);
+
   const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
     touchStartX.current = event.touches[0]?.clientX ?? null;
   };
@@ -335,16 +340,31 @@ export function Hero() {
               <ArrowRight size={16} />
             </motion.a>
 
-            <motion.a
-              href="/#contacto"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="inline-flex items-center rounded-full border border-white/45 px-7 py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-white/10"
-              style={{ backgroundColor: "rgba(255, 255, 255, 0.04)" }}
+            <div
+              className="flex min-h-[50px] items-center justify-center rounded-full border border-white/18 bg-black/24 px-4 backdrop-blur-md"
+              aria-label="Seleccionar slide"
             >
-              {content.hero.ctaContact}
-            </motion.a>
+              <div className="flex items-center gap-2.5">
+                {heroMedia.map((media, index) => {
+                  const isActive = index === activeIndex;
+
+                  return (
+                    <button
+                      key={`${media.src}-${index}`}
+                      type="button"
+                      onClick={() => goToSlide(index)}
+                      aria-label={`Ir al slide ${index + 1}`}
+                      aria-current={isActive ? "true" : undefined}
+                      className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                        isActive
+                          ? "scale-110 bg-amber shadow-[0_0_16px_rgba(231,146,30,0.7)]"
+                          : "bg-white/86 hover:bg-white"
+                      }`}
+                    />
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
