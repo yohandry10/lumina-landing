@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type TouchEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/lib/language";
 import { SERVICE_SLUGS } from "@/lib/serviceData";
 
@@ -74,10 +74,6 @@ export function Hero() {
     };
   }, [activeMedia, content]);
   const { prefixWords, highlight } = splitTitle(slide.title);
-
-  const goToSlide = useCallback((nextIndex: number) => {
-    setActiveIndex((nextIndex + heroMedia.length) % heroMedia.length);
-  }, []);
 
   const stepSlide = useCallback((direction: number) => {
     setActiveIndex((current) => (current + direction + heroMedia.length) % heroMedia.length);
@@ -212,56 +208,6 @@ export function Hero() {
               </motion.p>
             </AnimatePresence>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.85, duration: 0.45 }}
-            className="mt-6 flex items-center justify-center gap-3 md:hidden"
-            aria-label={content.hero.serviceControls}
-          >
-            <button
-              type="button"
-              onClick={() => stepSlide(-1)}
-              aria-label={content.hero.previousService}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/20 text-white backdrop-blur-md transition-colors active:bg-white/15"
-            >
-              <ChevronLeft size={18} strokeWidth={2.2} />
-            </button>
-
-            <div className="flex items-center justify-center gap-1">
-              {heroMedia.map((media, index) => {
-                const isActive = index === activeIndex;
-                const service = content.services.items.find((item) => item.id === media.serviceId);
-
-                return (
-                  <button
-                    key={`${media.src}-${index}`}
-                    type="button"
-                    onClick={() => goToSlide(index)}
-                    aria-label={`${content.hero.goToService}: ${service?.title ?? index + 1}`}
-                    aria-current={isActive ? "true" : undefined}
-                    className="flex h-9 w-8 items-center justify-center"
-                  >
-                    <span
-                      className={`h-2.5 rounded-full transition-all duration-300 ${
-                        isActive ? "w-6 bg-amber" : "w-2.5 bg-white/45"
-                      }`}
-                    />
-                  </button>
-                );
-              })}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => stepSlide(1)}
-              aria-label={content.hero.nextService}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/20 text-white backdrop-blur-md transition-colors active:bg-white/15"
-            >
-              <ChevronRight size={18} strokeWidth={2.2} />
-            </button>
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
