@@ -111,14 +111,6 @@ export function Hero() {
   }, [activeMedia, activeService]);
   const { prefixWords, highlight } = splitTitle(slide.title);
 
-  const goToService = useCallback((serviceId: ServiceId) => {
-    const nextIndex = heroMedia.findIndex((media) => media.serviceId === serviceId);
-    if (nextIndex === -1) return;
-
-    setActiveIndex(nextIndex);
-    setServiceMenuOpen(false);
-  }, []);
-
   const stepSlide = useCallback((direction: number) => {
     setActiveIndex((current) => (current + direction + heroMedia.length) % heroMedia.length);
   }, []);
@@ -297,18 +289,19 @@ export function Hero() {
                 >
                   {content.services.items.map((service) => {
                     const isActive = service.id === activeMedia.serviceId;
+                    const slug = SERVICE_SLUGS[service.id as ServiceId];
 
                     return (
-                      <button
+                      <a
                         key={service.id}
-                        type="button"
-                        onClick={() => goToService(service.id as ServiceId)}
+                        href={`/servicios/${slug}`}
+                        onClick={() => setServiceMenuOpen(false)}
                         className={`flex w-full items-center rounded-[12px] px-3.5 py-2.5 text-left text-[13px] font-semibold leading-tight transition-colors ${
                           isActive ? "bg-white/12 text-amber" : "text-white/82 active:bg-white/10"
                         }`}
                       >
                         {service.title}
-                      </button>
+                      </a>
                     );
                   })}
                 </motion.div>
