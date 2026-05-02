@@ -2,10 +2,30 @@ import { useCallback, useEffect, useMemo, useRef, useState, type TouchEvent } fr
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/lib/language";
-import { SERVICE_SLUGS } from "@/lib/serviceData";
+import { SERVICE_SLUGS, type ServiceId } from "@/lib/serviceData";
 
-const heroMedia = [
-  { src: "/diseño-civil.mp4", position: "50% 50%", serviceId: "civilHydraulic", title: "service" },
+type HeroMedia = {
+  src: string;
+  position: string;
+  serviceId: ServiceId;
+  title: "service" | "bullet" | "bullet-start";
+  bulletIndex?: number;
+  stopAt?: string[];
+};
+
+const heroMedia: HeroMedia[] = [
+  {
+    src: "/diseño-civil.mp4",
+    position: "50% 50%",
+    serviceId: "civilHydraulic",
+    title: "service",
+  },
+  {
+    src: "/hidrauligco.png",
+    position: "50% 50%",
+    serviceId: "hydrologicalStudies",
+    title: "service",
+  },
   {
     src: "/copia3.mp4",
     position: "44% 44%",
@@ -14,15 +34,31 @@ const heroMedia = [
     bulletIndex: 2,
     stopAt: [" por ", " using "],
   },
-  { src: "/copia5.mp4", position: "50% 50%", serviceId: "generalWorks", title: "service" },
   {
-    src: "/copia6.mp4",
+    src: "/copia5.mp4",
     position: "50% 50%",
     serviceId: "generalWorks",
-    title: "bullet",
-    bulletIndex: 2,
+    title: "service",
   },
-] as const;
+  {
+    src: "/hidrologico.jpg",
+    position: "50% 50%",
+    serviceId: "hydrogeologicalStudies",
+    title: "service",
+  },
+  {
+    src: "/geografica.jpg",
+    position: "50% 50%",
+    serviceId: "geographicEngineering",
+    title: "service",
+  },
+  {
+    src: "/ingeneria-ambental.jpg",
+    position: "50% 50%",
+    serviceId: "environmentalEngineering",
+    title: "service",
+  },
+];
 
 const SLIDE_DURATION_MS = 10000;
 const cinematicEase = [0.22, 1, 0.36, 1] as const;
@@ -39,15 +75,15 @@ function splitTitle(title: string) {
 
 function getSlideTitle(
   service: { title: string; bullets: string[] } | undefined,
-  media: (typeof heroMedia)[number],
+  media: HeroMedia,
 ) {
   if (!service) return "";
 
   if (media.title === "bullet" || media.title === "bullet-start") {
-    const bullet = service.bullets[media.bulletIndex] ?? service.title;
+    const bullet = service.bullets[media.bulletIndex ?? 0] ?? service.title;
 
     if (media.title === "bullet-start") {
-      const stopAt = media.stopAt.find((marker) => bullet.includes(marker));
+      const stopAt = media.stopAt?.find((marker) => bullet.includes(marker));
       return stopAt ? bullet.slice(0, bullet.indexOf(stopAt)) : bullet;
     }
 
@@ -61,19 +97,27 @@ export function Hero() {
   const { content } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [serviceMenuOpen, setServiceMenuOpen] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
   const activeMedia = heroMedia[activeIndex % heroMedia.length];
+  const activeService = content.services.items.find((item) => item.id === activeMedia.serviceId);
   const activeServiceHref = `/servicios/${SERVICE_SLUGS[activeMedia.serviceId]}`;
   const slide = useMemo(() => {
-    const service = content.services.items.find((item) => item.id === activeMedia.serviceId);
-
     return {
-      title: getSlideTitle(service, activeMedia),
-      desc: service?.desc ?? "",
+      title: getSlideTitle(activeService, activeMedia),
+      desc: activeService?.desc ?? "",
     };
-  }, [activeMedia, content]);
+  }, [activeMedia, activeService]);
   const { prefixWords, highlight } = splitTitle(slide.title);
+
+  const goToService = useCallback((serviceId: ServiceId) => {
+    const nextIndex = heroMedia.findIndex((media) => media.serviceId === serviceId);
+    if (nextIndex === -1) return;
+
+    setActiveIndex(nextIndex);
+    setServiceMenuOpen(false);
+  }, []);
 
   const stepSlide = useCallback((direction: number) => {
     setActiveIndex((current) => (current + direction + heroMedia.length) % heroMedia.length);
@@ -89,6 +133,7 @@ export function Hero() {
     const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX.current;
     const deltaX = touchEndX - touchStartX.current;
     touchStartX.current = null;
+    setServiceMenuOpen(false);
 
     if (Math.abs(deltaX) < 48) return;
 
@@ -115,34 +160,61 @@ export function Hero() {
 
       <div className="absolute inset-0">
         <AnimatePresence initial={false} mode="sync">
-          <motion.video
-            key={activeMedia.src}
-            src={activeMedia.src}
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: activeMedia.position }}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            initial={
-              shouldReduceMotion
-                ? { opacity: 0 }
-                : { opacity: 0, scale: 1.08, filter: "brightness(0.92) saturate(1.02)" }
-            }
-            animate={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 1, scale: 1.02, filter: "brightness(1) saturate(1)" }
-            }
-            exit={
-              shouldReduceMotion
-                ? { opacity: 0 }
-                : { opacity: 0, scale: 1, filter: "brightness(0.88) saturate(0.98)" }
-            }
-            transition={{ duration: shouldReduceMotion ? 0.35 : 1.6, ease: cinematicEase }}
-          />
+          {activeMedia.src.endsWith(".mp4") ? (
+            <motion.video
+              key={activeMedia.src}
+              src={activeMedia.src}
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: activeMedia.position }}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, scale: 1.08, filter: "brightness(0.92) saturate(1.02)" }
+              }
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, scale: 1.02, filter: "brightness(1) saturate(1)" }
+              }
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, scale: 1, filter: "brightness(0.88) saturate(0.98)" }
+              }
+              transition={{ duration: shouldReduceMotion ? 0.35 : 1.6, ease: cinematicEase }}
+            />
+          ) : (
+            <motion.img
+              key={activeMedia.src}
+              src={activeMedia.src}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: activeMedia.position }}
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, scale: 1.08, filter: "brightness(0.92) saturate(1.02)" }
+              }
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, scale: 1.02, filter: "brightness(1) saturate(1)" }
+              }
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, scale: 1, filter: "brightness(0.88) saturate(0.98)" }
+              }
+              transition={{ duration: shouldReduceMotion ? 0.35 : 1.6, ease: cinematicEase }}
+            />
+          )}
         </AnimatePresence>
       </div>
 
@@ -207,6 +279,49 @@ export function Hero() {
                 {slide.desc}
               </motion.p>
             </AnimatePresence>
+          </div>
+
+          <div
+            className="relative mt-6 flex w-full justify-center md:hidden"
+            onTouchStart={(event) => event.stopPropagation()}
+            onTouchEnd={(event) => event.stopPropagation()}
+          >
+            <AnimatePresence>
+              {serviceMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute bottom-full mb-3 w-[min(320px,calc(100vw-48px))] overflow-hidden rounded-[18px] border border-white/20 bg-black/62 p-1.5 text-left shadow-2xl backdrop-blur-xl"
+                >
+                  {content.services.items.map((service) => {
+                    const isActive = service.id === activeMedia.serviceId;
+
+                    return (
+                      <button
+                        key={service.id}
+                        type="button"
+                        onClick={() => goToService(service.id as ServiceId)}
+                        className={`flex w-full items-center rounded-[14px] px-4 py-3 text-left text-[13.5px] font-semibold transition-colors ${
+                          isActive ? "bg-amber text-white" : "text-white/82 active:bg-white/12"
+                        }`}
+                      >
+                        {service.title}
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <button
+              type="button"
+              onClick={() => setServiceMenuOpen((open) => !open)}
+              className="max-w-[min(320px,calc(100vw-48px))] rounded-full border border-white/28 bg-black/24 px-5 py-2.5 text-[13px] font-semibold text-white/90 backdrop-blur-md transition-colors active:bg-white/12"
+            >
+              {activeService?.title ?? content.nav.services}
+            </button>
           </div>
 
           <motion.div
