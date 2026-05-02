@@ -98,10 +98,7 @@ function ServiciosIndex() {
               <p className="mt-4 max-w-xl text-[17px] leading-[1.7] text-muted-foreground">
                 {si.subtitle}
               </p>
-              <div
-                className="mt-5 h-[2px] w-10"
-                style={{ background: "var(--gradient-accent)" }}
-              />
+              <div className="mt-5 h-[2px] w-10" style={{ background: "var(--gradient-accent)" }} />
             </motion.div>
           </div>
         </section>
@@ -135,7 +132,9 @@ function ServiciosIndex() {
                       className={`group flex flex-col overflow-hidden rounded-[20px] border border-border/60 bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-xl sm:flex-row ${isLastOdd ? "md:max-w-none" : ""}`}
                     >
                       {/* Image */}
-                      <div className={`relative h-48 overflow-hidden sm:h-auto sm:shrink-0 ${isLastOdd ? "sm:w-[320px]" : "sm:w-[200px]"}`}>
+                      <div
+                        className={`relative h-48 overflow-hidden sm:h-auto sm:shrink-0 ${isLastOdd ? "sm:w-[320px]" : "sm:w-[200px]"}`}
+                      >
                         <img
                           src={heroImg}
                           alt={service.title}
@@ -145,7 +144,8 @@ function ServiciosIndex() {
                         <div
                           className="absolute inset-0 sm:bg-gradient-to-r sm:from-transparent sm:to-black/10"
                           style={{
-                            background: "linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.25) 100%)",
+                            background:
+                              "linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.25) 100%)",
                           }}
                         />
                       </div>
@@ -171,7 +171,10 @@ function ServiciosIndex() {
                           {service.desc}
                         </p>
 
-                        <div className="mt-5 flex items-center gap-1.5 text-[13px] font-semibold" style={{ color: "var(--accent)" }}>
+                        <div
+                          className="mt-5 flex items-center gap-1.5 text-[13px] font-semibold"
+                          style={{ color: "var(--accent)" }}
+                        >
                           {si.viewService}
                           <ArrowRight
                             size={14}
@@ -204,9 +207,7 @@ function ServiciosIndex() {
                   <p className="font-display text-[16px] font-bold text-foreground">
                     {si.ctaTitle}
                   </p>
-                  <p className="mt-1 text-[13.5px] text-muted-foreground">
-                    {si.ctaSubtitle}
-                  </p>
+                  <p className="mt-1 text-[13.5px] text-muted-foreground">{si.ctaSubtitle}</p>
                 </div>
               </div>
               <motion.a

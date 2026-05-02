@@ -103,6 +103,10 @@ type SiteContent = {
     ctaServices: string;
     ctaContact: string;
     scroll: string;
+    serviceControls: string;
+    previousService: string;
+    nextService: string;
+    goToService: string;
   };
   services: {
     overline: string;
@@ -352,6 +356,10 @@ const siteContent: Record<Lang, SiteContent> = {
       ctaServices: "Ver nuestros servicios",
       ctaContact: "Contáctenos",
       scroll: "Descubre más",
+      serviceControls: "Controles de servicios",
+      previousService: "Servicio anterior",
+      nextService: "Servicio siguiente",
+      goToService: "Ir al servicio",
     },
     services: {
       overline: "Nuestros servicios especializados",
@@ -659,7 +667,8 @@ const siteContent: Record<Lang, SiteContent> = {
       titlePrefix: "Soluciones ",
       titleHighlight: "especializadas",
       titleSuffix: " en ingeniería",
-      subtitle: "Ofrecemos un portafolio integral de servicios técnicos para proyectos de construcción y minería, respaldados por un equipo multidisciplinario de profesionales.",
+      subtitle:
+        "Ofrecemos un portafolio integral de servicios técnicos para proyectos de construcción y minería, respaldados por un equipo multidisciplinario de profesionales.",
       viewService: "Conocer más",
       ctaTitle: "¿Necesitas una solución a medida?",
       ctaSubtitle: "Nuestro equipo diseña paquetes personalizados para cada proyecto.",
@@ -868,6 +877,10 @@ const siteContent: Record<Lang, SiteContent> = {
       ctaServices: "View our services",
       ctaContact: "Contact us",
       scroll: "Discover more",
+      serviceControls: "Service controls",
+      previousService: "Previous service",
+      nextService: "Next service",
+      goToService: "Go to service",
     },
     services: {
       overline: "Our specialized services",
@@ -1176,7 +1189,8 @@ const siteContent: Record<Lang, SiteContent> = {
       titlePrefix: "Specialized ",
       titleHighlight: "solutions",
       titleSuffix: " in engineering",
-      subtitle: "We offer a comprehensive portfolio of technical services for construction and mining projects, backed by a multidisciplinary team of professionals.",
+      subtitle:
+        "We offer a comprehensive portfolio of technical services for construction and mining projects, backed by a multidisciplinary team of professionals.",
       viewService: "Learn more",
       ctaTitle: "Need a custom solution?",
       ctaSubtitle: "Our team designs customized packages for every project.",
