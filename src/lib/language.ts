@@ -555,7 +555,7 @@ const siteContent: Record<Lang, SiteContent> = {
         {
           id: "phone",
           title: "Teléfono",
-          lines: ["+51 000 000 000", "Lun – Vie · 8:00 – 18:00"],
+          lines: ["+51 963 145 555", "Lun – Vie · 8:00 – 18:00"],
         },
         {
           id: "email",
@@ -617,13 +617,14 @@ const siteContent: Record<Lang, SiteContent> = {
         {
           id: "contact",
           title: "Contacto",
-          links: ["+51 000 000 000", "contacto@hananingenieria.com", "Lun – Vie 8:00 – 18:00"],
+          links: ["+51 963 145 555 (WhatsApp)", "contacto@hananingenieria.com", "Lun – Vie 8:00 – 18:00"],
         },
       ],
       brandDescription:
         "Soluciones de ingeniería avanzadas e innovadoras para los desafíos más complejos de la construcción y la minería, aportando excelencia técnica al desarrollo del Perú.",
       socialLabels: {
         whatsapp: "WhatsApp",
+        phone: "Llamar",
         instagram: "Instagram",
         facebook: "Facebook",
       },
@@ -1073,7 +1074,7 @@ const siteContent: Record<Lang, SiteContent> = {
         {
           id: "phone",
           title: "Phone",
-          lines: ["+51 000 000 000", "Mon - Fri · 8:00 - 18:00"],
+          lines: ["+51 963 145 555", "Mon - Fri · 8:00 - 18:00"],
         },
         {
           id: "email",
@@ -1135,13 +1136,14 @@ const siteContent: Record<Lang, SiteContent> = {
         {
           id: "contact",
           title: "Contact",
-          links: ["+51 000 000 000", "contacto@hananingenieria.com", "Mon - Fri 8:00 - 18:00"],
+          links: ["+51 963 145 555 (WhatsApp)", "contacto@hananingenieria.com", "Mon - Fri 8:00 - 18:00"],
         },
       ],
       brandDescription:
         "Advanced and innovative engineering solutions for the most complex construction and mining challenges, delivering technical excellence for Peru's development.",
       socialLabels: {
         whatsapp: "WhatsApp",
+        phone: "Call",
         instagram: "Instagram",
         facebook: "Facebook",
       },

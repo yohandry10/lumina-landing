@@ -5,8 +5,9 @@ import { Logo } from "./Logo";
 import { GOOGLE_MAPS_URL, MAP_SECTION_ID, WAZE_URL } from "../lib/location";
 
 const SOCIAL_ICONS = [
-  { key: "whatsapp", Icon: WhatsAppIcon, href: "#" },
-  { key: "instagram", Icon: InstagramIcon, href: "#" },
+  { key: "whatsapp", Icon: WhatsAppIcon, href: "https://wa.me/51963145555" },
+  { key: "phone", Icon: PhoneIcon, href: "tel:+51963145555" },
+  { key: "instagram", Icon: InstagramIcon, href: "https://www.instagram.com/hananingenieria/" },
   { key: "facebook", Icon: FacebookIcon, href: "https://www.facebook.com/hananingenieria/" },
 ] as const;
 const MAP_ACTIONS = [
@@ -46,7 +47,7 @@ function getFooterHref(groupId: string, label: string) {
   }
   if (groupId !== "contact") return "#";
   if (label.includes("@")) return `mailto:${label}`;
-  if (label.startsWith("+")) return `tel:${label.replace(/\s+/g, "")}`;
+  if (label.startsWith("+")) return `tel:${label.split(" (")[0].replace(/[^\d+]/g, "")}`;
   return null;
 }
 
@@ -240,6 +241,20 @@ function FacebookIcon({ className }: { className?: string }) {
       <path
         d="M14 8.2h2V5h-2.6C10.7 5 9 6.7 9 9.3V12H6.8v3.2H9V21h3.5v-5.8h2.9L16 12h-3.5V9.7c0-.9.5-1.5 1.5-1.5Z"
         fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function PhoneIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      <path
+        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
