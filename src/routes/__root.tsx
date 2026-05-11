@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { WhatsAppFloat } from "../components/WhatsAppFloat";
 
 function NotFoundComponent() {
   return (
@@ -68,6 +69,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <WhatsAppFloat />
         <Scripts />
       </body>
     </html>
