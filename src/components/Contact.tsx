@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { MapPin, Phone, Mail, Send, CheckCircle2 } from "lucide-react";
+import { MapPin, Phone, Mail, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { useLanguage } from "@/lib/language";
 import { Section, SectionHeading, containerVariants, itemVariants } from "./Section";
 
@@ -13,6 +13,53 @@ const CONTACT_ICONS = {
 export function Contact() {
   const { content } = useLanguage();
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
+  const [activeServices, setActiveServices] = useState<string[]>([]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (sending) return;
+
+    setSending(true);
+    setError(false);
+
+    const form = e.currentTarget;
+    const formData = {
+      name: (form.querySelector("#contact-name") as HTMLInputElement).value,
+      company: (form.querySelector("#contact-company") as HTMLInputElement).value,
+      email: (form.querySelector("#contact-email") as HTMLInputElement).value,
+      phone: (form.querySelector("#contact-phone") as HTMLInputElement).value,
+      services: activeServices,
+      message: (form.querySelector("#contact-message") as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("Error al enviar");
+
+      setSent(true);
+      form.reset();
+      setActiveServices([]);
+      setTimeout(() => setSent(false), 4000);
+    } catch {
+      setError(true);
+      setTimeout(() => setError(false), 4000);
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const toggleService = (label: string) => {
+    setActiveServices((prev) =>
+      prev.includes(label) ? prev.filter((s) => s !== label) : [...prev, label],
+    );
+  };
 
   return (
     <Section id="contacto" className="bg-[color:var(--deep)]">
@@ -71,11 +118,7 @@ export function Contact() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-              setTimeout(() => setSent(false), 4000);
-            }}
+            onSubmit={handleSubmit}
             className="contact-form glass-panel h-full space-y-3 p-4 md:p-5"
           >
             <motion.div variants={itemVariants} className="flex items-start justify-between gap-4">
@@ -132,7 +175,12 @@ export function Contact() {
             <FieldWrap label={content.contact.form.serviceLabel} required>
               <div className="flex flex-wrap gap-1">
                 {content.contact.serviceOptions.map((option) => (
-                  <ServiceChip key={option} label={option} />
+                  <ServiceChip
+                    key={option}
+                    label={option}
+                    active={activeServices.includes(option)}
+                    onToggle={() => toggleService(option)}
+                  />
                 ))}
               </div>
             </FieldWrap>
@@ -148,9 +196,16 @@ export function Contact() {
             </FieldWrap>
 
             <div className="flex flex-col items-stretch justify-between gap-2 border-t border-[color:var(--color-border)] pt-3 sm:flex-row sm:items-center">
-              <p className="text-[12px] text-muted-foreground">{content.contact.form.privacy}</p>
+              <p className="text-[12px] text-muted-foreground">
+                {error ? (
+                  <span className="text-red-400">Error al enviar. Intenta de nuevo.</span>
+                ) : (
+                  content.contact.form.privacy
+                )}
+              </p>
               <motion.button
                 type="submit"
+                disabled={sending}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="btn-pill btn-primary"
@@ -159,6 +214,11 @@ export function Contact() {
                   <>
                     <CheckCircle2 size={16} />
                     {content.contact.form.sent}
+                  </>
+                ) : sending ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Enviando...
                   </>
                 ) : (
                   <>
@@ -205,13 +265,20 @@ function FieldWrap({
   );
 }
 
-function ServiceChip({ label }: { label: string }) {
-  const [on, setOn] = useState(false);
+function ServiceChip({
+  label,
+  active,
+  onToggle,
+}: {
+  label: string;
+  active: boolean;
+  onToggle: () => void;
+}) {
   return (
     <button
       type="button"
-      onClick={() => setOn((value) => !value)}
-      data-active={on ? "true" : "false"}
+      onClick={onToggle}
+      data-active={active ? "true" : "false"}
       className="contact-chip"
     >
       {label}
