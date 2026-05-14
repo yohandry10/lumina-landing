@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   const servicesText = services?.length ? services.join(", ") : "No especificado";
 
   const { error } = await resend.emails.send({
-    from: "Hanan Ingeniería <onboarding@resend.dev>",
+    from: "Hanan Ingeniería <contacto@hananingenieria.com>",
     to: "contacto@hananingenieria.com",
     replyTo: email,
     subject: `Nuevo contacto: ${name} — ${servicesText}`,
