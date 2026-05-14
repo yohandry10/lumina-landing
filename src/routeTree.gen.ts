@@ -16,6 +16,7 @@ import { Route as ProyectosIndexRouteImport } from './routes/proyectos.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 import { Route as SectoresSlugRouteImport } from './routes/sectores.$slug'
 import { Route as ProyectosSlugRouteImport } from './routes/proyectos.$slug'
+import { Route as ApiContactRouteImport } from './routes/api/contact'
 
 const PrensaRoute = PrensaRouteImport.update({
   id: '/prensa',
@@ -52,10 +53,16 @@ const ProyectosSlugRoute = ProyectosSlugRouteImport.update({
   path: '/proyectos/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiContactRoute = ApiContactRouteImport.update({
+  id: '/api/contact',
+  path: '/api/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/prensa': typeof PrensaRoute
+  '/api/contact': typeof ApiContactRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/prensa': typeof PrensaRoute
+  '/api/contact': typeof ApiContactRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/prensa': typeof PrensaRoute
+  '/api/contact': typeof ApiContactRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/prensa'
+    | '/api/contact'
     | '/proyectos/$slug'
     | '/sectores/$slug'
     | '/servicios/$slug'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/prensa'
+    | '/api/contact'
     | '/proyectos/$slug'
     | '/sectores/$slug'
     | '/servicios/$slug'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/prensa'
+    | '/api/contact'
     | '/proyectos/$slug'
     | '/sectores/$slug'
     | '/servicios/$slug'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrensaRoute: typeof PrensaRoute
+  ApiContactRoute: typeof ApiContactRoute
   ProyectosSlugRoute: typeof ProyectosSlugRoute
   SectoresSlugRoute: typeof SectoresSlugRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
@@ -172,12 +185,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProyectosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/contact': {
+      id: '/api/contact'
+      path: '/api/contact'
+      fullPath: '/api/contact'
+      preLoaderRoute: typeof ApiContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrensaRoute: PrensaRoute,
+  ApiContactRoute: ApiContactRoute,
   ProyectosSlugRoute: ProyectosSlugRoute,
   SectoresSlugRoute: SectoresSlugRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
