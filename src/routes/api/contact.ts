@@ -1,7 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -34,6 +31,9 @@ export const Route = createFileRoute("/api/contact")({
 
         const servicesText =
           Array.isArray(services) && services.length ? services.join(", ") : "No especificado";
+
+        const { Resend } = await import("resend");
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
         const { error } = await resend.emails.send({
           from: "Hanan Ingeniería <contacto@hananingenieria.com>",
